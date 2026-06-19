@@ -11,9 +11,9 @@
   --bg-card: #161616;
   --text-primary: #f0ede6;
   --text-secondary: #9a9a8e;
-  --accent: oklch(0.96 0.002 17.2);
-  --accent-hover: #c8ff64;
-  --border: oklch(0.922 0.005 34.3);
+  --accent: #D6FB61;
+  --accent-hover: #e4fc88;
+  --border: #222222;
   --surface: #1c1c1c;
   --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-body: var(--font-dm-sans), "DM Sans", ui-sans-serif, system-ui, sans-serif;
@@ -104,15 +104,15 @@
 
 html[data-theme="light"] {
   color-scheme: light;
-  --bg-primary: #fafafa;
-  --bg-secondary: #f2f2f2;
+  --bg-primary: #f5f2ec;
+  --bg-secondary: #edeae3;
   --bg-card: #ffffff;
   --text-primary: #0f0f0f;
   --text-secondary: #5a5a52;
-  --accent: #7fc91f;
-  --accent-hover: #69ad16;
-  --border: #dedede;
-  --surface: #f7f7f7;
+  --accent: #9a6f2e;
+  --accent-hover: #7a5520;
+  --border: #dddbd4;
+  --surface: #e8e4db;
   --background: var(--bg-primary);
   --foreground: var(--text-primary);
 }
@@ -124,8 +124,8 @@ html[data-theme="dark"] {
   --bg-card: #161616;
   --text-primary: #f0ede6;
   --text-secondary: #9a9a8e;
-  --accent: #b5f44a;
-  --accent-hover: #c8ff64;
+  --accent: #D6FB61;
+  --accent-hover: #e4fc88;
   --border: #222222;
   --surface: #1c1c1c;
   --background: var(--bg-primary);

@@ -2,7 +2,7 @@ import { RevealImageList } from "@/components/ui/reveal-images";
 
 export default function ServicesRevealSection() {
   return (
-    <section className="w-full bg-background px-10 py-24 text-foreground sm:px-6 lg:px-10">
+    <section className="w-full bg-bg-primary px-10 py-24 sm:px-6 lg:px-10">
       <div className="mx-auto w-full gap-12 lg:items-start">
         <div className="w-full">
           <p className="mono text-sm uppercase text-accent">Services</p>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Providers } from "../components/Providers";
 import { ThirdPartyScripts } from "../components/ThirdPartyScripts";
@@ -100,6 +101,7 @@ export default function RootLayout({
           <ThirdPartyScripts />
           <Header />
           {children}
+          <Footer />
           <Analytics />
         </Providers>
       </body>

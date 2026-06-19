@@ -13,34 +13,51 @@ interface Project {
   image: string
 }
 
+const THUMB = (url: string) =>
+  `https://s0.wp.com/mshots/v1/${encodeURIComponent(url)}?w=560&h=360`
+
 const projects: Project[] = [
   {
-    title: "Lumina",
-    description: "AI-powered design system generator.",
+    title: "TripIt",
+    description: "Travel itinerary platform — UI redesign & performance optimization.",
     year: "2024",
-    link: "#",
-    image: "https://plus.unsplash.com/premium_photo-1723489242223-865b4a8cf7b8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
+    link: "https://www.tripit.com/",
+    image: THUMB("https://www.tripit.com/"),
   },
   {
-    title: "Flux",
-    description: "Real-time collaboration for creative teams.",
+    title: "Javis Gravy",
+    description: "Restaurant website with online ordering & menu management.",
     year: "2024",
-    link: "#",
-    image: "https://images.unsplash.com/photo-1530435460869-d13625c69bbf?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D$0",
+    link: "https://www.javisgravy.com/",
+    image: THUMB("https://www.javisgravy.com/"),
   },
   {
-    title: "Prism",
-    description: "Color palette extraction from any image.",
-    year: "2023",
-    link: "#",
-    image: "https://i.pinimg.com/1200x/99/ca/5c/99ca5cf82cf12df8801f7b2bef38d325.jpg",
+    title: "babi.sh",
+    description: "Premium baby fashion e-commerce with seamless checkout.",
+    year: "2024",
+    link: "https://www.babi.sh/",
+    image: THUMB("https://www.babi.sh/"),
   },
   {
-    title: "Vertex",
-    description: "3D modeling toolkit for the web.",
+    title: "EduSuite",
+    description: "Full-stack LMS platform for Pakistan's education sector.",
+    year: "2024",
+    link: "https://www.edusuite.pk/",
+    image: THUMB("https://www.edusuite.pk/"),
+  },
+  {
+    title: "Digilari",
+    description: "Digital marketing agency website with bold visual identity.",
     year: "2023",
-    link: "#",
-    image: "https://i.pinimg.com/736x/7c/15/39/7c1539cf7ff0207cb49ce0d338de1e5f.jpg",
+    link: "https://digilari.com.au/",
+    image: THUMB("https://digilari.com.au/"),
+  },
+  {
+    title: "Extendicare",
+    description: "Senior care corporate website — accessibility & performance.",
+    year: "2023",
+    link: "https://www.extendicare.com/",
+    image: THUMB("https://www.extendicare.com/"),
   },
 ]
 
@@ -109,11 +126,11 @@ export function ProjectShowcase() {
           transition: "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
-        <div className="relative w-[280px] h-[180px] bg-secondary rounded-xl overflow-hidden">
+        <div className="relative w-70 h-45 bg-bg-card rounded-xl overflow-hidden">
           {projects.map((project, index) => (
             <img
               key={project.title}
-              src={project.image || "/placeholder.svg"}
+              src={project.image}
               alt={project.title}
               className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
               style={{
@@ -121,10 +138,13 @@ export function ProjectShowcase() {
                 scale: hoveredIndex === index ? 1 : 1.1,
                 filter: hoveredIndex === index ? "none" : "blur(10px)",
               }}
+              onError={(e) => {
+                e.currentTarget.style.display = "none"
+              }}
             />
           ))}
           {/* Subtle gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-background/20 to-transparent" />
         </div>
       </div>
 
@@ -133,6 +153,8 @@ export function ProjectShowcase() {
           <a
             key={project.title}
             href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group block"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
@@ -141,7 +163,7 @@ export function ProjectShowcase() {
               {/* Background highlight on hover */}
               <div
                 className={`
-                  absolute inset-0 -mx-4 px-4 bg-secondary/50 rounded-lg
+                  absolute inset-0 -mx-4 px-4 bg-bg-card rounded-lg
                   transition-all duration-300 ease-out
                   ${hoveredIndex === index ? "opacity-100 scale-100" : "opacity-0 scale-95"}
                 `}

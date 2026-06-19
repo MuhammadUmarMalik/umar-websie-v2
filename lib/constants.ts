@@ -123,43 +123,119 @@ export const caseStudies = [
 
 export const pricingPackages = [
   {
-    name: "Website Starter",
-    price: "Project-based",
+    name: "Starter",
+    price: "$500",
+    priceNote: "Starting at",
     badge: "Best first step",
-    features: ["Audit", "Core pages", "Mobile responsive UI", "Contact flow", "SEO basics"]
+    features: [
+      "Up to 5 pages",
+      "Responsive design (mobile + desktop)",
+      "Basic SEO setup",
+      "Contact form integration",
+      "2 rounds of revisions",
+      "Delivery in 7–10 days"
+    ]
   },
   {
-    name: "Growth Website",
-    price: "Custom quote",
-    badge: "Best for growth",
+    name: "Growth",
+    price: "$1,200",
+    priceNote: "Starting at",
+    badge: "Most Popular",
     featured: true,
-    features: ["Strategy", "Conversion copy", "Performance pass", "Case-study sections", "Launch support"]
+    features: [
+      "Up to 10 pages",
+      "Custom UI/UX design",
+      "Full SEO setup + speed optimization",
+      "CMS integration (blog, portfolio, or products)",
+      "Lead capture forms + email integration",
+      "Analytics setup",
+      "3 rounds of revisions",
+      "Delivery in 14–21 days"
+    ]
   },
   {
-    name: "Automation Setup",
-    price: "Custom quote",
-    badge: "Best for busy teams",
-    features: ["Workflow map", "Forms and alerts", "CRM updates", "Reports", "Testing"]
+    name: "Custom / Enterprise",
+    price: "Let's talk",
+    priceNote: "",
+    badge: "For complex projects",
+    features: [
+      "Full discovery & strategy session",
+      "Custom design system",
+      "Full-stack development",
+      "AI & automation integrations",
+      "Performance optimization",
+      "Ongoing support option",
+      "Timeline based on scope"
+    ]
   }
+];
+
+export const addOns = [
+  { name: "Monthly Maintenance & Updates", price: "From $100/mo" },
+  { name: "SEO Audit & Optimization", price: "From $200" },
+  { name: "AI Chatbot Integration", price: "From $300" },
+  { name: "Workflow Automation (n8n/Make)", price: "From $400" },
+  { name: "Speed & Core Web Vitals Fix", price: "From $150" },
+  { name: "Copywriting & Content", price: "From $100/page" }
 ];
 
 export const faqs = [
   {
-    question: "What is the best starting point?",
-    answer: "A website audit is usually the fastest way to find speed, UX, conversion, and automation gaps."
+    question: "Do you work with clients internationally?",
+    answer: "Yes. I work with clients globally. Communication happens via email, WhatsApp, or video call — whatever works best for you."
   },
   {
-    question: "Do you only build websites?",
-    answer: "No. The offer combines website development, UI/UX, and business automation where it helps the business."
+    question: "How do payments work?",
+    answer: "I take 50% upfront before starting work and 50% before final delivery. For larger projects, we can split into milestones."
   },
   {
-    question: "Can you work with an existing website?",
-    answer: "Yes. Existing websites can be audited, redesigned, optimized, or connected with automation workflows."
+    question: "What if I need changes after launch?",
+    answer: "Minor fixes within 7 days of launch are included. For ongoing changes, I offer a monthly maintenance plan."
+  },
+  {
+    question: "Do you only build new websites or also fix existing ones?",
+    answer: "Both. I frequently audit and fix existing websites — speed issues, broken layouts, conversion problems, and more."
+  },
+  {
+    question: "How long does a project take?",
+    answer: "Starter projects: 7–10 days. Growth projects: 14–21 days. Custom projects depend on scope — we'll define a clear timeline before starting."
+  },
+  {
+    question: "Can I see the design before you start building?",
+    answer: "Always. I design first, get your approval, then build. No surprises."
   }
+];
+
+export const stats = [
+  { value: "30+", label: "Projects Delivered" },
+  { value: "20+", label: "Businesses Helped" },
+  { value: "98%", label: "Client Satisfaction" },
+  { value: "3x", label: "Avg. Performance Improvement" }
 ];
 
 export const metrics = [
   { label: "Website score", value: "92" },
   { label: "Lead path", value: "Clear" },
   { label: "Manual hours saved", value: "8+/wk", icon: BarChart3 }
+];
+
+export const testimonials = [
+  {
+    quote: "Umar didn't just build a website — he actually understood our business and fixed what was hurting our sales. The results were immediate.",
+    name: "Client Name",
+    role: "Owner",
+    company: "E-commerce Business"
+  },
+  {
+    quote: "The speed improvement alone paid for the project. Our bounce rate dropped and leads went up. Highly recommend.",
+    name: "Client Name",
+    role: "Founder",
+    company: "Service Business"
+  },
+  {
+    quote: "He automated our order tracking process and saved us hours every single day. It felt like hiring a full team.",
+    name: "Client Name",
+    role: "Manager",
+    company: "Restaurant"
+  }
 ];
