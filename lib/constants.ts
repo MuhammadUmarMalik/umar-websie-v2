@@ -124,85 +124,100 @@ export const caseStudies = [
 export const pricingPackages = [
   {
     name: "Starter",
-    price: "$500",
+    price: "$499",
     priceNote: "Starting at",
     badge: "Best first step",
+    description: "For small businesses that need a clean, fast website live quickly without the bloat.",
     features: [
       "Up to 5 pages",
       "Responsive design (mobile + desktop)",
-      "Basic SEO setup",
+      "Basic on-page SEO setup",
       "Contact form integration",
       "2 rounds of revisions",
-      "Delivery in 7–10 days"
+      "7–10 day delivery"
     ]
   },
   {
     name: "Growth",
-    price: "$1,200",
+    price: "$999",
     priceNote: "Starting at",
     badge: "Most Popular",
     featured: true,
+    description: "For businesses ready to generate leads, rank on Google, and manage their own content.",
     features: [
       "Up to 10 pages",
       "Custom UI/UX design",
-      "Full SEO setup + speed optimization",
+      "Full SEO setup + Core Web Vitals optimization",
       "CMS integration (blog, portfolio, or products)",
-      "Lead capture forms + email integration",
-      "Analytics setup",
+      "Lead capture forms + email automation",
+      "Google Analytics 4 setup",
       "3 rounds of revisions",
-      "Delivery in 14–21 days"
+      "14–21 day delivery"
     ]
   },
   {
-    name: "Custom / Enterprise",
+    name: "Custom",
     price: "Let's talk",
     priceNote: "",
     badge: "For complex projects",
+    description: "For web apps, internal tools, automation systems, or anything that doesn't fit a template.",
     features: [
       "Full discovery & strategy session",
       "Custom design system",
-      "Full-stack development",
+      "Full-stack web development",
       "AI & automation integrations",
-      "Performance optimization",
+      "Performance + security hardening",
       "Ongoing support option",
-      "Timeline based on scope"
+      "Timeline & price scoped to your project"
     ]
   }
 ];
 
 export const addOns = [
-  { name: "Monthly Maintenance & Updates", price: "From $100/mo" },
-  { name: "SEO Audit & Optimization", price: "From $200" },
-  { name: "AI Chatbot Integration", price: "From $300" },
-  { name: "Workflow Automation (n8n/Make)", price: "From $400" },
-  { name: "Speed & Core Web Vitals Fix", price: "From $150" },
-  { name: "Copywriting & Content", price: "From $100/page" }
+  { name: "Monthly Maintenance & Updates", price: "From $100/mo", description: "Bug fixes, plugin updates, and minor content changes each month." },
+  { name: "SEO Audit & Optimization", price: "From $200", description: "Technical SEO review, keyword gaps, and on-page fixes." },
+  { name: "AI Chatbot Integration", price: "From $300", description: "Custom chatbot trained on your business info to handle FAQs automatically." },
+  { name: "Workflow Automation (n8n / Make)", price: "From $400", description: "Connect your tools — CRM, forms, email, Slack — and eliminate manual steps." },
+  { name: "Speed & Core Web Vitals Fix", price: "From $150", description: "Diagnose and fix what's slowing your site down and hurting your Google ranking." },
+  { name: "Copywriting & Content", price: "From $100/page", description: "Conversion-focused copy written for your audience — not AI filler." }
 ];
 
 export const faqs = [
   {
-    question: "Do you work with clients internationally?",
-    answer: "Yes. I work with clients globally. Communication happens via email, WhatsApp, or video call — whatever works best for you."
-  },
-  {
     question: "How do payments work?",
-    answer: "I take 50% upfront before starting work and 50% before final delivery. For larger projects, we can split into milestones."
-  },
-  {
-    question: "What if I need changes after launch?",
-    answer: "Minor fixes within 7 days of launch are included. For ongoing changes, I offer a monthly maintenance plan."
-  },
-  {
-    question: "Do you only build new websites or also fix existing ones?",
-    answer: "Both. I frequently audit and fix existing websites — speed issues, broken layouts, conversion problems, and more."
+    answer: "I take 50% upfront before work begins and 50% before final delivery. For larger projects, we can structure it across 3 milestones — discovery, design approval, and launch."
   },
   {
     question: "How long does a project take?",
-    answer: "Starter projects: 7–10 days. Growth projects: 14–21 days. Custom projects depend on scope — we'll define a clear timeline before starting."
+    answer: "Starter websites: 7–10 days. Growth packages: 14–21 days. Custom projects vary — we define a clear timeline in writing before any work starts."
   },
   {
     question: "Can I see the design before you start building?",
-    answer: "Always. I design first, get your approval, then build. No surprises."
+    answer: "Always. I design first, walk you through it, get your sign-off, then build. You're never looking at code for the first time at launch."
+  },
+  {
+    question: "Will I own the website after it's built?",
+    answer: "100%. You own everything — source code, domain, hosting account, and all credentials. No platform lock-in, no monthly fees owed to me unless you choose a support plan."
+  },
+  {
+    question: "What tech do you build with?",
+    answer: "Primarily Next.js, React, Tailwind CSS, and TypeScript for the frontend. For backends and automation I use Node.js, PostgreSQL, Supabase, n8n, and Make (Integromat)."
+  },
+  {
+    question: "Can you work with my existing branding?",
+    answer: "Yes. If you have logos, brand colors, or a style guide, I'll design within them. If you don't, I'll establish a clean, professional visual identity as part of the project."
+  },
+  {
+    question: "What if I need changes after launch?",
+    answer: "Minor fixes within 7 days of launch are included at no charge. For ongoing updates I offer a monthly maintenance plan — so you always have someone to call."
+  },
+  {
+    question: "Do you only build new sites or fix existing ones too?",
+    answer: "Both. I regularly audit and fix existing websites — performance issues, broken layouts, low conversion rates, outdated design. Sometimes a targeted fix is all you need."
+  },
+  {
+    question: "Do you work with international clients?",
+    answer: "Yes. I work with clients worldwide. We'll communicate over email, WhatsApp, or video call — whatever fits your timezone and workflow."
   }
 ];
 

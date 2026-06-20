@@ -206,16 +206,16 @@ export default function HeroSection() {
             <div className="mt-5 flex flex-wrap gap-3">
               <Link
                 href="/portfolio"
-                className="inline-flex h-13 items-center rounded-full bg-[#f4f1de] px-7 text-[15px] font-semibold text-black transition duration-200 hover:bg-accent"
+                className="inline-flex h-13 items-center rounded-full bg-[#f4f1de] px-8 text-[15px] font-semibold text-black transition-all duration-200 hover:bg-accent hover:text-bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f1de] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               >
                 View My Work
               </Link>
               <Link
                 href="/contact"
-                className="group inline-flex h-13 items-center gap-4 rounded-full border border-[#f4f1de]/35 py-1 pl-6 pr-1 text-[15px] font-semibold text-[#f4f1de] backdrop-blur-sm transition duration-200 hover:border-accent hover:text-accent"
+                className="group inline-flex h-13 items-center gap-4 rounded-full border border-[#f4f1de]/35 py-1 pl-6 pr-1 text-[15px] font-semibold text-[#f4f1de] backdrop-blur-sm transition-all duration-200 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               >
                 Book a Free Call
-                <span className="grid size-11 place-items-center rounded-full bg-[#f4f1de] text-black transition duration-200 group-hover:translate-x-0.5 group-hover:bg-accent">
+                <span className="grid size-11 place-items-center rounded-full bg-[#f4f1de] text-black transition-all duration-200 group-hover:translate-x-1 group-hover:bg-accent group-hover:text-bg-primary">
                   <ArrowRight className="size-4" aria-hidden />
                 </span>
               </Link>

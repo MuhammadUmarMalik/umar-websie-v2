@@ -7,16 +7,18 @@ export function FAQAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className="max-w-3xl divide-y divide-border">
+    <div className="divide-y divide-border">
       {faqs.map((faq, i) => (
         <div key={i}>
           <button
             type="button"
             onClick={() => setOpenIndex(openIndex === i ? null : i)}
-            className="flex w-full items-center justify-between gap-4 py-5 text-left"
+            className="group flex w-full items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             aria-expanded={openIndex === i}
           >
-            <span className="font-semibold text-text-primary">{faq.question}</span>
+            <span className={`font-semibold transition-colors duration-200 ${openIndex === i ? "text-accent" : "text-text-primary group-hover:text-accent/80"}`}>
+              {faq.question}
+            </span>
             <span
               className={`mono shrink-0 text-accent transition-transform duration-200 ${
                 openIndex === i ? "rotate-45" : ""

@@ -102,7 +102,7 @@ export default function ContactPage() {
                 <button
                   type="button"
                   onClick={() => setStatus("idle")}
-                  className="mono mt-2 text-sm uppercase text-accent hover:underline"
+                  className="mono mt-2 text-sm uppercase text-accent transition-colors duration-200 hover:text-accent-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
                 >
                   Send another message
                 </button>
@@ -227,10 +227,10 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-accent px-8 text-sm font-semibold text-bg-primary transition duration-200 hover:bg-accent-hover disabled:opacity-60"
+                  className="group inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-full bg-accent px-8 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_40%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
                 >
                   {status === "sending" ? "Sending…" : "Send Message"}
-                  <ArrowRight className="size-4" aria-hidden />
+                  <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
                 </button>
               </form>
             )}
@@ -248,10 +248,10 @@ export default function ContactPage() {
                 href="https://calendly.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center gap-2 rounded-full border border-border px-6 text-sm font-semibold text-text-primary transition duration-200 hover:border-accent hover:text-accent"
+                className="group inline-flex h-12 items-center gap-2.5 rounded-full border border-border px-8 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent hover:bg-accent/5 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               >
                 Schedule a Call
-                <ArrowRight className="size-4" aria-hidden />
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
               </a>
             </div>
 

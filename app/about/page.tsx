@@ -137,10 +137,10 @@ export default function AboutPage() {
           </div>
           <Link
             href="/contact"
-            className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-bg-primary transition duration-200 hover:bg-accent-hover"
+            className="group inline-flex h-12 shrink-0 items-center gap-2.5 rounded-full bg-accent px-8 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_40%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             Let&apos;s Talk
-            <ArrowRight className="size-4" aria-hidden />
+            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
           </Link>
         </div>
       </section>

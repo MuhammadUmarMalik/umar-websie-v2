@@ -1,5 +1,6 @@
 import CTABanner from "@/sections/CTABanner";
 import HeroSection from "@/sections/HeroSection";
+import PricingSection from "@/sections/PricingSection";
 import ProcessSection from "@/sections/ProcessSection";
 import Project from "@/sections/projectShowcase";
 import ServicesRevealSection from "@/sections/ServicesRevealSection";
@@ -15,6 +16,7 @@ export default function Home() {
       <StatsSection />
       <Project />
       <TestimonialsSection />
+  
       <CTABanner />
     </>
   );
