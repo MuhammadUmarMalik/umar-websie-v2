@@ -29,18 +29,36 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com",
   ),
   title: {
-    default: "Muhammad Umar Malik - Software Engineer & Designer",
+    default: "Muhammad Umar Malik — Software Engineer & Designer",
     template: "%s | Muhammad Umar Malik",
   },
   description:
-    "I help small businesses fix slow websites, automate work, and grow with smart digital solutions.",
+    "Software engineer and designer helping small businesses fix slow websites, improve UX, generate leads, and automate repetitive work.",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  authors: [{ name: "Muhammad Umar Malik", url: process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com" }],
+  creator: "Muhammad Umar Malik",
+  publisher: "Muhammad Umar Malik",
+  category: "technology",
+  verification: {
+    google: "gifUySHi_sgkvuJMrKCFSpEj3BOO6RfrUNu90NPbg1A",
+  },
   openGraph: {
-    title: "Muhammad Umar Malik - Software Engineer & Designer",
+    title: "Muhammad Umar Malik — Software Engineer & Designer",
     description:
-      "I help small businesses fix slow websites, automate work, and grow with smart digital solutions.",
+      "Software engineer and designer helping small businesses fix slow websites, improve UX, generate leads, and automate repetitive work.",
     url: "/",
     siteName: "Muhammad Umar Malik",
     images: [
@@ -48,17 +66,19 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Muhammad Umar Malik",
+        alt: "Muhammad Umar Malik — Software Engineer & Designer",
       },
     ],
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Umar Malik - Software Engineer & Designer",
+    title: "Muhammad Umar Malik — Software Engineer & Designer",
     description:
-      "I help small businesses fix slow websites, automate work, and grow with smart digital solutions.",
+      "Software engineer and designer helping small businesses fix slow websites, improve UX, generate leads, and automate repetitive work.",
     images: ["/opengraph-image"],
+    creator: "@umarmalik_dev",
   },
 };
 

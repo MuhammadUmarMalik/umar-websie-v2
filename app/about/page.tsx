@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import CTABanner from "@/sections/CTABanner";
+import { createMetadata, seoMap, personSchema, breadcrumbSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Umar — Full-Stack Engineer & Designer",
-  description:
-    "Learn about Muhammad Umar Malik, a full-stack engineer who helps businesses solve real problems with websites and automation.",
-};
+export const metadata: Metadata = createMetadata(seoMap.about);
 
 const skills = [
   {
@@ -47,6 +44,21 @@ const process = [
 export default function AboutPage() {
   return (
     <main className="bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", href: "/" },
+              { name: "About", href: "/about" },
+            ])
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="px-6 pb-16 pt-36 md:px-12 lg:px-20 lg:pt-48">
         <div className="mx-auto max-w-320">

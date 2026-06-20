@@ -3,11 +3,9 @@ import Link from "next/link";
 import { ArrowRight, Check, Clock, Lock, MessageCircle } from "lucide-react";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { addOns, pricingPackages } from "@/lib/constants";
+import { createMetadata, seoMap, pricingSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Pricing — Simple & Transparent",
-  description: "No surprises. Choose a plan that fits your business and budget.",
-};
+export const metadata: Metadata = createMetadata(seoMap.pricing);
 
 const guarantees = [
   { icon: Clock, text: "On-time delivery, always" },
@@ -18,6 +16,25 @@ const guarantees = [
 export default function PricingPage() {
   return (
     <main className="bg-bg-primary text-text-primary">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", href: "/" },
+              { name: "Pricing", href: "/pricing" },
+            ])
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="px-6 pb-16 pt-36 md:px-12 lg:px-20 lg:pt-48">
         <div className="mx-auto max-w-320">

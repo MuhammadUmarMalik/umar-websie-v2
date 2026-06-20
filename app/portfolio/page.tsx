@@ -2,16 +2,28 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PortfolioGrid } from "@/sections/PortfolioGrid";
+import { createMetadata, seoMap, portfolioSchema, breadcrumbSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Portfolio — Muhammad Umar Malik",
-  description:
-    "Real projects. Real results. See how I've helped businesses grow with better websites and automation.",
-};
+export const metadata: Metadata = createMetadata(seoMap.portfolio);
 
 export default function PortfolioPage() {
   return (
     <main className="bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", href: "/" },
+              { name: "Portfolio", href: "/portfolio" },
+            ])
+          ),
+        }}
+      />
       {/* Hero */}
       <section className="px-6 pb-16 pt-36 md:px-12 lg:px-20 lg:pt-48">
         <div className="mx-auto max-w-320">
