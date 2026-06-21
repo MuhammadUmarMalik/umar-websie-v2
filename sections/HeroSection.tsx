@@ -10,6 +10,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import { siteConfig } from "@/lib/constants";
 
 interface WordsPullUpProps {
   text: string;
@@ -133,7 +134,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_64%_25%,transparent_0%,rgba(0,0,0,0.18)_44%,rgba(0,0,0,0.58)_100%)]" />
 
         <motion.article
-          className="absolute right-5 top-24 z-10 hidden w-52.5 text-[#f4f1de] md:block lg:right-14 lg:top-28 lg:w-58"
+          className="absolute right-5 top-24 z-10 hidden w-52.5 text-[#ffffff] md:block lg:right-14 lg:top-28 lg:w-58"
           style={{ y: cardY, opacity: cardOpacity }}
           aria-label="Featured profile card"
         >
@@ -161,9 +162,9 @@ export default function HeroSection() {
 
             <div className="mono mt-3 flex items-center justify-between text-[13px] font-black uppercase leading-none tracking-normal">
               <p>
-                <span className="text-[#f4f1de]/70">[01]</span> Umar Malik
+                <span className="text-white">[01]</span> Umar Malik
               </p>
-              <p className="text-[#f4f1de]/90">©2026</p>
+              <p className="text-white">©2026</p>
             </div>
           </motion.div>
         </motion.article>
@@ -211,7 +212,9 @@ export default function HeroSection() {
                 View My Work
               </Link>
               <Link
-                href="/contact"
+                href={siteConfig.calendlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex h-13 items-center gap-4 rounded-full border border-[#f4f1de]/35 py-1 pl-6 pr-1 text-[15px] font-semibold text-[#f4f1de] backdrop-blur-sm transition-all duration-200 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               >
                 Book a Free Call

@@ -5,6 +5,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+import { siteConfig } from "@/lib/constants";
 
 const installed = [
   "Web Development",
@@ -134,7 +135,9 @@ export function StackShowcase() {
               View My Work
             </Link>
             <Link
-              href="/contact"
+              href={siteConfig.calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-12 items-center border border-border px-5 text-sm font-semibold text-text-primary transition duration-200 hover:border-accent hover:text-accent"
             >
               Book a Free Call

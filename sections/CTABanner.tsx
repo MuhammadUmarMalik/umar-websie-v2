@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { siteConfig } from "@/lib/constants";
 
 const STATS = [
   { value: "12+", label: "Businesses helped" },
@@ -21,7 +22,7 @@ export default function CTABanner() {
         initial={{ opacity: 0, y: 28 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="relative mx-auto max-w-[1280px] overflow-hidden rounded-2xl border border-border bg-bg-card"
+        className="relative mx-auto max-w-360 overflow-hidden rounded-2xl border border-border bg-bg-card"
       >
         {/* Atmospheric glow — top-right */}
         <div
@@ -29,7 +30,7 @@ export default function CTABanner() {
           className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full"
           style={{
             background:
-              "radial-gradient(circle, color-mix(in srgb, #D6FB61 18%, transparent) 0%, transparent 70%)",
+              "radial-gradient(circle, color-mix(in srgb, var(--accent) 15%, transparent) 0%, transparent 70%)",
           }}
         />
 
@@ -39,7 +40,7 @@ export default function CTABanner() {
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(214,251,97,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(214,251,97,0.04) 1px, transparent 1px)",
+              "linear-gradient(to right, color-mix(in srgb, var(--accent) 4%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--accent) 4%, transparent) 1px, transparent 1px)",
             backgroundSize: "64px 64px",
           }}
         />
@@ -48,7 +49,6 @@ export default function CTABanner() {
           {/* ── Left — headline ── */}
           <div className="flex flex-1 flex-col justify-between p-8 md:p-12 lg:p-14">
            
-
             <div className="mt-8 lg:mt-auto">
               <motion.p
                 initial={{ opacity: 0 }}
@@ -63,7 +63,7 @@ export default function CTABanner() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.85, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-5xl font-bold italic leading-[1.0] tracking-tight text-text-primary md:text-6xl lg:text-[5.25rem]"
+                className="font-display text-5xl font-bold italic leading-none tracking-tight text-text-primary md:text-6xl lg:text-[5.25rem]"
               >
                 Your Business
                 <br />
@@ -98,7 +98,7 @@ export default function CTABanner() {
             initial={{ opacity: 0, x: 20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col justify-between p-8 md:p-12 lg:w-[420px] lg:p-14"
+            className="flex flex-col justify-between p-8 md:p-12 lg:w-115 lg:p-14"
           >
             <div>
               <p className="text-lg leading-relaxed text-text-secondary">
@@ -124,19 +124,37 @@ export default function CTABanner() {
               </div>
             </div>
 
-            {/* CTA button */}
-            <div className="mt-10">
+            {/* CTA buttons */}
+            <div className="mt-10 flex flex-col gap-3">
+              {/* Primary — Start your project */}
               <Link
                 href="/contact"
-                className="group flex w-full items-center justify-between rounded-full bg-accent px-6 py-4 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-accent-hover hover:shadow-[0_0_40px_color-mix(in_srgb,var(--accent)_30%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                className="group flex w-full cursor-pointer items-center justify-between rounded-full bg-accent px-6 py-4 text-sm font-semibold transition-all duration-200 hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                style={{ color: "var(--accent-foreground)" }}
               >
-                <span>Let&apos;s Talk</span>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-bg-primary/20 transition-transform duration-300 group-hover:translate-x-1">
+                <span>Start your project</span>
+                <span
+                  className="flex h-7 w-7 items-center justify-center rounded-full transition-transform duration-200 group-hover:translate-x-1"
+                  style={{ backgroundColor: "color-mix(in srgb, var(--accent-foreground) 20%, transparent)" }}
+                >
+                  <ArrowRight className="size-3.5" style={{ color: "var(--accent-foreground)" }} aria-hidden />
+                </span>
+              </Link>
+
+              {/* Secondary — Let's Talk */}
+              <Link
+                href={siteConfig.calendlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex w-full cursor-pointer items-center justify-between rounded-full border border-border bg-transparent px-6 py-4 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+              >
+                <span>Let&apos;s talk</span>
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-border transition-all duration-200 group-hover:border-accent group-hover:text-accent group-hover:translate-x-1">
                   <ArrowRight className="size-3.5" aria-hidden />
                 </span>
               </Link>
 
-              <p className="mono mt-4 text-center text-xs text-text-secondary">
+              <p className="mono mt-1 text-center text-xs text-text-secondary">
                 Free consultation · No commitment
               </p>
             </div>
@@ -149,7 +167,7 @@ export default function CTABanner() {
           className="h-px w-full"
           style={{
             background:
-              "linear-gradient(to right, transparent, color-mix(in srgb, #D6FB61 35%, transparent), transparent)",
+              "linear-gradient(to right, transparent, color-mix(in srgb, var(--accent) 35%, transparent), transparent)",
           }}
         />
       </motion.div>

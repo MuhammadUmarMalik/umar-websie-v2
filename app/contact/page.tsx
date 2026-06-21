@@ -70,7 +70,7 @@ export default function ContactPage() {
                 goals, and whether we&apos;re a good fit.
               </p>
               <a
-                href="https://calendly.com"
+                href={siteConfig.calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex h-12 items-center gap-2.5 rounded-full border border-border px-8 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent hover:bg-accent/5 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"

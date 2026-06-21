@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { pricingPackages } from "@/lib/constants";
+import { pricingPackages, siteConfig } from "@/lib/constants";
 
 export default function PricingSection() {
   return (
@@ -88,7 +88,9 @@ export default function PricingSection() {
 
             {/* CTA */}
             <Link
-              href="/contact"
+              href={plan.price === "Let's talk" ? siteConfig.calendlyUrl : "/contact"}
+              target={plan.price === "Let's talk" ? "_blank" : undefined}
+              rel={plan.price === "Let's talk" ? "noopener noreferrer" : undefined}
               className={`group mt-7 flex h-12 w-full items-center justify-center gap-2.5 rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
                 plan.featured
                   ? "bg-accent text-bg-primary hover:bg-accent-hover hover:shadow-[0_0_24px_color-mix(in_srgb,var(--accent)_35%,transparent)]"

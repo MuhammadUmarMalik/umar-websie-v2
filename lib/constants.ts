@@ -18,6 +18,7 @@ export const siteConfig = {
   description:
     "Software engineer and designer helping small businesses fix websites, improve UX, generate leads, and automate repetitive work.",
   email: "umarmalik.cs711@gmail.com",
+  calendlyUrl: "https://calendly.com/umarmalik-cs711/30min",
   socials: {
     instagram: {
       label: "Instagram: @umarmalik_dev",

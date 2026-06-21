@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check, Clock, Lock, MessageCircle } from "lucide-react";
 import { FAQAccordion } from "@/components/FAQAccordion";
-import { addOns, pricingPackages } from "@/lib/constants";
+import { addOns, pricingPackages, siteConfig } from "@/lib/constants";
 import { createMetadata, seoMap, pricingSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata(seoMap.pricing);
@@ -116,7 +116,9 @@ export default function PricingPage() {
 
                 {/* CTA */}
                 <Link
-                  href="/contact"
+                  href={plan.price === "Let's talk" ? siteConfig.calendlyUrl : "/contact"}
+                  target={plan.price === "Let's talk" ? "_blank" : undefined}
+                  rel={plan.price === "Let's talk" ? "noopener noreferrer" : undefined}
                   className={`group mt-8 flex h-12 w-full items-center justify-center gap-2.5 rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
                     plan.featured
                       ? "bg-accent text-bg-primary hover:bg-accent-hover hover:shadow-[0_0_24px_color-mix(in_srgb,var(--accent)_35%,transparent)]"
@@ -223,7 +225,9 @@ export default function PricingPage() {
             exactly what your business needs — no pitch, no obligation.
           </p>
           <Link
-            href="/contact"
+            href={siteConfig.calendlyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group mt-8 inline-flex h-12 items-center gap-2.5 rounded-full bg-accent px-8 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_40%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             Book a Free Call

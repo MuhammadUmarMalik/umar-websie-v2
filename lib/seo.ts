@@ -275,6 +275,32 @@ export function servicesListSchema() {
   };
 }
 
+/** Individual Service page schema — ServicePage rich result */
+export function serviceSchema({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteConfig.url}${path}`,
+    name,
+    description,
+    provider: { "@id": `${siteConfig.url}/#organization` },
+    areaServed: "Worldwide",
+    url: `${siteConfig.url}${path}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}${path}`,
+    },
+  };
+}
+
 /** BreadcrumbList — improves SERP display and navigation */
 export function breadcrumbSchema(items: { name: string; href: string }[]) {
   return {
