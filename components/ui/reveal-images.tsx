@@ -23,6 +23,7 @@ function RevealImageListItem({ text, images }: ShowImageListItemProps) {
       </h4>
       <div className={container}>
         <div className={effect}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             alt={images[1].alt}
             src={images[1].src}
@@ -37,6 +38,7 @@ function RevealImageListItem({ text, images }: ShowImageListItemProps) {
         )}
       >
         <div className={cn(effect, "duration-200")}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             alt={images[0].alt}
             src={images[0].src}

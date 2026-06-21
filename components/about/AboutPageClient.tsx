@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, MapPin, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import CTABanner from "@/sections/CTABanner";
 
 // ─── SVG Tech Icons ───────────────────────────────────────────────
@@ -207,21 +207,18 @@ const VALUES = [
 
 // ─── Animation helpers ─────────────────────────────────────────────
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fadeUp: any = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  visible: ((i: number = 0) => ({
+  visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
     transition: { duration: 0.75, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
-  })) as any,
+  }),
 };
 
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const inView = useInView(ref, { once: true, margin: "-80px" as any });
+  const inView = useInView(ref, { once: true, margin: "-80px" });
   return { ref, inView };
 }
 
@@ -261,50 +258,15 @@ function TechCard({ tech, index }: { tech: Tech; index: number }) {
   );
 }
 
-// ─── FloatingCard helper ───────────────────────────────────────────
-
-function FloatingCard({
-  children,
-  className = "",
-  delay = 0,
-  floatDelay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-  floatDelay?: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-    >
-      <motion.div
-        animate={{ y: [0, -7, 0] }}
-        transition={{
-          delay: floatDelay,
-          duration: 4.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        {children}
-      </motion.div>
-    </motion.div>
-  );
-}
-
 // ─── Main Component ─────────────────────────────────────────────────
 
 export default function AboutPageClient() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const heroReveal = useReveal();
-  const storyReveal = useReveal();
-  const techReveal = useReveal();
-  const processReveal = useReveal();
-  const valuesReveal = useReveal();
+  const { ref: heroRevealRef, inView: isHeroInView } = useReveal();
+  const { ref: storyRevealRef, inView: isStoryInView } = useReveal();
+  const { ref: techRevealRef, inView: isTechInView } = useReveal();
+  const { ref: processRevealRef, inView: isProcessInView } = useReveal();
+  const { ref: valuesRevealRef, inView: isValuesInView } = useReveal();
 
   const filteredTechs =
     activeCategory === "All"
@@ -350,12 +312,12 @@ export default function AboutPageClient() {
           {/* ── LEFT: Content ──────────────────────────────── */}
           <div>
             {/* Inview anchor */}
-            <div ref={heroReveal.ref} />
+            <div ref={heroRevealRef} />
 
             {/* Headline — clip-reveal per line */}
             <motion.h1
               initial="hidden"
-              animate={heroReveal.inView ? "visible" : "hidden"}
+              animate={isHeroInView ? "visible" : "hidden"}
               variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.11 } } }}
               className="font-display text-5xl font-bold italic leading-[1.02] tracking-tight text-text-primary md:text-6xl lg:text-[5.25rem] xl:text-[6.5rem]"
             >
@@ -387,7 +349,7 @@ export default function AboutPageClient() {
             {/* Body */}
             <motion.p
               initial="hidden"
-              animate={heroReveal.inView ? "visible" : "hidden"}
+              animate={isHeroInView ? "visible" : "hidden"}
               variants={fadeUp}
               custom={3}
               className="mt-8 max-w-[42ch] text-lg leading-8 text-text-secondary"
@@ -400,7 +362,7 @@ export default function AboutPageClient() {
             {/* Stats strip */}
             <motion.div
               initial="hidden"
-              animate={heroReveal.inView ? "visible" : "hidden"}
+              animate={isHeroInView ? "visible" : "hidden"}
               variants={fadeUp}
               custom={4}
               className="mt-10 flex flex-wrap gap-10 border-t border-border pt-8"
@@ -424,7 +386,7 @@ export default function AboutPageClient() {
             {/* CTAs */}
             <motion.div
               initial="hidden"
-              animate={heroReveal.inView ? "visible" : "hidden"}
+              animate={isHeroInView ? "visible" : "hidden"}
               variants={fadeUp}
               custom={5}
               className="mt-10 flex flex-wrap items-center gap-4"
@@ -448,7 +410,7 @@ export default function AboutPageClient() {
           {/* ── RIGHT: Profile Photo ────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
-            animate={heroReveal.inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
+            animate={isHeroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
             transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="hidden lg:flex lg:items-center lg:justify-end"
           >
@@ -481,13 +443,13 @@ export default function AboutPageClient() {
       <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
         <div className="mx-auto max-w-[1280px]">
           <div
-            ref={storyReveal.ref}
+            ref={storyRevealRef}
             className="grid gap-16 lg:grid-cols-[280px_1fr]"
           >
             {/* Left label */}
             <motion.div
               initial="hidden"
-              animate={storyReveal.inView ? "visible" : "hidden"}
+              animate={isStoryInView ? "visible" : "hidden"}
               variants={fadeUp}
             >
               <p className="mono text-xs uppercase tracking-widest text-accent">
@@ -501,7 +463,7 @@ export default function AboutPageClient() {
             {/* Right text */}
             <motion.div
               initial="hidden"
-              animate={storyReveal.inView ? "visible" : "hidden"}
+              animate={isStoryInView ? "visible" : "hidden"}
               variants={fadeUp}
               custom={1}
               className="space-y-6 text-lg leading-9 text-text-secondary"
@@ -547,11 +509,11 @@ export default function AboutPageClient() {
 
       {/* ── TECH STACK ────────────────────────────────────────────── */}
       <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-[1280px]" ref={techReveal.ref}>
+        <div className="mx-auto max-w-[1280px]" ref={techRevealRef}>
           {/* Header */}
           <motion.div
             initial="hidden"
-            animate={techReveal.inView ? "visible" : "hidden"}
+            animate={isTechInView ? "visible" : "hidden"}
             variants={fadeUp}
             className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
           >
@@ -572,7 +534,7 @@ export default function AboutPageClient() {
           {/* Category filter */}
           <motion.div
             initial="hidden"
-            animate={techReveal.inView ? "visible" : "hidden"}
+            animate={isTechInView ? "visible" : "hidden"}
             variants={fadeUp}
             custom={1}
             className="mb-8 flex flex-wrap gap-2"
@@ -612,11 +574,11 @@ export default function AboutPageClient() {
 
       {/* ── PROCESS ───────────────────────────────────────────────── */}
       <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-[1280px]" ref={processReveal.ref}>
+        <div className="mx-auto max-w-[1280px]" ref={processRevealRef}>
           {/* Header */}
           <motion.div
             initial="hidden"
-            animate={processReveal.inView ? "visible" : "hidden"}
+            animate={isProcessInView ? "visible" : "hidden"}
             variants={fadeUp}
             className="mb-16"
           >
@@ -641,7 +603,7 @@ export default function AboutPageClient() {
                 <motion.div
                   key={item.step}
                   initial="hidden"
-                  animate={processReveal.inView ? "visible" : "hidden"}
+                  animate={isProcessInView ? "visible" : "hidden"}
                   variants={fadeUp}
                   custom={i}
                   className="relative flex flex-col gap-4 border-l border-border py-6 pl-6 lg:border-l-0 lg:border-t-0 lg:pl-0 lg:pr-8 lg:pt-16"
@@ -674,10 +636,10 @@ export default function AboutPageClient() {
 
       {/* ── VALUES ────────────────────────────────────────────────── */}
       <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-[1280px]" ref={valuesReveal.ref}>
+        <div className="mx-auto max-w-[1280px]" ref={valuesRevealRef}>
           <motion.div
             initial="hidden"
-            animate={valuesReveal.inView ? "visible" : "hidden"}
+            animate={isValuesInView ? "visible" : "hidden"}
             variants={fadeUp}
             className="mb-12"
           >
@@ -694,7 +656,7 @@ export default function AboutPageClient() {
               <motion.div
                 key={v.num}
                 initial="hidden"
-                animate={valuesReveal.inView ? "visible" : "hidden"}
+                animate={isValuesInView ? "visible" : "hidden"}
                 variants={fadeUp}
                 custom={i}
                 className="group relative overflow-hidden rounded-2xl border border-border bg-bg-card p-8 transition-all duration-300 hover:border-accent/30 hover:shadow-[0_0_40px_color-mix(in_srgb,#D6FB61_6%,transparent)]"

@@ -62,6 +62,7 @@ function AnimatedNumber({
         : false;
 
     if (prefersReduced) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDisplay(number);
       return;
     }

@@ -160,7 +160,7 @@ export default function ServicesPageClient() {
           </FadeUp>
           <FadeUp delay={0.2}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-secondary">
-              Not every business needs a full rebuild. I start by finding what's actually
+              Not every business needs a full rebuild. I start by finding what&apos;s actually
               costing you — leads, time, trust — then fix it with the right solution.
             </p>
           </FadeUp>

@@ -249,10 +249,10 @@ export default function WebDevPageClient() {
               Problems I fix
             </span>
             <h2 className="mt-3 font-display text-4xl font-bold italic text-text-primary md:text-5xl">
-              What's Hurting Your Website
+              What&apos;s Hurting Your Website
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-text-secondary">
-              Most small business websites fail for one of four reasons. Here's how I address each one.
+              Most small business websites fail for one of four reasons. Here&apos;s how I address each one.
             </p>
           </FadeUp>
           <div className="mt-12 grid gap-6 sm:grid-cols-2">

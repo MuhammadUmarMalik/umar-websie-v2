@@ -66,7 +66,6 @@ export function ProjectShowcase() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<number | null>(null)
 
   useEffect(() => {
@@ -92,13 +91,7 @@ export function ProjectShowcase() {
   }, [mousePosition])
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect()
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      })
-    }
+    setMousePosition({ x: e.clientX, y: e.clientY })
   }
 
   const handleMouseEnter = (index: number) => {
@@ -112,14 +105,14 @@ export function ProjectShowcase() {
   }
 
   return (
-    <section ref={containerRef} onMouseMove={handleMouseMove} className="relative mx-auto w-full max-w-4xl py-16">
+    <section onMouseMove={handleMouseMove} className="relative mx-auto w-full max-w-4xl py-16">
       <h2 className="text-muted-foreground text-sm font-medium tracking-wide uppercase mb-8">Selected Work</h2>
 
       <div
         className="pointer-events-none fixed z-50 overflow-hidden rounded-xl shadow-2xl"
         style={{
-          left: containerRef.current?.getBoundingClientRect().left ?? 0,
-          top: containerRef.current?.getBoundingClientRect().top ?? 0,
+          left: 0,
+          top: 0,
           transform: `translate3d(${smoothPosition.x + 20}px, ${smoothPosition.y - 100}px, 0)`,
           opacity: isVisible ? 1 : 0,
           scale: isVisible ? 1 : 0.8,
@@ -128,6 +121,7 @@ export function ProjectShowcase() {
       >
         <div className="relative w-70 h-45 bg-bg-card rounded-xl overflow-hidden">
           {projects.map((project, index) => (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               key={project.title}
               src={project.image}
