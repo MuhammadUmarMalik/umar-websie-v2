@@ -132,6 +132,7 @@ export function PortfolioGrid() {
           >
             {/* Thumbnail */}
             <div className="relative h-52 overflow-hidden bg-bg-secondary">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={project.image}
                 alt={project.title}

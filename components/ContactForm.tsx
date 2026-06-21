@@ -4,26 +4,35 @@ import { useState } from "react";
 import type { ChangeEvent } from "react";
 import { ArrowRight } from "lucide-react";
 
-const businessTypes = ["E-commerce", "Service Business", "Restaurant", "Startup", "Other"];
-const budgetRanges = ["Under $500", "$500–$1,000", "$1,000–$3,000", "$3,000+", "Not sure yet"];
-const referralSources = ["LinkedIn", "Google", "Referral", "Other"];
+const projectTypes = [
+  "Website",
+  "Web App",
+  "E-commerce",
+  "UI/UX Design",
+  "Business Automation",
+  "Other",
+];
+const deadlineOptions = ["ASAP", "1–2 weeks", "1 month", "2–3 months", "Flexible"];
+const referralSources = ["LinkedIn", "Google", "Instagram", "Referral", "Other"];
 
 type FormState = {
   name: string;
   email: string;
-  businessType: string;
-  problem: string;
-  budget: string;
+  country: string;
+  projectType: string;
+  deadline: string;
   referral: string;
+  message: string;
 };
 
 const initialForm: FormState = {
   name: "",
   email: "",
-  businessType: "",
-  problem: "",
-  budget: "",
+  country: "",
+  projectType: "",
+  deadline: "",
   referral: "",
+  message: "",
 };
 
 const inputClass =
@@ -47,7 +56,10 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          sourcePath: window.location.pathname,
+        }),
       });
       if (!res.ok) throw new Error("Failed");
       setStatus("success");
@@ -76,11 +88,10 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-6">
+      {/* Name + Email */}
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className={labelClass}>
-            Full Name *
-          </label>
+          <label htmlFor="name" className={labelClass}>Full Name *</label>
           <input
             id="name"
             name="name"
@@ -93,9 +104,7 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className={labelClass}>
-            Email Address *
-          </label>
+          <label htmlFor="email" className={labelClass}>Email Address *</label>
           <input
             id="email"
             name="email"
@@ -109,65 +118,56 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div>
-        <label htmlFor="businessType" className={labelClass}>
-          Business Type
-        </label>
-        <select
-          id="businessType"
-          name="businessType"
-          value={form.businessType}
-          onChange={handleChange}
-          className={inputClass}
-        >
-          <option value="">Select your business type</option>
-          {businessTypes.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <label htmlFor="problem" className={labelClass}>
-          What&apos;s your main problem?
-        </label>
-        <textarea
-          id="problem"
-          name="problem"
-          rows={4}
-          value={form.problem}
-          onChange={handleChange}
-          placeholder="Describe what's broken or what you need"
-          className={inputClass}
-        />
-      </div>
-
+      {/* Country + Project Type */}
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="budget" className={labelClass}>
-            Budget Range
-          </label>
+          <label htmlFor="country" className={labelClass}>Country</label>
+          <input
+            id="country"
+            name="country"
+            type="text"
+            value={form.country}
+            onChange={handleChange}
+            placeholder="e.g. United States"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label htmlFor="projectType" className={labelClass}>Project Type</label>
           <select
-            id="budget"
-            name="budget"
-            value={form.budget}
+            id="projectType"
+            name="projectType"
+            value={form.projectType}
             onChange={handleChange}
             className={inputClass}
           >
-            <option value="">Select a range</option>
-            {budgetRanges.map((b) => (
-              <option key={b} value={b}>
-                {b}
-              </option>
+            <option value="">Select project type</option>
+            {projectTypes.map((t) => (
+              <option key={t} value={t}>{t}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Deadline + Referral */}
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label htmlFor="deadline" className={labelClass}>Deadline</label>
+          <select
+            id="deadline"
+            name="deadline"
+            value={form.deadline}
+            onChange={handleChange}
+            className={inputClass}
+          >
+            <option value="">When do you need it?</option>
+            {deadlineOptions.map((d) => (
+              <option key={d} value={d}>{d}</option>
             ))}
           </select>
         </div>
         <div>
-          <label htmlFor="referral" className={labelClass}>
-            How did you find me?
-          </label>
+          <label htmlFor="referral" className={labelClass}>How did you find me?</label>
           <select
             id="referral"
             name="referral"
@@ -177,12 +177,24 @@ export function ContactForm() {
           >
             <option value="">Select a source</option>
             {referralSources.map((r) => (
-              <option key={r} value={r}>
-                {r}
-              </option>
+              <option key={r} value={r}>{r}</option>
             ))}
           </select>
         </div>
+      </div>
+
+      {/* Message */}
+      <div>
+        <label htmlFor="message" className={labelClass}>Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows={4}
+          value={form.message}
+          onChange={handleChange}
+          placeholder="Describe your project or what you need help with"
+          className={inputClass}
+        />
       </div>
 
       {status === "error" && (

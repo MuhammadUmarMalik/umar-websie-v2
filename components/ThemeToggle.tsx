@@ -26,6 +26,7 @@ export function ThemeToggle({ ghost = false }: ThemeToggleProps) {
     const initialTheme: Theme = stored === "light" ? "light" : "dark";
 
     applyTheme(initialTheme);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setTheme(initialTheme);
     setMounted(true);
   }, []);

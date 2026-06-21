@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/lib/constants";
 import { ContactForm } from "@/components/ContactForm";
