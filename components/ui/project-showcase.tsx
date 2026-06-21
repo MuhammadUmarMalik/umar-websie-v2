@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { ArrowUpRight } from "lucide-react"
 
@@ -10,11 +9,8 @@ interface Project {
   description: string
   year: string
   link: string
-  image: string
+  accent: string
 }
-
-const THUMB = (url: string) =>
-  `https://s0.wp.com/mshots/v1/${encodeURIComponent(url)}?w=560&h=360`
 
 const projects: Project[] = [
   {
@@ -22,209 +18,344 @@ const projects: Project[] = [
     description: "Travel itinerary platform — UI redesign & performance optimization.",
     year: "2024",
     link: "https://www.tripit.com/",
-    image: THUMB("https://www.tripit.com/"),
+    accent: "#0f2a45",
   },
   {
     title: "Javis Gravy",
     description: "Restaurant website with online ordering & menu management.",
     year: "2024",
     link: "https://www.javisgravy.com/",
-    image: THUMB("https://www.javisgravy.com/"),
+    accent: "#3a0f08",
   },
   {
     title: "babi.sh",
     description: "Premium baby fashion e-commerce with seamless checkout.",
     year: "2024",
     link: "https://www.babi.sh/",
-    image: THUMB("https://www.babi.sh/"),
+    accent: "#260f3a",
   },
   {
     title: "EduSuite",
     description: "Full-stack LMS platform for Pakistan's education sector.",
     year: "2024",
     link: "https://www.edusuite.pk/",
-    image: THUMB("https://www.edusuite.pk/"),
-  },
-  {
-    title: "Digilari",
-    description: "Digital marketing agency website with bold visual identity.",
-    year: "2023",
-    link: "https://digilari.com.au/",
-    image: THUMB("https://digilari.com.au/"),
+    accent: "#0f2e14",
   },
   {
     title: "Extendicare",
     description: "Senior care corporate website — accessibility & performance.",
     year: "2023",
     link: "https://www.extendicare.com/",
-    image: THUMB("https://www.extendicare.com/"),
+    accent: "#082030",
   },
 ]
 
-export function ProjectShowcase() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 })
-  const [isVisible, setIsVisible] = useState(false)
-  const animationRef = useRef<number | null>(null)
+const CARD_W = 340
+const CARD_H = 210
+const CHROME_H = 32
 
-  useEffect(() => {
-    const lerp = (start: number, end: number, factor: number) => {
-      return start + (end - start) * factor
-    }
+const previewSrc = (url: string) =>
+  `/api/preview?url=${encodeURIComponent(url)}`
 
-    const animate = () => {
-      setSmoothPosition((prev) => ({
-        x: lerp(prev.x, mousePosition.x, 0.15),
-        y: lerp(prev.y, mousePosition.y, 0.15),
-      }))
-      animationRef.current = requestAnimationFrame(animate)
-    }
-
-    animationRef.current = requestAnimationFrame(animate)
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
-    }
-  }, [mousePosition])
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePosition({ x: e.clientX, y: e.clientY })
-  }
-
-  const handleMouseEnter = (index: number) => {
-    setHoveredIndex(index)
-    setIsVisible(true)
-  }
-
-  const handleMouseLeave = () => {
-    setHoveredIndex(null)
-    setIsVisible(false)
-  }
+/* ─── Single project preview (always loads, never idle) ───────────── */
+function ProjectPreview({
+  project,
+  isActive,
+}: {
+  project: Project
+  isActive: boolean
+}) {
+  const [imgStatus, setImgStatus] = useState<"loading" | "loaded" | "error">("loading")
 
   return (
-    <section onMouseMove={handleMouseMove} className="relative mx-auto w-full max-w-4xl py-16">
-      <h2 className="text-muted-foreground text-sm font-medium tracking-wide uppercase mb-8">Selected Work</h2>
-
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        opacity: isActive ? 1 : 0,
+        transition: "opacity 0.2s ease",
+        pointerEvents: "none",
+      }}
+    >
+      {/* Layer 1 – instant colour base (always visible) */}
       <div
-        className="pointer-events-none fixed z-50 overflow-hidden rounded-xl shadow-2xl"
         style={{
-          left: 0,
-          top: 0,
-          transform: `translate3d(${smoothPosition.x + 20}px, ${smoothPosition.y - 100}px, 0)`,
-          opacity: isVisible ? 1 : 0,
-          scale: isVisible ? 1 : 0.8,
-          transition: "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), scale 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          position: "absolute",
+          inset: 0,
+          background: project.accent,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 6,
         }}
       >
-        <div className="relative w-70 h-45 bg-bg-card rounded-xl overflow-hidden">
-          {projects.map((project, index) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={project.title}
-              src={project.image}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-out"
-              style={{
-                opacity: hoveredIndex === index ? 1 : 0,
-                scale: hoveredIndex === index ? 1 : 1.1,
-                filter: hoveredIndex === index ? "none" : "blur(10px)",
-              }}
-              onError={(e) => {
-                e.currentTarget.style.display = "none"
-              }}
-            />
-          ))}
-          {/* Subtle gradient overlay */}
-          <div className="absolute inset-0 bg-linear-to-t from-background/20 to-transparent" />
-        </div>
+        <span
+          style={{
+            fontSize: 56,
+            fontWeight: 700,
+            color: "rgba(255,255,255,0.09)",
+            lineHeight: 1,
+            letterSpacing: "-0.04em",
+          }}
+        >
+          {project.title[0]}
+        </span>
+        <span
+          style={{
+            fontSize: 9,
+            letterSpacing: "0.24em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.22)",
+          }}
+        >
+          {project.title}
+        </span>
       </div>
 
-      <div className="space-y-0">
-        {projects.map((project, index) => (
-          <a
-            key={project.title}
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block"
-            onMouseEnter={() => handleMouseEnter(index)}
-            onMouseLeave={handleMouseLeave}
+      {/* Layer 2 – shimmer while screenshot is in-flight */}
+      {imgStatus === "loading" && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,0.06) 50%,rgba(255,255,255,0) 100%)",
+            backgroundSize: "200% 100%",
+            animation: "shimmer 1.4s infinite linear",
+          }}
+        />
+      )}
+
+      {/* Layer 3 – real screenshot, fades in once loaded */}
+      {/* img is always mounted so browser fetches immediately */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={previewSrc(project.link)}
+        alt=""
+        onLoad={() => setImgStatus("loaded")}
+        onError={() => setImgStatus("error")}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "top",
+          opacity: imgStatus === "loaded" ? 1 : 0,
+          transition: "opacity 0.35s ease",
+        }}
+      />
+
+      {/* Bottom vignette */}
+      <div
+        style={{
+          position: "absolute",
+          inset: "auto 0 0 0",
+          height: 44,
+          background: "linear-gradient(to top,rgba(0,0,0,0.45),transparent)",
+          pointerEvents: "none",
+        }}
+      />
+    </div>
+  )
+}
+
+/* ─── Main component ──────────────────────────────────────────────── */
+export function ProjectShowcase() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [mouse, setMouse] = useState({ x: 0, y: 0 })
+  const [smooth, setSmooth] = useState({ x: 0, y: 0 })
+  const [visible, setVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+  const rafRef = useRef<number | null>(null)
+
+  /* smooth mouse lerp */
+  useEffect(() => {
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t
+    const loop = () => {
+      setSmooth((p) => ({ x: lerp(p.x, mouse.x, 0.12), y: lerp(p.y, mouse.y, 0.12) }))
+      rafRef.current = requestAnimationFrame(loop)
+    }
+    rafRef.current = requestAnimationFrame(loop)
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
+  }, [mouse])
+
+  /* preload all screenshots as soon as section enters viewport */
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          projects.forEach((p) => {
+            const img = new window.Image()
+            img.src = previewSrc(p.link)
+          })
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.05 }
+    )
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <>
+      <style>{`@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}`}</style>
+
+      <section
+        ref={sectionRef}
+        onMouseMove={(e: React.MouseEvent) => setMouse({ x: e.clientX, y: e.clientY })}
+        className="relative w-full"
+      >
+        {/* ── Floating preview card ─────────────────────────────── */}
+        <div
+          className="pointer-events-none fixed z-50"
+          style={{
+            left: 0,
+            top: 0,
+            width: CARD_W,
+            height: CARD_H + CHROME_H,
+            borderRadius: 12,
+            overflow: "hidden",
+            boxShadow:
+              "0 24px 56px -8px rgba(0,0,0,0.55),0 0 0 1px rgba(255,255,255,0.07)",
+            transform: `translate3d(${smooth.x + 28}px,${smooth.y - (CARD_H + CHROME_H) / 2}px,0) scale(${visible ? 1 : 0.88})`,
+            opacity: visible ? 1 : 0,
+            transition: "opacity 0.18s ease,transform 0.18s ease",
+          }}
+        >
+          {/* Browser chrome */}
+          <div
+            style={{
+              height: CHROME_H,
+              background: "#1c1c1e",
+              borderBottom: "1px solid rgba(255,255,255,0.07)",
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "0 10px",
+            }}
           >
-            <div className="relative py-5 border-t border-border transition-all duration-300 ease-out">
-              {/* Background highlight on hover */}
-              <div
-                className={`
-                  absolute inset-0 -mx-4 px-4 bg-bg-card rounded-lg
-                  transition-all duration-300 ease-out
-                  ${hoveredIndex === index ? "opacity-100 scale-100" : "opacity-0 scale-95"}
-                `}
-              />
-
-              <div className="relative flex items-start justify-between gap-4">
-                <div className="flex-1 min-w-0">
-                  {/* Title with animated underline */}
-                  <div className="inline-flex items-center gap-2">
-                    <h3 className="text-foreground font-medium text-lg tracking-tight">
-                      <span className="relative">
-                        {project.title}
-                        {/* Animated underline */}
-                        <span
-                          className={`
-                            absolute left-0 -bottom-0.5 h-px bg-foreground
-                            transition-all duration-300 ease-out
-                            ${hoveredIndex === index ? "w-full" : "w-0"}
-                          `}
-                        />
-                      </span>
-                    </h3>
-
-                    {/* Arrow that slides in */}
-                    <ArrowUpRight
-                      className={`
-                        w-4 h-4 text-muted-foreground
-                        transition-all duration-300 ease-out
-                        ${
-                          hoveredIndex === index
-                            ? "opacity-100 translate-x-0 translate-y-0"
-                            : "opacity-0 -translate-x-2 translate-y-2"
-                        }
-                      `}
-                    />
-                  </div>
-
-                  {/* Description with fade effect */}
-                  <p
-                    className={`
-                      text-muted-foreground text-sm mt-1 leading-relaxed
-                      transition-all duration-300 ease-out
-                      ${hoveredIndex === index ? "text-foreground/70" : "text-muted-foreground"}
-                    `}
-                  >
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Year badge */}
-                <span
-                  className={`
-                    text-xs font-mono text-muted-foreground tabular-nums
-                    transition-all duration-300 ease-out
-                    ${hoveredIndex === index ? "text-foreground/60" : ""}
-                  `}
-                >
-                  {project.year}
-                </span>
-              </div>
+            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ff5f57", flexShrink: 0 }} />
+            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#febc2e", flexShrink: 0 }} />
+            <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840", flexShrink: 0 }} />
+            <div
+              style={{
+                flex: 1,
+                marginLeft: 8,
+                height: 18,
+                background: "rgba(255,255,255,0.07)",
+                borderRadius: 5,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 10,
+                color: "rgba(255,255,255,0.3)",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                padding: "0 8px",
+              }}
+            >
+              {hoveredIndex !== null
+                ? projects[hoveredIndex].link
+                    .replace(/^https?:\/\//, "")
+                    .replace(/\/$/, "")
+                : ""}
             </div>
-          </a>
-        ))}
+          </div>
 
-        {/* Bottom border for last item */}
-        <div className="border-t border-border" />
-      </div>
-    </section>
+          {/* Preview viewport */}
+          <div style={{ position: "relative", width: CARD_W, height: CARD_H }}>
+            {projects.map((project, i) => (
+              <ProjectPreview
+                key={project.title}
+                project={project}
+                isActive={hoveredIndex === i}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ── Project rows ─────────────────────────────────────── */}
+        <div>
+          {projects.map((project, i) => (
+            <a
+              key={project.title}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block"
+              onMouseEnter={() => { setHoveredIndex(i); setVisible(true) }}
+              onMouseLeave={() => { setHoveredIndex(null); setVisible(false) }}
+            >
+              <div
+                className="relative py-5 border-t"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <div
+                  className="absolute inset-0 -mx-4 rounded-lg"
+                  style={{
+                    background: "var(--bg-secondary)",
+                    opacity: hoveredIndex === i ? 1 : 0,
+                    transform: hoveredIndex === i ? "scale(1)" : "scale(0.97)",
+                    transition: "opacity 0.22s ease,transform 0.22s ease",
+                  }}
+                />
+
+                <div className="relative flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="inline-flex items-center gap-2">
+                      <h3
+                        className="font-medium text-lg tracking-tight"
+                        style={{ color: "var(--text-primary)" }}
+                      >
+                        <span className="relative">
+                          {project.title}
+                          <span
+                            className="absolute left-0 -bottom-0.5 h-px"
+                            style={{
+                              background: "var(--text-primary)",
+                              width: hoveredIndex === i ? "100%" : "0%",
+                              transition: "width 0.28s ease",
+                            }}
+                          />
+                        </span>
+                      </h3>
+                      <ArrowUpRight
+                        className="w-4 h-4"
+                        style={{
+                          color: "var(--text-secondary)",
+                          opacity: hoveredIndex === i ? 1 : 0,
+                          transform: hoveredIndex === i
+                            ? "translate(0,0)"
+                            : "translate(-5px,5px)",
+                          transition: "opacity 0.22s ease,transform 0.22s ease",
+                        }}
+                      />
+                    </div>
+                    <p
+                      className="text-sm mt-1 leading-relaxed"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      {project.description}
+                    </p>
+                  </div>
+                  <span
+                    className="text-xs font-mono tabular-nums shrink-0"
+                    style={{ color: "var(--text-secondary)" }}
+                  >
+                    {project.year}
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+          <div className="border-t" style={{ borderColor: "var(--border)" }} />
+        </div>
+      </section>
+    </>
   )
 }

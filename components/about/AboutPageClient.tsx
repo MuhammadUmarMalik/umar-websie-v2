@@ -277,7 +277,7 @@ export default function AboutPageClient() {
     <main className="bg-background text-foreground overflow-hidden">
 
       {/* ── HERO ──────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-[100dvh] items-center overflow-hidden px-4 md:px-8 lg:px-12">
+      <section className="relative flex min-h-dvh items-center overflow-hidden px-4 md:px-8 lg:px-12">
         {/* Subtle grid */}
         <div
           aria-hidden
@@ -291,7 +291,7 @@ export default function AboutPageClient() {
         {/* Glow — top left */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-24 -top-48 h-[700px] w-[700px] rounded-full"
+          className="pointer-events-none absolute -left-24 -top-48 h-175 w-175 rounded-full"
           style={{
             background:
               "radial-gradient(circle, color-mix(in srgb, #D6FB61 7%, transparent) 0%, transparent 65%)",
@@ -300,7 +300,7 @@ export default function AboutPageClient() {
         {/* Glow — bottom right */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -bottom-32 right-0 h-[500px] w-[500px] rounded-full"
+          className="pointer-events-none absolute -bottom-32 right-0 h-125 w-125 rounded-full"
           style={{
             background:
               "radial-gradient(circle, color-mix(in srgb, #D6FB61 4%, transparent) 0%, transparent 65%)",
@@ -431,7 +431,7 @@ export default function AboutPageClient() {
               <img
                 src="/umar-dp.png"
                 alt="Muhammad Umar Malik"
-                className="relative w-full max-w-[420px] rounded-2xl object-cover"
+                className="relative w-full max-w-105 rounded-2xl object-cover"
               />
             </div>
           </motion.div>
@@ -441,7 +441,7 @@ export default function AboutPageClient() {
 
       {/* ── STORY ─────────────────────────────────────────────────── */}
       <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <div
             ref={storyRevealRef}
             className="grid gap-16 lg:grid-cols-[280px_1fr]"
@@ -509,7 +509,7 @@ export default function AboutPageClient() {
 
       {/* ── TECH STACK ────────────────────────────────────────────── */}
       <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-[1280px]" ref={techRevealRef}>
+        <div className="mx-auto max-w-7xl" ref={techRevealRef}>
           {/* Header */}
           <motion.div
             initial="hidden"
@@ -574,7 +574,7 @@ export default function AboutPageClient() {
 
       {/* ── PROCESS ───────────────────────────────────────────────── */}
       <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-[1280px]" ref={processRevealRef}>
+        <div className="mx-auto max-w-7xl" ref={processRevealRef}>
           {/* Header */}
           <motion.div
             initial="hidden"
@@ -636,7 +636,7 @@ export default function AboutPageClient() {
 
       {/* ── VALUES ────────────────────────────────────────────────── */}
       <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-[1280px]" ref={valuesRevealRef}>
+        <div className="mx-auto max-w-7xl" ref={valuesRevealRef}>
           <motion.div
             initial="hidden"
             animate={isValuesInView ? "visible" : "hidden"}

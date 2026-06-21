@@ -224,7 +224,7 @@ export default function StatsSection() {
             initial={{ opacity: 0, y: 14 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-[210px] text-sm leading-[1.95] md:pb-1 md:text-right"
+            className="max-w-52.5 text-sm leading-[1.95] md:pb-1 md:text-right"
             style={{ color: "var(--text-secondary)" }}
           >
             Real outcomes.

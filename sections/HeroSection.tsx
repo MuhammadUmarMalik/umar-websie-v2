@@ -113,10 +113,10 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="min-h-[155svh] bg-background p-2 text-foreground"
+      className="min-h-[155svh] p-2 bg-background text-foreground"
     >
       <motion.div
-        className="sticky top-2 isolate min-h-[calc(100svh-16px)] origin-top overflow-hidden rounded-[28px] bg-bg-primary"
+        className="sticky top-0 isolate min-h-[calc(100svh-16px)]  rounded-2xl origin-top overflow-hidden bg-bg-primary"
         style={{ scale: heroScale, y: heroY }}
       >
         <motion.video

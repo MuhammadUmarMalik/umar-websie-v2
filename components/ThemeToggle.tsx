@@ -38,7 +38,7 @@ export function ThemeToggle({ ghost = false }: ThemeToggleProps) {
       type="button"
       aria-label={`Switch to ${nextTheme} theme`}
       className={cn(
-        "inline-grid size-10 place-items-center border transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4",
+        "inline-grid size-10 place-items-center border transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-4",
         ghost
           ? "border-white/25 bg-black/15 text-white backdrop-blur-sm hover:border-white/60 hover:bg-white/15 focus-visible:outline-white"
           : "border-border bg-surface text-text-primary hover:border-accent hover:text-accent focus-visible:outline-accent"

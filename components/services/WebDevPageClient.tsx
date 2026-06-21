@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
@@ -176,7 +176,7 @@ export default function WebDevPageClient() {
     <main>
       {/* ── Hero ── */}
       <section className="px-6 pt-32 pb-20 md:px-10 lg:px-14 lg:pt-40">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <nav aria-label="Breadcrumb">
               <ol className="mono flex items-center gap-2 text-xs text-text-secondary">
@@ -243,7 +243,7 @@ export default function WebDevPageClient() {
 
       {/* ── Problems it solves ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
               Problems I fix
@@ -275,7 +275,7 @@ export default function WebDevPageClient() {
 
       {/* ── What's included ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
               Deliverables
@@ -303,7 +303,7 @@ export default function WebDevPageClient() {
 
       {/* ── Process ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
               Process
@@ -337,7 +337,7 @@ export default function WebDevPageClient() {
 
       {/* ── Tech stack ── */}
       <section className="px-6 py-16 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
               Tech stack
@@ -363,7 +363,7 @@ export default function WebDevPageClient() {
 
       {/* ── Results strip ── */}
       <section className="px-6 py-16 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <div className="rounded-2xl border border-border bg-bg-card p-8 md:p-12">
             <FadeUp>
               <span className="mono text-xs uppercase tracking-widest text-text-secondary">
@@ -394,7 +394,7 @@ export default function WebDevPageClient() {
 
       {/* ── FAQ ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px] lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">FAQ</span>
             <h2 className="mt-3 font-display text-4xl font-bold italic text-text-primary md:text-5xl">

@@ -168,7 +168,7 @@ function StepSection({
           {step.number}
         </motion.span>
 
-        <div className="relative mx-auto max-w-screen-xl">
+        <div className="relative mx-auto max-w-7xl">
           <div
             className={`grid gap-12 lg:grid-cols-[1fr_380px] lg:items-start xl:gap-24 ${
               isEven ? "" : "lg:grid-cols-[380px_1fr]"
@@ -191,7 +191,7 @@ function StepSection({
                     background: "var(--accent)",
                     transition: "width 0.5s ease",
                   }}
-                  className="group-hover:!w-10"
+                  className="group-hover:w-10!"
                 />
                 <span
                   className="mono text-xs uppercase tracking-[0.2em]"
@@ -226,7 +226,7 @@ function StepSection({
                 initial={{ opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.9, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display font-bold leading-[1.0] transition-colors duration-500 group-hover:text-accent"
+                className="font-display font-bold leading-none transition-colors duration-500 group-hover:text-accent"
                 style={{
                   fontSize: "clamp(46px, 6.5vw, 90px)",
                   color: "var(--text-primary)",
@@ -240,7 +240,7 @@ function StepSection({
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-7 max-w-lg text-[15px] leading-[2.0]"
+                className="mt-7 max-w-lg text-[15px] leading-loose"
                 style={{ color: "var(--text-secondary)" }}
               >
                 {step.description}
@@ -280,7 +280,7 @@ function StepSection({
                       style={{ color: "var(--text-secondary)" }}
                     >
                       <span
-                        className="mt-[6px] flex-none rounded-full"
+                        className="mt-1.5 flex-none rounded-full"
                         style={{
                           display: "inline-block",
                           width: "5px",
@@ -387,7 +387,7 @@ export default function ProcessPageContent() {
     <main className="bg-background text-foreground">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="px-6 pb-20 pt-36 md:px-10 lg:px-14 lg:pb-28 lg:pt-52">
-        <div ref={heroRef} className="mx-auto max-w-screen-xl">
+        <div ref={heroRef} className="mx-auto max-w-7xl">
           {/* Overline */}
           <motion.div
             initial={{ opacity: 0, x: -18 }}
@@ -494,7 +494,7 @@ export default function ProcessPageContent() {
         className="border-t px-6 py-24 md:px-10 lg:px-14 lg:py-32"
         style={{ borderColor: "var(--border)" }}
       >
-        <div className="mx-auto max-w-screen-xl">
+        <div className="mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={principlesInView ? { opacity: 1, y: 0 } : {}}
@@ -558,7 +558,7 @@ export default function ProcessPageContent() {
         className="border-t px-6 py-24 md:px-10 lg:px-14 lg:py-32"
         style={{ borderColor: "var(--border)" }}
       >
-        <div className="mx-auto max-w-screen-xl">
+        <div className="mx-auto max-w-7xl">
           <div className="grid gap-16 lg:grid-cols-[340px_1fr] xl:grid-cols-[400px_1fr]">
             {/* Left sticky heading */}
             <motion.div
