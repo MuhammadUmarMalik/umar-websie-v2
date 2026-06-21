@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { PortfolioGrid } from "@/sections/PortfolioGrid";
+import CTABanner from "@/sections/CTABanner";
 import { createMetadata, seoMap, portfolioSchema, breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata(seoMap.portfolio);
@@ -44,24 +43,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-border px-6 py-20 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-320 flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="font-display text-3xl font-bold md:text-4xl">
-              Have a Project in Mind?
-            </h2>
-            <p className="mt-3 text-text-secondary">Let&apos;s talk about it.</p>
-          </div>
-          <Link
-            href="/contact"
-            className="group inline-flex h-12 shrink-0 items-center gap-2.5 rounded-full bg-accent px-8 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_40%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-          >
-            Contact Me
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-          </Link>
-        </div>
-      </section>
+      <CTABanner />
     </main>
   );
 }

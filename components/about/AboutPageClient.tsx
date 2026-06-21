@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, MapPin, CheckCircle2 } from "lucide-react";
 import CTABanner from "@/sections/CTABanner";
-import { siteConfig } from "@/lib/constants";
 
 // ─── SVG Tech Icons ───────────────────────────────────────────────
 
@@ -262,6 +261,41 @@ function TechCard({ tech, index }: { tech: Tech; index: number }) {
   );
 }
 
+// ─── FloatingCard helper ───────────────────────────────────────────
+
+function FloatingCard({
+  children,
+  className = "",
+  delay = 0,
+  floatDelay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+  floatDelay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      <motion.div
+        animate={{ y: [0, -7, 0] }}
+        transition={{
+          delay: floatDelay,
+          duration: 4.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // ─── Main Component ─────────────────────────────────────────────────
 
 export default function AboutPageClient() {
@@ -281,99 +315,165 @@ export default function AboutPageClient() {
     <main className="bg-background text-foreground overflow-hidden">
 
       {/* ── HERO ──────────────────────────────────────────────────── */}
-      <section className="relative px-6 pb-20 pt-36 md:px-12 lg:px-20 lg:pt-48">
-        {/* Background grid */}
+      <section className="relative flex min-h-[100dvh] items-center overflow-hidden px-4 md:px-8 lg:px-12">
+        {/* Subtle grid */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(214,251,97,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(214,251,97,0.03) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
+              "linear-gradient(to right, rgba(214,251,97,0.025) 1px, transparent 1px), linear-gradient(to bottom, rgba(214,251,97,0.025) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
           }}
         />
-        {/* Radial glow */}
+        {/* Glow — top left */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -top-32 left-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full"
+          className="pointer-events-none absolute -left-24 -top-48 h-[700px] w-[700px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, color-mix(in srgb, #D6FB61 10%, transparent) 0%, transparent 60%)",
+              "radial-gradient(circle, color-mix(in srgb, #D6FB61 7%, transparent) 0%, transparent 65%)",
+          }}
+        />
+        {/* Glow — bottom right */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-32 right-0 h-[500px] w-[500px] rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in srgb, #D6FB61 4%, transparent) 0%, transparent 65%)",
           }}
         />
 
-        <div className="relative mx-auto max-w-[1280px]">
-          {/* Tag row */}
+        <div className="relative mx-auto grid w-full max-w-360 items-center gap-16 pb-24 pt-36 lg:grid-cols-[1fr_440px] lg:pb-0 lg:pt-0 xl:grid-cols-[1fr_480px] xl:gap-24">
+
+          {/* ── LEFT: Content ──────────────────────────────── */}
+          <div>
+            {/* Inview anchor */}
+            <div ref={heroReveal.ref} />
+
+            {/* Headline — clip-reveal per line */}
+            <motion.h1
+              initial="hidden"
+              animate={heroReveal.inView ? "visible" : "hidden"}
+              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.11 } } }}
+              className="font-display text-5xl font-bold italic leading-[1.02] tracking-tight text-text-primary md:text-6xl lg:text-[5.25rem] xl:text-[6.5rem]"
+            >
+              {(
+                [
+                  { text: "I Build Things", accent: false },
+                  { text: "That Fix", accent: false },
+                  { text: "Real Problems.", accent: true },
+                ] as { text: string; accent: boolean }[]
+              ).map(({ text, accent }) => (
+                <span key={text} className="block overflow-hidden leading-[1.1]">
+                  <motion.span
+                    className={`block${accent ? " text-accent" : ""}`}
+                    variants={{
+                      hidden: { y: "110%", opacity: 0 },
+                      visible: {
+                        y: "0%",
+                        opacity: 1,
+                        transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+                      },
+                    }}
+                  >
+                    {text}
+                  </motion.span>
+                </span>
+              ))}
+            </motion.h1>
+
+            {/* Body */}
+            <motion.p
+              initial="hidden"
+              animate={heroReveal.inView ? "visible" : "hidden"}
+              variants={fadeUp}
+              custom={3}
+              className="mt-8 max-w-[42ch] text-lg leading-8 text-text-secondary"
+            >
+              Full-stack engineer, UI/UX designer, and automation builder — I
+              help small businesses fix what&apos;s broken and build what&apos;s
+              missing.
+            </motion.p>
+
+            {/* Stats strip */}
+            <motion.div
+              initial="hidden"
+              animate={heroReveal.inView ? "visible" : "hidden"}
+              variants={fadeUp}
+              custom={4}
+              className="mt-10 flex flex-wrap gap-10 border-t border-border pt-8"
+            >
+              {[
+                { value: "12+", label: "Projects Shipped" },
+                { value: "2+", label: "Years Building" },
+                { value: "4+", label: "Service Domains" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <p className="font-display text-3xl font-bold italic leading-none text-text-primary">
+                    {s.value}
+                  </p>
+                  <p className="mono mt-1.5 text-[11px] uppercase tracking-widest text-text-secondary">
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial="hidden"
+              animate={heroReveal.inView ? "visible" : "hidden"}
+              variants={fadeUp}
+              custom={5}
+              className="mt-10 flex flex-wrap items-center gap-4"
+            >
+              <Link
+                href="/contact"
+                className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-accent px-7 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_35%,transparent)] active:scale-[0.98]"
+              >
+                Work With Me
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+              </Link>
+              <Link
+                href="/portfolio"
+                className="mono inline-flex h-12 items-center gap-2 rounded-full border border-border px-7 text-sm text-text-secondary transition-all duration-200 hover:border-text-secondary hover:text-text-primary active:scale-[0.98]"
+              >
+                See My Work
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* ── RIGHT: Profile Photo ────────────────────────── */}
           <motion.div
-            ref={heroReveal.ref}
-            initial="hidden"
-            animate={heroReveal.inView ? "visible" : "hidden"}
-            variants={fadeUp}
-            className="mb-8 flex flex-wrap items-center gap-3"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={heroReveal.inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:flex lg:items-center lg:justify-end"
           >
-            <span className="mono inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs text-text-secondary">
-              <MapPin className="size-3 text-accent" aria-hidden />
-              Pakistan · Available Worldwide
-            </span>
-            <span className="mono inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs text-accent">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-              </span>
-              Open to new projects
-            </span>
+            <div className="relative">
+              {/* Accent glow behind photo */}
+              <div
+                aria-hidden
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at 60% 40%, color-mix(in srgb, #D6FB61 18%, transparent) 0%, transparent 70%)",
+                  filter: "blur(32px)",
+                  transform: "scale(1.15)",
+                }}
+              />
+              {/* Photo */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/umar-dp.png"
+                alt="Muhammad Umar Malik"
+                className="relative w-full max-w-[420px] rounded-2xl object-cover"
+              />
+            </div>
           </motion.div>
 
-          {/* Headline */}
-          <motion.h1
-            initial="hidden"
-            animate={heroReveal.inView ? "visible" : "hidden"}
-            variants={fadeUp}
-            custom={1}
-            className="font-display text-5xl font-bold italic leading-[1.0] tracking-tight text-text-primary md:text-7xl lg:text-[6.5rem]"
-          >
-            I Build Things
-            <br />
-            That Fix{" "}
-            <span className="not-italic text-accent">Real</span>
-            <br />
-            Problems.
-          </motion.h1>
-
-          <motion.p
-            initial="hidden"
-            animate={heroReveal.inView ? "visible" : "hidden"}
-            variants={fadeUp}
-            custom={2}
-            className="mt-8 max-w-xl text-xl leading-8 text-text-secondary"
-          >
-            Full-stack engineer, UI/UX designer, and automation builder — I
-            help small businesses fix what&apos;s broken and build what&apos;s
-            missing.
-          </motion.p>
-
-          {/* CTA row */}
-          <motion.div
-            initial="hidden"
-            animate={heroReveal.inView ? "visible" : "hidden"}
-            variants={fadeUp}
-            custom={3}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <Link
-              href="/contact"
-              className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-accent px-7 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_35%,transparent)]"
-            >
-              Work With Me
-              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-            </Link>
-            <Link
-              href="/portfolio"
-              className="mono inline-flex h-12 items-center gap-2 rounded-full border border-border px-7 text-sm text-text-secondary transition-all duration-200 hover:border-text-secondary hover:text-text-primary"
-            >
-              See My Work
-            </Link>
-          </motion.div>
         </div>
       </section>
 
@@ -621,30 +721,6 @@ export default function AboutPageClient() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── INLINE CTA ────────────────────────────────────────────── */}
-      <section className="border-t border-border px-6 py-20 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-[1280px] flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="font-display text-3xl font-bold italic md:text-4xl">
-              Ready to Build Something?
-            </h2>
-            <p className="mt-3 text-text-secondary">
-              If you have a project, a problem, or just a question — I&apos;m
-              easy to reach.
-            </p>
-          </div>
-          <Link
-            href={siteConfig.calendlyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex h-12 shrink-0 items-center gap-2.5 rounded-full bg-accent px-8 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_40%,transparent)]"
-          >
-            Let&apos;s Talk
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-          </Link>
         </div>
       </section>
 

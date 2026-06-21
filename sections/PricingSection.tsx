@@ -93,8 +93,8 @@ export default function PricingSection() {
               rel={plan.price === "Let's talk" ? "noopener noreferrer" : undefined}
               className={`group mt-7 flex h-12 w-full items-center justify-center gap-2.5 rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
                 plan.featured
-                  ? "bg-accent text-bg-primary hover:bg-accent-hover hover:shadow-[0_0_24px_color-mix(in_srgb,var(--accent)_35%,transparent)]"
-                  : "border border-border text-text-primary hover:border-accent hover:bg-accent/5 hover:text-accent"
+                  ? "bg-accent text-white hover:bg-accent-hover hover:text-white hover:shadow-[0_0_24px_color-mix(in_srgb,var(--accent)_35%,transparent)]"
+                  : "border border-border text-text-secondary hover:border-accent hover:bg-accent hover:text-white"
               }`}
             >
               {plan.price === "Let's talk" ? "Book a Call" : "Get Started"}

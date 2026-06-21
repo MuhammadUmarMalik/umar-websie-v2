@@ -592,7 +592,7 @@ export default function ProcessPageContent() {
 
               <Link
                 href="/contact"
-                className="group mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-accent transition-colors duration-200 hover:text-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
+                className="group mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-text-primary transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
               >
                 Ask something else
                 <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />

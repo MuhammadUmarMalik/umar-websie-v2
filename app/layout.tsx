@@ -82,18 +82,6 @@ export const metadata: Metadata = {
   },
 };
 
-const themeInitScript = `
-(() => {
-  try {
-    const theme = window.localStorage.getItem("umar-theme") === "light" ? "light" : "dark";
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
-  } catch {
-    document.documentElement.dataset.theme = "dark";
-    document.documentElement.style.colorScheme = "dark";
-  }
-})();
-`;
 
 export default function RootLayout({
   children,
@@ -103,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
       suppressHydrationWarning
       className={cn(
         "h-full",
@@ -116,7 +104,6 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <Providers>
           <ThirdPartyScripts />
           <Header />

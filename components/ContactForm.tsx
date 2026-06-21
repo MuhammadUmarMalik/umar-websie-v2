@@ -66,7 +66,7 @@ export function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mono mt-2 text-sm uppercase text-accent transition-colors duration-200 hover:text-accent-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
+          className="mono mt-2 text-sm uppercase text-text-primary transition-colors duration-200 hover:text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1"
         >
           Send another message
         </button>

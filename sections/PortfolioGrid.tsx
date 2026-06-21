@@ -163,7 +163,7 @@ export function PortfolioGrid() {
                 href={project.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mono mt-6 inline-flex items-center gap-1.5 text-xs uppercase text-accent transition-colors hover:text-accent-hover"
+                className="mono mt-6 inline-flex items-center gap-1.5 text-xs uppercase text-text-primary transition-colors hover:text-accent"
               >
                 Visit Project
                 <ArrowUpRight className="size-3" aria-hidden />

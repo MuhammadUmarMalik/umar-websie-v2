@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Check, Clock, Lock, MessageCircle } from "lucide-react";
+import CTABanner from "@/sections/CTABanner";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { addOns, pricingPackages, siteConfig } from "@/lib/constants";
 import { createMetadata, seoMap, pricingSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
@@ -121,8 +122,8 @@ export default function PricingPage() {
                   rel={plan.price === "Let's talk" ? "noopener noreferrer" : undefined}
                   className={`group mt-8 flex h-12 w-full items-center justify-center gap-2.5 rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
                     plan.featured
-                      ? "bg-accent text-bg-primary hover:bg-accent-hover hover:shadow-[0_0_24px_color-mix(in_srgb,var(--accent)_35%,transparent)]"
-                      : "border border-border text-text-primary hover:border-accent hover:bg-accent/5 hover:text-accent"
+                      ? "bg-accent text-accent-foreground hover:bg-accent-hover hover:shadow-[0_0_24px_color-mix(in_srgb,var(--accent)_35%,transparent)]"
+                      : "border border-border text-text-secondary hover:border-accent hover:bg-accent hover:text-accent-foreground"
                   }`}
                 >
                   {plan.price === "Let's talk" ? "Book a Call" : "Get Started"}
@@ -214,27 +215,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-border px-6 py-20 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-320 text-center">
-          <h2 className="font-display text-3xl font-bold md:text-4xl">
-            Not Sure Which Plan Fits?
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-text-secondary">
-            Let&apos;s have a quick 15-minute call. I&apos;ll ask the right questions and tell you
-            exactly what your business needs — no pitch, no obligation.
-          </p>
-          <Link
-            href={siteConfig.calendlyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group mt-8 inline-flex h-12 items-center gap-2.5 rounded-full bg-accent px-8 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_40%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-          >
-            Book a Free Call
-            <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-          </Link>
-        </div>
-      </section>
+      <CTABanner />
     </main>
   );
 }

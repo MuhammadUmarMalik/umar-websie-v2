@@ -222,6 +222,41 @@ export const faqs = [
   }
 ];
 
+export const featuredProjects = [
+  {
+    title: "Javis Gravy",
+    category: "Web Dev",
+    year: "2024",
+    stat: "3× faster load · +60% orders",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=800&fit=crop&auto=format&q=80",
+    href: "/portfolio",
+  },
+  {
+    title: "babi.sh",
+    category: "UI/UX Design",
+    year: "2024",
+    stat: "Elevated e-commerce experience",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=800&fit=crop&auto=format&q=80",
+    href: "/portfolio",
+  },
+  {
+    title: "Digilari",
+    category: "Branding",
+    year: "2024",
+    stat: "Bold identity · bold animations",
+    image: "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=600&h=800&fit=crop&auto=format&q=80",
+    href: "/portfolio",
+  },
+  {
+    title: "EduSuite",
+    category: "Automation",
+    year: "2024",
+    stat: "Full-stack LMS · automated grading",
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&h=800&fit=crop&auto=format&q=80",
+    href: "/portfolio",
+  },
+];
+
 export const stats = [
   { value: "30+", label: "Projects Delivered" },
   { value: "20+", label: "Businesses Helped" },

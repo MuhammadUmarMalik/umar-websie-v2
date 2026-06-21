@@ -246,7 +246,7 @@ export default function ServicesPageClient() {
                   <div className="mt-auto pt-8">
                     <Link
                       href={svc.href}
-                      className="group/btn flex items-center gap-2 text-sm font-semibold text-accent transition-all hover:gap-3"
+                      className="group/btn flex items-center gap-2 text-sm font-semibold text-text-primary transition-all hover:text-accent hover:gap-3"
                     >
                       Learn more
                       <ArrowRight className="size-4" aria-hidden />

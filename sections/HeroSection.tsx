@@ -148,16 +148,16 @@ export default function HeroSection() {
               ease: [0.22, 1, 0.36, 1],
             }}
           >
-            <div className="relative aspect-[1.04] overflow-hidden rounded-[7px] bg-bg-secondary">
+            <div className="relative aspect-[1] overflow-hidden rounded-[7px] bg-bg-secondary">
               <Image
-                src="/umar-picture.png"
+                src="/umar-dp.png"
                 alt="Muhammad Umar Malik portrait"
                 fill
                 priority
                 sizes="(min-width: 1024px) 232px, 210px"
                 className="origin-top scale-[1.72] object-cover object-[50%_15%] saturate-95 transition duration-700 group-hover:scale-[1.82] group-hover:saturate-110"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(181,244,74,0.2)_0%,transparent_34%,rgba(0,0,0,0.34)_100%)] mix-blend-screen" />
+              <div className="absolute inset-0" />
             </div>
 
             <div className="mono mt-3 flex items-center justify-between text-[13px] font-black uppercase leading-none tracking-normal">
@@ -175,7 +175,7 @@ export default function HeroSection() {
         >
           <div>
             <motion.p
-              className="mono mb-4 text-xs uppercase text-accent"
+              className="mono mb-4 text-xs uppercase text-white"
               initial="hidden"
               animate="visible"
               variants={fadeUp}
@@ -186,19 +186,19 @@ export default function HeroSection() {
             <div className="flex items-end gap-5">
               <WordsPullUp
                 text="I Fix What's Costing Your Business."
-                className="max-w-7xl font-display text-[16vw] font-bold leading-[0.97] text-[#f4f1de] sm:text-[12vw] lg:text-[112px] xl:text-[132px]"
+                className="max-w-7xl font-display text-[16vw] font-bold leading-[0.97] text-[#ffffff] sm:text-[12vw] lg:text-[112px] xl:text-[132px]"
               />
             </div>
           </div>
 
           <motion.div
-            className="max-w-lg pb-2 text-[#f4f1de] lg:pb-3"
+            className="max-w-lg pb-2 text-[#ffffff] lg:pb-3"
             initial="hidden"
             animate="visible"
             variants={fadeUp}
             transition={{ delay: 0.5 }}
           >
-            <p className="text-[17px] leading-7 text-[#f4f1de]/85 md:text-lg md:leading-8">
+            <p className="text-[17px] leading-7 text-white md:text-lg md:leading-8">
               Slow websites, poor UI, zero leads, I find the exact problems
               holding your business back and build solutions that actually
               work.
@@ -207,7 +207,7 @@ export default function HeroSection() {
             <div className="mt-5 flex flex-wrap gap-3">
               <Link
                 href="/portfolio"
-                className="inline-flex h-13 items-center rounded-full bg-[#f4f1de] px-8 text-[15px] font-semibold text-black transition-all duration-200 hover:bg-accent hover:text-bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f1de] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                className="inline-flex h-13 items-center rounded-full bg-[#ffffff] px-8 text-[15px] font-semibold text-black transition-all duration-200 hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffffff] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               >
                 View My Work
               </Link>
@@ -218,7 +218,7 @@ export default function HeroSection() {
                 className="group inline-flex h-13 items-center gap-4 rounded-full border border-[#f4f1de]/35 py-1 pl-6 pr-1 text-[15px] font-semibold text-[#f4f1de] backdrop-blur-sm transition-all duration-200 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               >
                 Book a Free Call
-                <span className="grid size-11 place-items-center rounded-full bg-[#f4f1de] text-black transition-all duration-200 group-hover:translate-x-1 group-hover:bg-accent group-hover:text-bg-primary">
+                <span className="grid size-11 place-items-center rounded-full bg-[#ffffff] text-black transition-all duration-200 group-hover:translate-x-1 group-hover:bg-accent group-hover:text-bg-primary">
                   <ArrowRight className="size-4" aria-hidden />
                 </span>
               </Link>
