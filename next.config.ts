@@ -36,6 +36,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.typekit.net",
       "font-src 'self' https://fonts.gstatic.com https://use.typekit.net data:",
       "img-src 'self' data: blob: https://images.unsplash.com https://*.posthog.com",
+      "media-src 'self' https://d8j0ntlcm91z4.cloudfront.net",
       "connect-src 'self' https://us.i.posthog.com https://*.vercel-insights.com https://vitals.vercel-insights.com https://snap.licdn.com https://script.google.com https://*.googleapis.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
