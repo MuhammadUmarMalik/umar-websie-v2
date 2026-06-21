@@ -6,21 +6,21 @@ import { MotionReveal } from "@/components/ui/motion-reveal";
 
 const testimonials: Testimonial[] = [
   {
-    text: "We needed a backend that could handle traffic and process payments securely. Muhammad built ADHURI CART with Adonis.js and JWT, and it's been running flawlessly. His ability to combine performance with security is top-tier.",
+    text: "We needed a backend that could handle traffic and process payments securely. Muhammad built ADHURI CART with Adonis.js and JWT, and it's been running flawlessly. His ability to combine performance with security is top tier.",
     image:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=160&auto=format&fit=crop",
-    name: "E-commerce Startup Founder",
+    name: "Ecommerce Startup Founder",
     role: "ADHURI CART",
   },
   {
     text: "Muhammad turned our concept into a real academic exchange platform. He not only built the API but advised us on data structure, permissions, and user flows. His insight made a huge difference in user adoption.",
     image:
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=160&auto=format&fit=crop",
-    name: "EdTech Co-Founder",
+    name: "EdTech Co Founder",
     role: "Knowledge Exchange API",
   },
   {
-    text: "We had a vision to connect blood donors in emergencies - and Muhammad brought it to life. The integration of Google Maps, real-time chat, and seamless UX was exactly what we needed. He's a true full-stack problem solver.",
+    text: "We had a vision to connect blood donors in emergencies and Muhammad brought it to life. The integration of Google Maps, real time chat, and seamless UX was exactly what we needed. He's a true full stack problem solver.",
     image:
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=160&auto=format&fit=crop",
     name: "NGO Project Coordinator",
@@ -41,7 +41,7 @@ const testimonials: Testimonial[] = [
     role: "Loan Calculator Web App",
   },
   {
-    text: "Muhammad delivered a functional, fast job scraper with filter, export, and real-time listing features. He even added resume optimization to our roadmap. His proactive approach sets him apart.",
+    text: "Muhammad delivered a functional, fast job scraper with filter, export, and real time listing features. He even added resume optimization to our roadmap. His proactive approach sets him apart.",
     image:
       "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=160&auto=format&fit=crop",
     name: "Tech Recruiter",
@@ -55,8 +55,8 @@ const thirdColumn = testimonials.slice(4, 6);
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative w-full bg-background px-5 py-20 text-foreground sm:px-8 sm:py-24 lg:px-12">
-      <div className="relative z-10 mx-auto w-full">
+    <section className="relative w-full bg-background px-6 py-24 text-foreground md:px-10 lg:px-14 lg:py-32">
+      <div className="relative z-10">
         <MotionReveal className="mx-auto flex max-w-[540px] flex-col items-center justify-center">
           <div className="flex justify-center">
             <div className="mono rounded-lg border border-accent/40 bg-accent/10 px-4 py-1 text-xs uppercase text-accent shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_45%,transparent)]">

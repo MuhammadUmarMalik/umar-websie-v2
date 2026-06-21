@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Providers } from "../components/Providers";
 import { ThirdPartyScripts } from "../components/ThirdPartyScripts";
@@ -28,18 +29,36 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com",
   ),
   title: {
-    default: "Muhammad Umar Malik - Software Engineer & Designer",
+    default: "Muhammad Umar Malik — Software Engineer & Designer",
     template: "%s | Muhammad Umar Malik",
   },
   description:
-    "I help small businesses fix slow websites, automate work, and grow with smart digital solutions.",
+    "Software engineer and designer helping small businesses fix slow websites, improve UX, generate leads, and automate repetitive work.",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  authors: [{ name: "Muhammad Umar Malik", url: process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com" }],
+  creator: "Muhammad Umar Malik",
+  publisher: "Muhammad Umar Malik",
+  category: "technology",
+  verification: {
+    google: "gifUySHi_sgkvuJMrKCFSpEj3BOO6RfrUNu90NPbg1A",
+  },
   openGraph: {
-    title: "Muhammad Umar Malik - Software Engineer & Designer",
+    title: "Muhammad Umar Malik — Software Engineer & Designer",
     description:
-      "I help small businesses fix slow websites, automate work, and grow with smart digital solutions.",
+      "Software engineer and designer helping small businesses fix slow websites, improve UX, generate leads, and automate repetitive work.",
     url: "/",
     siteName: "Muhammad Umar Malik",
     images: [
@@ -47,32 +66,22 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Muhammad Umar Malik",
+        alt: "Muhammad Umar Malik — Software Engineer & Designer",
       },
     ],
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muhammad Umar Malik - Software Engineer & Designer",
+    title: "Muhammad Umar Malik — Software Engineer & Designer",
     description:
-      "I help small businesses fix slow websites, automate work, and grow with smart digital solutions.",
+      "Software engineer and designer helping small businesses fix slow websites, improve UX, generate leads, and automate repetitive work.",
     images: ["/opengraph-image"],
+    creator: "@umarmalik_dev",
   },
 };
 
-const themeInitScript = `
-(() => {
-  try {
-    const theme = window.localStorage.getItem("umar-theme") === "light" ? "light" : "dark";
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
-  } catch {
-    document.documentElement.dataset.theme = "dark";
-    document.documentElement.style.colorScheme = "dark";
-  }
-})();
-`;
 
 export default function RootLayout({
   children,
@@ -82,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
       suppressHydrationWarning
       className={cn(
         "h-full",
@@ -95,11 +104,11 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <Providers>
           <ThirdPartyScripts />
           <Header />
           {children}
+          <Footer />
           <Analytics />
         </Providers>
       </body>

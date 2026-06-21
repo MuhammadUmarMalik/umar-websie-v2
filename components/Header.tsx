@@ -6,12 +6,10 @@ import { usePathname } from "next/navigation";
 import { Plus } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
-import { caseStudies, marketingPages, siteConfig } from "@/lib/constants";
+import { featuredProjects, marketingPages, siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = marketingPages.filter((item) => item.label !== "Services");
-const featuredProject = caseStudies[0];
 const menuEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const menuTransition = { duration: 0.9, ease: menuEase };
 
@@ -20,7 +18,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [showPortrait, setShowPortrait] = useState(true);
-  const [showProjectImage, setShowProjectImage] = useState(true);
+  const [projectIndex, setProjectIndex] = useState(0);
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
   const isHomeHero = pathname === "/" && !compact && !open;
@@ -40,6 +38,17 @@ export function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) {
+      setProjectIndex(0);
+      return;
+    }
+    const timer = setInterval(() => {
+      setProjectIndex((i) => (i + 1) % featuredProjects.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, [open]);
+
   return (
     <>
       <header
@@ -53,7 +62,7 @@ export function Header() {
                   : "border-border/60 shadow-[0_10px_32px_rgba(0,0,0,0.08)]",
               )
             : isHomeHero
-              ? "fixed inset-x-0 top-2 border-b border-transparent bg-transparent text-[#f4f1de]"
+              ? "fixed inset-x-0 top-2 border-b border-transparent bg-transparent text-white"
               : "fixed inset-x-0 top-0 border-b border-border bg-bg-primary/80 text-text-primary backdrop-blur-sm"
         )}
       >
@@ -69,14 +78,17 @@ export function Header() {
           <Link
             href="/"
             aria-label={`${siteConfig.name} home`}
-            className={cn(
-              "mono font-black uppercase leading-none tracking-normal transition-all duration-300",
-              floatingHeader ? "text-[18px] sm:text-[22px]" : "text-[22px] sm:text-[28px]",
-              isHomeHero ? "text-[#f4f1de]" : "text-text-primary"
-            )}
+            className="group flex items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             onClick={() => setOpen(false)}
           >
-            UMAR
+           
+            <span className={cn(
+              "mono font-black tracking-tight transition-all duration-300",
+              isHomeHero ? "text-white" : "text-text-primary",
+              floatingHeader ? "text-sm" : "text-base sm:text-lg",
+            )}>
+              Muhammad Umar Malik
+            </span>
           </Link>
 
           <button
@@ -85,13 +97,10 @@ export function Header() {
             aria-expanded={open}
             aria-controls="site-navigation"
             className={cn(
-              "mono group inline-flex items-center gap-3 rounded-sm px-2 uppercase leading-none transition-all duration-300 hover:text-accent",
+              "mono group inline-flex items-center gap-3 rounded-sm px-2 uppercase leading-none transition-all duration-300 hover:text-accent focus-visible:text-accent focus-visible:outline-none",
+              isHomeHero ? "text-white" : "text-text-primary",
               floatingHeader ? "min-h-8 text-xs" : "min-h-9 text-sm",
-              open
-                ? "border border-current/70 text-text-primary lg:min-h-7 lg:gap-2"
-                : isHomeHero
-                  ? "text-[#f4f1de]"
-                  : "text-text-primary"
+              open && "border border-current/70 lg:min-h-7 lg:gap-2"
             )}
             onClick={() => setOpen((value) => !value)}
           >
@@ -117,18 +126,17 @@ export function Header() {
           </button>
 
           <div className="hidden items-center justify-end gap-3 lg:flex">
-            <ThemeToggle />
             <div className="group flex justify-end gap-1.5">
               <Link
                 href="/contact"
                 className={cn(
-                  "mono hidden h-10 items-center text-xs uppercase tracking-normal sm:inline-flex",
-                  isHomeHero ? "text-[#f4f1de]" : "text-text-primary"
+                  "mono hidden h-10 items-center text-xs uppercase tracking-normal transition-colors duration-300 hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:inline-flex",
+                  isHomeHero ? "text-white" : "text-text-primary"
                 )}
                 onClick={() => setOpen(false)}
               >
                 <span className="flex h-10 items-center gap-1.5">
-                  <span className="grid size-10 origin-left -rotate-45 scale-0 place-items-center bg-accent text-bg-primary transition duration-500 ease-out group-hover:rotate-0 group-hover:scale-100">
+                  <span className="grid size-10 origin-left -rotate-45 scale-0 place-items-center bg-accent text-white transition duration-500 ease-out group-hover:rotate-0 group-hover:scale-100">
                     <Plus className="size-4" />
                   </span>
                   <span className="-ml-11.5 grid h-10 place-items-center bg-accent px-4 text-bg-primary transition duration-500 ease-out group-hover:ml-0 lg:px-5">
@@ -139,10 +147,10 @@ export function Header() {
               <Link
                 href="/contact"
                 aria-label="Contact"
-                className="inline-flex size-10 origin-right items-center justify-center overflow-hidden bg-accent text-bg-primary transition-all duration-500 ease-out group-hover:-rotate-45 group-hover:scale-0 group-hover:opacity-0 sm:group-hover:w-0"
+                className="inline-flex size-10 origin-right items-center justify-center overflow-hidden bg-accent text-white transition-all duration-500 ease-out group-hover:-rotate-45 group-hover:scale-0 group-hover:opacity-0 sm:group-hover:w-0"
                 onClick={() => setOpen(false)}
               >
-                <Plus className="size-4" />
+                <Plus className="size-4 text-white" />
               </Link>
             </div>
           </div>
@@ -153,7 +161,7 @@ export function Header() {
         {open ? (
           <motion.div
             id="site-navigation"
-            className="fixed bottom-3 left-3 right-3 top-19 z-60 overflow-y-auto rounded-3xl border border-border/70 bg-bg-primary/96 text-text-primary shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:top-22 lg:bottom-6 lg:left-6 lg:right-6 lg:top-23 lg:bg-bg-secondary/96"
+            className="fixed bottom-3 left-3 right-3 top-19 z-60 overflow-hidden rounded-3xl border border-border/70 bg-bg-primary/96 text-text-primary shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:top-22 lg:bottom-6 lg:left-6 lg:right-6 lg:top-23 lg:bg-bg-secondary/96"
             initial={prefersReducedMotion ? false : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
             animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
             exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
@@ -184,8 +192,9 @@ export function Header() {
                     >
                       <Link
                         href={item.href}
+                        aria-current={active ? "page" : undefined}
                         className={cn(
-                          "group flex items-center gap-4 text-[34px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 sm:text-5xl lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
+                          "group flex items-center gap-4 text-[34px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:text-5xl lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
                           highlighted ? "text-accent" : "text-text-primary"
                         )}
                         onMouseEnter={() => setHoveredItem(item.href)}
@@ -224,7 +233,10 @@ export function Header() {
                 <div className="space-y-7">
                   <div>
                     <p className="mono mb-2 text-base uppercase text-text-secondary">Contact</p>
-                    <Link href={`mailto:${siteConfig.email}`} className="hover:text-accent">
+                    <Link
+                      href={`mailto:${siteConfig.email}`}
+                      className="text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+                    >
                       {siteConfig.email}
                     </Link>
                   </div>
@@ -234,13 +246,13 @@ export function Header() {
                     <p>Business automation workflows</p>
                   </div>
                   <div className="space-y-1">
-                    <Link href={siteConfig.socials.instagram.href} target="_blank" rel="noopener noreferrer" className="block hover:text-accent">
+                    <Link href={siteConfig.socials.instagram.href} target="_blank" rel="noopener noreferrer" className="block text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none">
                       {siteConfig.socials.instagram.label}
                     </Link>
-                    <Link href={siteConfig.socials.linkedin.href} target="_blank" rel="noopener noreferrer" className="block hover:text-accent">
+                    <Link href={siteConfig.socials.linkedin.href} target="_blank" rel="noopener noreferrer" className="block text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none">
                       {siteConfig.socials.linkedin.label}
                     </Link>
-                    <Link href={siteConfig.socials.github.href} target="_blank" rel="noopener noreferrer" className="block hover:text-accent">
+                    <Link href={siteConfig.socials.github.href} target="_blank" rel="noopener noreferrer" className="block text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none">
                       {siteConfig.socials.github.label}
                     </Link>
                   </div>
@@ -269,12 +281,12 @@ export function Header() {
                   href="/about"
                   aria-label="Go to about page"
                   onClick={() => setOpen(false)}
-                  className="group flex w-full flex-col cursor-pointer"
+                  className="group flex w-full cursor-pointer flex-col text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
                 >
                   <div className="relative flex h-140 w-full items-end overflow-hidden bg-bg-card xl:h-155">
                     {showPortrait ? (
                       <Image
-                        src="/umar-picture.png"
+                        src="/umar-dp.png"
                         alt="Muhammad Umar Malik"
                         fill
                         sizes="(min-width: 768px) 25vw, 100vw"
@@ -298,40 +310,67 @@ export function Header() {
                   <p className="mono mt-4 text-base uppercase lg:text-[17px]">About the studio</p>
                 </Link>
 
-                <Link
-                  href="/portfolio#featured-project"
-                  aria-label={`Go to featured project: ${featuredProject.title}`}
-                  onClick={() => setOpen(false)}
-                  className="group flex w-full flex-col cursor-pointer"
-                >
+                <div className="flex w-full flex-col">
                   <div className="relative h-140 w-full overflow-hidden bg-bg-card xl:h-155">
-                    {showProjectImage ? (
-                      <Image
-                        src="/rice-erp.png"
-                        alt={featuredProject.title}
-                        fill
-                        sizes="(min-width: 768px) 25vw, 100vw"
-                        unoptimized
-                        className="object-cover object-center transition duration-700 group-hover:scale-105"
-                        onError={() => setShowProjectImage(false)}
-                      />
-                    ) : (
-                      <div className="absolute inset-0 p-5">
-                        <div className="h-full border-10 border-bg-primary bg-surface p-4 shadow-[0_18px_0_var(--bg-primary)]">
-                          <div className="mono grid h-full place-items-center text-center text-xs uppercase leading-tight">
-                            {featuredProject.tech}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    <div className="absolute inset-x-0 bottom-0 h-[30%]" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                      <p className="mono text-xs uppercase text-white/70">Featured project</p>
-                      <p className="mt-1 text-2xl font-semibold leading-none">{featuredProject.title}</p>
-                    </div>
+                    <AnimatePresence>
+                      {featuredProjects.map((project, i) =>
+                        i === projectIndex ? (
+                          <motion.div
+                            key={project.title}
+                            className="absolute inset-0"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.6, ease: menuEase }}
+                          >
+                            <Link
+                              href={project.href}
+                              aria-label={`View project: ${project.title}`}
+                              onClick={() => setOpen(false)}
+                              className="group block h-full"
+                            >
+                              <Image
+                                src={project.image}
+                                alt={project.title}
+                                fill
+                                sizes="(min-width: 768px) 25vw, 100vw"
+                                className="object-cover object-center transition duration-700 group-hover:scale-105"
+                              />
+                              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/75 to-transparent" />
+                              <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                                <p className="mono text-xs uppercase text-white/60">
+                                  {project.category} · {project.year}
+                                </p>
+                                <p className="mt-1 text-2xl font-semibold leading-none">{project.title}</p>
+                                <p className="mono mt-1 text-xs text-white/50">{project.stat}</p>
+                              </div>
+                            </Link>
+                          </motion.div>
+                        ) : null
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <p className="mono mt-4 text-base uppercase lg:text-[17px]">Featured project</p>
-                </Link>
+
+                  <div className="mono mt-4 flex items-center justify-between text-base uppercase lg:text-[17px]">
+                    <span className="text-text-primary">Featured work</span>
+                    <span className="flex items-center gap-1.5">
+                      {featuredProjects.map((project, i) => (
+                        <button
+                          key={project.title}
+                          type="button"
+                          onClick={() => setProjectIndex(i)}
+                          aria-label={`View ${project.title}`}
+                          className={cn(
+                            "rounded-full transition-all duration-300",
+                            i === projectIndex
+                              ? "size-2 bg-accent"
+                              : "size-1.5 bg-text-muted hover:bg-text-secondary"
+                          )}
+                        />
+                      ))}
+                    </span>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </motion.div>

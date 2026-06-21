@@ -18,9 +18,9 @@ function RevealImageListItem({ text, images }: ShowImageListItemProps) {
 
   return (
     <div className="group relative w-full overflow-visible border-b border-border/60 py-6 sm:py-8 lg:py-10">
-      <h3 className="mono pr-24 font-display text-[clamp(2.5rem,9vw,8.75rem)] font-black leading-none text-foreground transition-all duration-500 group-hover:opacity-40 sm:pr-32 lg:pr-48">
+      <h4 className="mono pr-24 font-display text-[clamp(2rem,6vw,4.75rem)] font-black leading-none text-text-primary transition-all duration-500 group-hover:opacity-40 sm:pr-32 lg:pr-48">
         {text}
-      </h3>
+      </h4>
       <div className={container}>
         <div className={effect}>
           <img
@@ -131,8 +131,8 @@ function RevealImageList() {
   ];
 
   return (
-    <div className="mt-12 flex w-full flex-col rounded-sm bg-background px-10 py-4">
-      <h3 className="mono text-sm font-black uppercase text-muted-foreground">
+    <div className="mt-12 flex w-full flex-col rounded-sm bg-bg-secondary px-10 py-4">
+      <h3 className="mono text-sm font-black uppercase text-text-secondary">
         Our services
       </h3>
       {items.map((item) => (

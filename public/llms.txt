@@ -1,0 +1,91 @@
+# Muhammad Umar Malik
+
+> Software engineer and designer helping small businesses fix websites, improve UX, generate leads, and automate repetitive work.
+
+Muhammad Umar Malik is a full-stack software engineer and UI/UX designer based in Pakistan, working with small businesses worldwide. He specialises in diagnosing the exact digital problems that cost businesses customers and revenue, then building clean, fast, conversion-focused solutions.
+
+## Services
+
+- [Website Development](https://umarmalik-dev.com/services): Fast, responsive, SEO-ready websites built to earn trust and generate enquiries. Specialising in Next.js, React, and Tailwind CSS.
+- [Business Automation](https://umarmalik-dev.com/services): AI workflows, lead capture, CRM updates, dashboards, and custom integrations using n8n, Make.com, and custom APIs.
+- [UI/UX Design](https://umarmalik-dev.com/services): Clean interfaces for websites, SaaS dashboards, and landing pages — designed around clarity, trust, and user action.
+
+## Problems Solved
+
+- Slow websites causing high bounce rates and lost customers
+- Poor mobile layouts that break trust on phones and tablets
+- Low lead generation from weak CTAs and unclear conversion paths
+- Checkout and form friction blocking sales
+- Confusing, inconsistent, or outdated UI/UX
+- Manual repetitive business workflows wasting hours each week
+
+## Process
+
+1. **Audit** — Deep review of existing website, analytics, speed, and competitor presence.
+2. **Research** — Competitor analysis, user behavior study, and market positioning.
+3. **Design** — Full UI/UX in Figma for approval before any code is written.
+4. **Build** — Production-grade Next.js/React development, fast and accessible.
+5. **Test & Launch** — Cross-device testing, Core Web Vitals optimisation, clean handover.
+
+## Pricing
+
+- **Starter ($499+)** — Up to 5 pages, responsive design, basic on-page SEO, contact form, 7–10 day delivery.
+- **Growth ($999+)** — Up to 10 pages, custom UI/UX, full SEO, CMS, lead forms, GA4, 14–21 day delivery.
+- **Custom** — Full-stack apps, automation systems, AI integrations — scoped per project.
+
+### Add-Ons
+
+- Monthly Maintenance & Updates: From $100/mo
+- SEO Audit & Optimisation: From $200
+- AI Chatbot Integration: From $300
+- Workflow Automation (n8n / Make): From $400
+- Speed & Core Web Vitals Fix: From $150
+- Copywriting & Content: From $100/page
+
+## Credentials & Track Record
+
+- 30+ projects delivered
+- 20+ small businesses helped with ongoing work
+- 98% client satisfaction
+- 3x average performance improvement on page speed scores
+- Technology stack: Next.js, React, TypeScript, Tailwind CSS, Node.js, PostgreSQL, Supabase, n8n, Make.com, OpenAI API
+
+## Frequently Asked Questions
+
+**How do payments work?**
+50% upfront before work begins, 50% before final delivery. Larger projects can be structured across 3 milestones.
+
+**How long does a project take?**
+Starter: 7–10 days. Growth: 14–21 days. Custom projects have a defined timeline set in writing before work starts.
+
+**Will I own the website after it's built?**
+100%. You own the source code, domain, hosting account, and all credentials — no platform lock-in.
+
+**Do you work with international clients?**
+Yes. Communication via email, WhatsApp, or video call, any timezone.
+
+**What tech stack do you use?**
+Next.js, React, Tailwind CSS, TypeScript for frontend; Node.js, PostgreSQL, Supabase for backend; n8n and Make.com for automation.
+
+## Contact
+
+- Email: umarmalik.cs711@gmail.com
+- Location: Pakistan — working globally
+- Response time: Within 24 hours
+- Book a call: [Contact Page](https://umarmalik-dev.com/contact)
+
+## Links
+
+- [Home](https://umarmalik-dev.com)
+- [About](https://umarmalik-dev.com/about)
+- [Services](https://umarmalik-dev.com/services)
+- [Process](https://umarmalik-dev.com/process)
+- [Portfolio](https://umarmalik-dev.com/portfolio)
+- [Pricing](https://umarmalik-dev.com/pricing)
+- [Contact](https://umarmalik-dev.com/contact)
+
+## Social Profiles
+
+- [LinkedIn](https://www.linkedin.com/in/umarmalik-dev)
+- [GitHub](https://github.com/MuhammadUmarMalik)
+- [Instagram](https://www.instagram.com/umarmalik_dev/)
