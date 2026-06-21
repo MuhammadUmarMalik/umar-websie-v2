@@ -10,11 +10,11 @@ export function ThirdPartyScripts() {
         <Script
           id="adobe-fonts"
           src={`https://use.typekit.net/${adobeFontsKitId}.js`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       ) : null}
       {adobeFontsKitId ? (
-        <Script id="adobe-fonts-load" strategy="afterInteractive">
+        <Script id="adobe-fonts-load" strategy="lazyOnload">
           {`try{Typekit.load({async:true});}catch(e){}`}
         </Script>
       ) : null}

@@ -4,6 +4,44 @@ const APPS_SCRIPT_URL =
   process.env.GOOGLE_APPS_SCRIPT_URL ??
   "https://script.google.com/macros/s/AKfycbwqAg9-ZjYcXYD7u-eVf3l67_KTjhaZ-Kiiy6mDZ1YRmSVXgemAvWBZJrkkGolB9_LJzg/exec";
 
+// ── Rate limiting ─────────────────────────────────────────────────────────────
+// In-memory store keyed by IP. Resets per cold start (acceptable for a portfolio
+// contact form). Prevents rapid-fire spam within a single function instance.
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 5;        // max submissions
+const RATE_WINDOW_MS = 3600_000; // per hour
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  if (entry.count >= RATE_LIMIT) return true;
+  entry.count += 1;
+  return false;
+}
+
+// ── Input helpers ─────────────────────────────────────────────────────────────
+// Strip HTML tags to prevent XSS in the email notification
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
+}
+
+// Truncate to avoid oversized payloads
+function sanitize(value: unknown, maxLen = 500): string {
+  if (typeof value !== "string") return "";
+  return escapeHtml(value.trim().slice(0, maxLen));
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 async function postToSheet(payload: Record<string, string>) {
   const body = JSON.stringify(payload);
   const headers = { "Content-Type": "application/json" };
@@ -36,27 +74,64 @@ async function postToSheet(payload: Record<string, string>) {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { name, email, country, projectType, deadline, referral, message, sourcePath } = body;
+    // ── Rate limiting ───────────────────────────────────────────────────────
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      req.headers.get("x-real-ip") ??
+      "unknown";
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
+    }
+
+    // ── Parse & sanitize input ──────────────────────────────────────────────
+    let raw: Record<string, unknown>;
+    try {
+      raw = await req.json();
+    } catch {
+      return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    }
+
+    // Honeypot: bots fill hidden fields, humans don't
+    if (raw.honeypot) {
+      // Return 200 to fool bots, but don't process
+      return NextResponse.json({ ok: true });
+    }
+
+    const name = sanitize(raw.name, 100);
+    const email = sanitize(raw.email, 200);
+    const country = sanitize(raw.country, 100);
+    const projectType = sanitize(raw.projectType, 100);
+    const deadline = sanitize(raw.deadline, 100);
+    const referral = sanitize(raw.referral, 100);
+    const message = sanitize(raw.message, 2000);
+    const sourcePath = sanitize(raw.sourcePath, 200);
 
     if (!name || !email) {
       return NextResponse.json({ error: "Name and email are required." }, { status: 400 });
     }
 
-    const userAgent = req.headers.get("user-agent") ?? "";
+    if (!EMAIL_RE.test(email)) {
+      return NextResponse.json({ error: "Invalid email address." }, { status: 400 });
+    }
+
+    const userAgent = req.headers.get("user-agent")?.slice(0, 300) ?? "";
 
     const payload: Record<string, string> = {
       Timestamp: new Date().toISOString(),
       Name: name,
       Email: email,
-      Country: country ?? "",
-      "Project Type": projectType ?? "",
-      Deadline: deadline ?? "",
-      "Referral Source": referral ?? "",
-      Message: message ?? "",
+      Country: country,
+      "Project Type": projectType,
+      Deadline: deadline,
+      "Referral Source": referral,
+      Message: message,
       "User Agent": userAgent,
       Form: "Contact",
-      "Source Path": sourcePath ?? "",
+      "Source Path": sourcePath,
     };
 
     // ── Google Sheet ──────────────────────────────────────────────────────────
@@ -77,6 +152,7 @@ export async function POST(req: NextRequest) {
           from: fromEmail,
           to: toEmail,
           subject: `New lead from ${name}`,
+          // All values are already HTML-escaped by sanitize()
           html: `
             <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
               <h2 style="color:#7c3aed">New Contact Form Submission</h2>
