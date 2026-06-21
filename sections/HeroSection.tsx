@@ -186,7 +186,7 @@ export default function HeroSection() {
             <div className="flex items-end gap-5">
               <WordsPullUp
                 text="I Fix What's Costing Your Business."
-                className="max-w-7xl font-display text-[16vw] font-bold leading-[0.97] text-[#ffffff] sm:text-[12vw] lg:text-[112px] xl:text-[132px]"
+                className="max-w-7xl font-display text-6xl font-bold leading-[0.97] text-[#ffffff] sm:text-7xl lg:text-8xl xl:text-9xl"
               />
             </div>
           </div>
