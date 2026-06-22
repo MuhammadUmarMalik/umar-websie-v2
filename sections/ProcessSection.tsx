@@ -77,7 +77,7 @@ function StepItem({
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 2.2, ease: "easeOut", delay: 0.15 }}
           aria-hidden
-          className="font-display pointer-events-none absolute top-1/2 -translate-y-[52%] select-none font-bold leading-none transition-all duration-700 ease-out group-hover:opacity-[var(--num-hover-opacity)]"
+          className="font-display pointer-events-none absolute top-1/2 translate-y-[-52%] select-none font-bold leading-none transition-all duration-700 ease-out group-hover:opacity-(--num-hover-opacity)"
           style={{
             fontSize: "clamp(110px, 20vw, 310px)",
             color: "rgba(240,237,230,0.032)",
@@ -251,7 +251,7 @@ export default function ProcessSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={headingInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-[220px] text-sm leading-[1.9] md:pb-1 md:text-right"
+            className="max-w-55 text-sm leading-[1.9] md:pb-1 md:text-right"
             style={{ color: "var(--text-secondary)" }}
           >
             Five clear steps.

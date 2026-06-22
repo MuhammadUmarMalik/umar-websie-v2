@@ -207,12 +207,17 @@ export function ProjectShowcase() {
 
       <section
         ref={sectionRef}
-        onMouseMove={(e: React.MouseEvent) => setMouse({ x: e.clientX, y: e.clientY })}
+        onMouseMove={(e: React.MouseEvent) => {
+          const rect = sectionRef.current?.getBoundingClientRect()
+          if (!rect) return
+          setMouse({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+        }}
         className="relative w-full"
       >
         {/* ── Floating preview card ─────────────────────────────── */}
+        {/* position:absolute (not fixed) so Lenis v1 transform on <html> doesn't displace the card */}
         <div
-          className="pointer-events-none fixed z-50"
+          className="pointer-events-none absolute z-50"
           style={{
             left: 0,
             top: 0,
@@ -288,7 +293,17 @@ export function ProjectShowcase() {
               target="_blank"
               rel="noopener noreferrer"
               className="group block"
-              onMouseEnter={() => { setHoveredIndex(i); setVisible(true) }}
+              onMouseEnter={(e) => {
+                const rect = sectionRef.current?.getBoundingClientRect()
+                if (rect) {
+                  const x = e.clientX - rect.left
+                  const y = e.clientY - rect.top
+                  setMouse({ x, y })
+                  setSmooth({ x, y })
+                }
+                setHoveredIndex(i)
+                setVisible(true)
+              }}
               onMouseLeave={() => { setHoveredIndex(null); setVisible(false) }}
             >
               <div

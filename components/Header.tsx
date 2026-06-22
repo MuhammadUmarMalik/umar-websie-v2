@@ -292,8 +292,8 @@ export function Header() {
                   onClick={() => setOpen(false)}
                   className="group flex w-full cursor-pointer flex-col text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
                 >
-                <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-[22rem] xl:h-[26rem]">
-                    
+                <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-88 xl:h-104">
+
                       <Image
                         src="/umar-dp.png"
                         alt="Muhammad Umar Malik"
@@ -312,7 +312,7 @@ export function Header() {
                 </Link>
 
                 <div className="flex w-full flex-col">
-                  <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-[22rem] xl:h-[26rem]">
+                  <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-88 xl:h-104">
                     <AnimatePresence initial={false}>
                       {featuredProjects.map((project, i) =>
                         i === projectIndex ? (

@@ -17,14 +17,6 @@ interface WordsPullUpProps {
   className?: string;
 }
 
-// const navItems = [
-//   { label: "About", href: "/about" },
-//   { label: "Work", href: "/portfolio" },
-//   { label: "Services", href: "/services" },
-//   { label: "Pricing", href: "/pricing" },
-//   { label: "Contact", href: "/contact" },
-// ];
-
 const wordContainer: Variants = {
   hidden: {},
   visible: {
@@ -186,7 +178,7 @@ export default function HeroSection() {
             <div className="flex items-end gap-5">
               <WordsPullUp
                 text="I Fix What's Costing Your Business."
-                className="max-w-7xl font-display text-6xl font-bold leading-[0.97] text-[#ffffff] sm:text-7xl lg:text-8xl xl:text-9xl"
+                className="max-w-7xl font-display text-4sxl font-bold leading-[0.97] text-[#ffffff] sm:text-xl lg:text-6xl xl:text-7xl"
               />
             </div>
           </div>

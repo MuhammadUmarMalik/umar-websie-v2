@@ -5,6 +5,7 @@ import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Providers } from "../components/Providers";
 import { ThirdPartyScripts } from "../components/ThirdPartyScripts";
+import { WhatsAppFloat } from "../components/WhatsAppFloat";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -109,6 +110,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <WhatsAppFloat />
           <Analytics />
         </Providers>
       </body>

@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Missing url param", { status: 400 });
   }
 
-  // Serve from in-memory cache if fresh
   const hit = cache.get(url);
   if (hit && Date.now() - hit.ts < TTL_MS) {
     return new NextResponse(hit.buffer, {
@@ -21,22 +20,37 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // Step 1: ask Microlink for the screenshot metadata (JSON)
     const apiUrl =
       `https://api.microlink.io/?url=${encodeURIComponent(url)}` +
-      `&screenshot=true&meta=false&embed=screenshot.url`;
+      `&screenshot=true&meta=false`;
 
-    const res = await fetch(apiUrl, {
-      // follow redirects to the actual image
-      redirect: "follow",
-      signal: AbortSignal.timeout(12_000),
+    const metaRes = await fetch(apiUrl, {
+      signal: AbortSignal.timeout(15_000),
     });
 
-    if (!res.ok) {
+    if (!metaRes.ok) {
       return new NextResponse("Screenshot unavailable", { status: 502 });
     }
 
-    const type = res.headers.get("Content-Type") ?? "image/png";
-    const buffer = await res.arrayBuffer();
+    const json = await metaRes.json();
+    const screenshotUrl: string | undefined = json?.data?.screenshot?.url;
+
+    if (!screenshotUrl) {
+      return new NextResponse("No screenshot URL in response", { status: 502 });
+    }
+
+    // Step 2: proxy the actual image from Microlink's CDN
+    const imgRes = await fetch(screenshotUrl, {
+      signal: AbortSignal.timeout(8_000),
+    });
+
+    if (!imgRes.ok) {
+      return new NextResponse("Screenshot image unavailable", { status: 502 });
+    }
+
+    const type = imgRes.headers.get("Content-Type") ?? "image/jpeg";
+    const buffer = await imgRes.arrayBuffer();
 
     cache.set(url, { buffer, type, ts: Date.now() });
 
