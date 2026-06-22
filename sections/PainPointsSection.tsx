@@ -78,6 +78,7 @@ function PainCard({
       transition={{ duration: 0.7, delay: i * 0.07, ease }}
       className="group relative flex min-h-72 cursor-default flex-col overflow-hidden rounded-2xl p-8 transition-colors duration-300 lg:min-h-80 lg:p-10"
       style={{ background: "var(--bg-primary)" }}
+      suppressHydrationWarning
     >
       {/* Left accent bar — grows on hover */}
       <div

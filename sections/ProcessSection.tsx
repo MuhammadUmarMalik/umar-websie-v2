@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
 const steps = [
@@ -160,6 +160,7 @@ function StepItem({
                     ? "1px solid var(--border)"
                     : "none",
                 }}
+                suppressHydrationWarning
               >
                 <span
                   className="flex-none transition-all duration-500 group-hover/item:opacity-100"
@@ -231,6 +232,7 @@ export default function ProcessSection() {
               transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="mono mb-4 text-xs uppercase tracking-[0.22em]"
               style={{ color: "var(--accent)" }}
+              suppressHydrationWarning
             >
               Process
             </motion.p>
@@ -243,6 +245,7 @@ export default function ProcessSection() {
                 fontSize: "clamp(40px, 7vw, 80px)",
                 color: "var(--text-primary)",
               }}
+              suppressHydrationWarning
             >
               How I Work
             </motion.h2>
@@ -253,6 +256,7 @@ export default function ProcessSection() {
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-55 text-sm leading-[1.9] md:pb-1 md:text-right"
             style={{ color: "var(--text-secondary)" }}
+            suppressHydrationWarning
           >
             Five clear steps.
             <br />
@@ -285,6 +289,7 @@ export default function ProcessSection() {
                   initial={{ scale: 0 }}
                   animate={headingInView ? { scale: 1 } : {}}
                   transition={{ delay: 0.5 + i * 0.1, duration: 0.4, ease: "backOut" }}
+                  suppressHydrationWarning
                 />
               );
             })}
