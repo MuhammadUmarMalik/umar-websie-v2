@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, animate } from "framer-motion";
+import { motion, useInView, animate } from "motion/react";
 import { useRef, useEffect, useState } from "react";
 
 const statsData = [
@@ -103,6 +103,7 @@ function StatCard({
       transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
       className={`group relative flex min-h-70 flex-col p-8 cursor-default transition-colors duration-300 lg:p-10 lg:min-h-75 ${GRID_CLASSES[i]}`}
       style={{ background: "var(--bg-primary)" }}
+      suppressHydrationWarning
     >
 
       {/* Accent wash — fades in on hover */}
@@ -203,6 +204,7 @@ export default function StatsSection() {
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="mono mb-4 text-xs uppercase tracking-[0.22em]"
               style={{ color: "var(--accent)" }}
+              suppressHydrationWarning
             >
               Results I&apos;ve Delivered
             </motion.p>
@@ -215,6 +217,7 @@ export default function StatsSection() {
                 fontSize: "clamp(36px, 5.5vw, 68px)",
                 color: "var(--text-primary)",
               }}
+              suppressHydrationWarning
             >
               Numbers That Matter
             </motion.h2>
@@ -226,6 +229,7 @@ export default function StatsSection() {
             transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-52.5 text-sm leading-[1.95] md:pb-1 md:text-right"
             style={{ color: "var(--text-secondary)" }}
+            suppressHydrationWarning
           >
             Real outcomes.
             <br />

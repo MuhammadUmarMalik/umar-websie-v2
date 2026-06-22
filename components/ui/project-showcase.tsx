@@ -203,8 +203,6 @@ export function ProjectShowcase() {
 
   return (
     <>
-      <style>{`@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}`}</style>
-
       <section
         ref={sectionRef}
         onMouseMove={(e: React.MouseEvent) => {
