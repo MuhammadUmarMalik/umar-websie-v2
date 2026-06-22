@@ -25,7 +25,7 @@ export default function PortfolioPage() {
       />
       {/* Hero */}
       <section className="px-6 pb-16 pt-36 md:px-12 lg:px-20 lg:pt-48">
-        <div className="mx-auto max-w-320">
+        <div className="mx-auto max-w-7xl">
           <p className="mono mb-4 text-sm uppercase text-accent">My Work</p>
           <h1 className="max-w-3xl font-display text-4xl font-bold leading-none md:text-6xl lg:text-7xl">
             Real Projects. Real Results.
@@ -38,7 +38,7 @@ export default function PortfolioPage() {
 
       {/* Filterable grid */}
       <section className="px-6 py-8 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-320">
+        <div className="mx-auto max-w-7xl">
           <PortfolioGrid />
         </div>
       </section>

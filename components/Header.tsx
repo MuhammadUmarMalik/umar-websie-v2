@@ -17,7 +17,6 @@ export function Header() {
   const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [showPortrait, setShowPortrait] = useState(true);
   const [projectIndex, setProjectIndex] = useState(0);
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
@@ -72,14 +71,13 @@ export function Header() {
             "grid grid-cols-[1fr_auto] items-center transition-all duration-300 lg:grid-cols-[1fr_auto_1fr]",
             floatingHeader
               ? "h-13 px-4 sm:h-14 sm:px-5 lg:px-6"
-              : "h-18 px-4 sm:px-8 lg:px-16",
-            open && "bg-transparent"
+              : "h-18 px-4 sm:px-8 lg:px-16"
           )}
         >
           <Link
             href="/"
             aria-label={`${siteConfig.name} home`}
-            className="group flex items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="flex items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             onClick={() => setOpen(false)}
           >
            
@@ -160,15 +158,26 @@ export function Header() {
 
       <AnimatePresence>
         {open ? (
+          <>
+          <motion.div
+            aria-hidden
+            className="fixed inset-0 z-55 bg-background/80 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: menuEase }}
+            onClick={() => setOpen(false)}
+          />
           <motion.div
             id="site-navigation"
             className="fixed bottom-3 left-3 right-3 top-19 z-60 overflow-hidden rounded-3xl border border-border/70 bg-bg-primary/96 text-text-primary shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:top-22 lg:bottom-6 lg:left-6 lg:right-6 lg:top-23 lg:bg-bg-secondary/96"
-            initial={prefersReducedMotion ? false : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-            exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+            initial={prefersReducedMotion ? false : { opacity: 0, clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 1.5rem)" }}
+            exit={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
             transition={prefersReducedMotion ? { duration: 0.12 } : menuTransition}
           >
-            <div className="grid min-h-full gap-6 px-5 py-6 sm:px-7 sm:py-8 lg:grid-cols-[0.9fr_0.48fr_1.28fr] lg:gap-10 lg:px-10 lg:py-10 xl:px-12 xl:py-12">
+            <div className="absolute inset-0 overflow-y-auto overflow-x-hidden rounded-3xl">
+              <div className="grid min-h-full gap-6 px-5 py-6 sm:px-7 sm:py-8 lg:grid-cols-[0.9fr_0.48fr_1.28fr] lg:gap-10 lg:px-10 lg:py-10 xl:px-12 xl:py-12">
               <motion.nav
                 aria-label="Primary navigation"
                 className="flex flex-col items-start self-start lg:gap-0"
@@ -195,7 +204,7 @@ export function Header() {
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         className={cn(
-                          "group flex items-center gap-4 text-[34px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:text-5xl lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
+                          "flex items-center gap-4 text-[34px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:text-5xl lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
                           highlighted ? "text-accent" : "text-text-primary"
                         )}
                         onMouseEnter={() => setHoveredItem(item.href)}
@@ -226,24 +235,23 @@ export function Header() {
               </motion.nav>
 
               <motion.div
-                className="grid content-start gap-7 text-base lg:min-h-110 lg:content-between lg:gap-10 lg:text-[17px]"
+                className="grid content-start gap-4 text-base lg:content-between lg:gap-10 lg:text-[17px]"
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 22 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={prefersReducedMotion ? { duration: 0.12 } : { ...menuTransition, delay: 0.22 }}
               >
-                <div className="space-y-7">
+                <div className="space-y-4">
                   <div>
                     <p className="mono mb-2 text-base uppercase text-text-secondary">Contact</p>
                     <Link
                       href={`mailto:${siteConfig.email}`}
-                      className="text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+                      className="text-xl transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
                     >
                       {siteConfig.email}
                     </Link>
                   </div>
-                  <div className="hidden space-y-2 lg:block">
+                  <div className="hidden space-y-3 lg:block">
                     <p>Website design and development</p>
-                    <br />
                     <p>Business automation workflows</p>
                   </div>
                   <div className="space-y-1">
@@ -284,36 +292,28 @@ export function Header() {
                   onClick={() => setOpen(false)}
                   className="group flex w-full cursor-pointer flex-col text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
                 >
-                  <div className="relative flex h-140 w-full items-end overflow-hidden bg-bg-card xl:h-155">
-                    {showPortrait ? (
+                <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-88 xl:h-104">
+
                       <Image
                         src="/umar-dp.png"
                         alt="Muhammad Umar Malik"
                         fill
                         sizes="(min-width: 768px) 25vw, 100vw"
-                        className="object-cover object-[50%_0%] transition duration-700 group-hover:scale-105"
-                        onError={() => setShowPortrait(false)}
+                        className="object-cover object-center transition duration-700 group-hover:scale-105"
                       />
-                    ) : (
-                      <div className="grid h-full w-full place-items-center p-8 text-center">
-                        <div>
-                          <p className="mono text-xs uppercase text-text-secondary">Add your photo</p>
-                          <p className="mt-3 text-3xl font-semibold leading-none">umar-picture.jpg</p>
-                        </div>
-                      </div>
-                    )}
+                    
                     <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/70 to-transparent" />
-                    <div className="relative p-5 text-white">
+                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
                       <p className="mono text-xs uppercase">Designer + developer</p>
                       <p className="mt-1 text-2xl font-semibold leading-none">Muhammad Umar Malik</p>
                     </div>
                   </div>
-                  <p className="mono mt-4 text-base uppercase lg:text-[17px]">About the studio</p>
+                  <p className="mono mt-4 text-base uppercase lg:text-[17px]">About the umar</p>
                 </Link>
 
                 <div className="flex w-full flex-col">
-                  <div className="relative h-140 w-full overflow-hidden bg-bg-card xl:h-155">
-                    <AnimatePresence>
+                  <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-88 xl:h-104">
+                    <AnimatePresence initial={false}>
                       {featuredProjects.map((project, i) =>
                         i === projectIndex ? (
                           <motion.div
@@ -334,6 +334,7 @@ export function Header() {
                                 src={project.image}
                                 alt={project.title}
                                 fill
+                                priority
                                 sizes="(min-width: 768px) 25vw, 100vw"
                                 className="object-cover object-center transition duration-700 group-hover:scale-105"
                               />
@@ -373,8 +374,10 @@ export function Header() {
                   </div>
                 </div>
               </motion.div>
+              </div>
             </div>
           </motion.div>
+          </>
         ) : null}
       </AnimatePresence>
     </>

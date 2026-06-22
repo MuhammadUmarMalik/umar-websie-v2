@@ -57,7 +57,7 @@ export default function TestimonialsSection() {
   return (
     <section className="relative w-full bg-background px-6 py-24 text-foreground md:px-10 lg:px-14 lg:py-32">
       <div className="relative z-10">
-        <MotionReveal className="mx-auto flex max-w-[540px] flex-col items-center justify-center">
+        <MotionReveal className="mx-auto flex max-w-135 flex-col items-center justify-center">
           <div className="flex justify-center">
             <div className="mono rounded-lg border border-accent/40 bg-accent/10 px-4 py-1 text-xs uppercase text-accent shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_45%,transparent)]">
               Testimonials
@@ -72,7 +72,7 @@ export default function TestimonialsSection() {
           </p>
         </MotionReveal>
 
-        <div className="mx-auto mt-10 flex max-h-[740px] w-full justify-center gap-5 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] sm:gap-6 lg:gap-8">
+        <div className="mx-auto mt-10 flex max-h-185 w-full justify-center gap-5 overflow-hidden mask-[linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] sm:gap-6 lg:gap-8">
           <TestimonialsColumn
             testimonials={firstColumn}
             className="w-full md:flex-1"

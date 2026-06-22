@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CTABanner from "@/sections/CTABanner";
 import HeroSection from "@/sections/HeroSection";
+import PainPointsSection from "@/sections/PainPointsSection";
 import ProcessSection from "@/sections/ProcessSection";
 import Project from "@/sections/projectShowcase";
 import ServicesRevealSection from "@/sections/ServicesRevealSection";
@@ -42,7 +43,9 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema()) }}
       />
       <HeroSection />
+      <PainPointsSection />
       <ServicesRevealSection />
+     
       <ProcessSection />
       <StatsSection />
       <Project />

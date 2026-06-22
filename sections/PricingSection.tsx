@@ -6,7 +6,7 @@ export default function PricingSection() {
   return (
     <section className="relative w-full bg-background px-6 py-24 text-foreground md:px-10 lg:px-14 lg:py-32">
       {/* Section header */}
-      <div className="mx-auto max-w-[540px] text-center">
+      <div className="mx-auto max-w-135 text-center">
         <div className="flex justify-center">
           <div className="mono rounded-lg border border-accent/40 bg-accent/10 px-4 py-1 text-xs uppercase text-accent shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_45%,transparent)]">
             Pricing

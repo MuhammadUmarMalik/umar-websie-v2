@@ -17,14 +17,6 @@ interface WordsPullUpProps {
   className?: string;
 }
 
-// const navItems = [
-//   { label: "About", href: "/about" },
-//   { label: "Work", href: "/portfolio" },
-//   { label: "Services", href: "/services" },
-//   { label: "Pricing", href: "/pricing" },
-//   { label: "Contact", href: "/contact" },
-// ];
-
 const wordContainer: Variants = {
   hidden: {},
   visible: {
@@ -113,10 +105,10 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="min-h-[155svh] bg-background p-2 text-foreground"
+      className="min-h-[155svh] p-2 bg-background text-foreground"
     >
       <motion.div
-        className="sticky top-2 isolate min-h-[calc(100svh-16px)] origin-top overflow-hidden rounded-[28px] bg-bg-primary"
+        className="sticky top-0 isolate min-h-[calc(100svh-16px)]  rounded-2xl origin-top overflow-hidden bg-bg-primary"
         style={{ scale: heroScale, y: heroY }}
       >
         <motion.video
@@ -186,7 +178,7 @@ export default function HeroSection() {
             <div className="flex items-end gap-5">
               <WordsPullUp
                 text="I Fix What's Costing Your Business."
-                className="max-w-7xl font-display text-[16vw] font-bold leading-[0.97] text-[#ffffff] sm:text-[12vw] lg:text-[112px] xl:text-[132px]"
+                className="max-w-7xl font-display text-4sxl font-bold leading-[0.97] text-[#ffffff] sm:text-xl lg:text-6xl xl:text-7xl"
               />
             </div>
           </div>

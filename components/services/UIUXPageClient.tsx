@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
@@ -203,7 +203,7 @@ export default function UIUXPageClient() {
     <main>
       {/* ── Hero ── */}
       <section className="px-6 pt-32 pb-20 md:px-10 lg:px-14 lg:pt-40">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <nav aria-label="Breadcrumb">
               <ol className="mono flex items-center gap-2 text-xs text-text-secondary">
@@ -268,7 +268,7 @@ export default function UIUXPageClient() {
 
       {/* ── Pain points ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
               Why design matters
@@ -301,7 +301,7 @@ export default function UIUXPageClient() {
 
       {/* ── What I design ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
               Project types
@@ -325,7 +325,7 @@ export default function UIUXPageClient() {
 
       {/* ── Deliverables ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
               Deliverables
@@ -353,7 +353,7 @@ export default function UIUXPageClient() {
 
       {/* ── Process ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
               Design process
@@ -387,7 +387,7 @@ export default function UIUXPageClient() {
 
       {/* ── Principle callout ── */}
       <section className="px-6 py-16 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px]">
+        <div className="mx-auto max-w-7xl">
           <div className="rounded-2xl border border-border bg-bg-card p-8 md:p-12">
             <FadeUp>
               <span className="mono text-xs uppercase tracking-widest text-text-secondary">
@@ -422,7 +422,7 @@ export default function UIUXPageClient() {
 
       {/* ── FAQ ── */}
       <section className="px-6 py-20 md:px-10 lg:px-14">
-        <div className="mx-auto max-w-[1280px] lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
+        <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">FAQ</span>
             <h2 className="mt-3 font-display text-4xl font-bold italic text-text-primary md:text-5xl">
