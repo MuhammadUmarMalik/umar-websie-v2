@@ -17,7 +17,6 @@ export function Header() {
   const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [showPortrait, setShowPortrait] = useState(true);
   const [projectIndex, setProjectIndex] = useState(0);
   const pathname = usePathname();
   const prefersReducedMotion = useReducedMotion();
@@ -72,14 +71,13 @@ export function Header() {
             "grid grid-cols-[1fr_auto] items-center transition-all duration-300 lg:grid-cols-[1fr_auto_1fr]",
             floatingHeader
               ? "h-13 px-4 sm:h-14 sm:px-5 lg:px-6"
-              : "h-18 px-4 sm:px-8 lg:px-16",
-            open && "bg-transparent"
+              : "h-18 px-4 sm:px-8 lg:px-16"
           )}
         >
           <Link
             href="/"
             aria-label={`${siteConfig.name} home`}
-            className="group flex items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="flex items-center gap-2.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             onClick={() => setOpen(false)}
           >
            
@@ -160,15 +158,25 @@ export function Header() {
 
       <AnimatePresence>
         {open ? (
+          <>
+          <motion.div
+            aria-hidden
+            className="fixed inset-0 z-55 bg-background/80 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: menuEase }}
+            onClick={() => setOpen(false)}
+          />
           <motion.div
             id="site-navigation"
-            className="fixed bottom-3 left-3 right-3 top-19 z-60 rounded-3xl border border-border/70 bg-bg-primary/96 text-text-primary shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:top-22 lg:bottom-6 lg:left-6 lg:right-6 lg:top-23 lg:bg-bg-secondary/96"
+            className="fixed bottom-3 left-3 right-3 top-19 z-60 overflow-hidden rounded-3xl border border-border/70 bg-bg-primary/96 text-text-primary shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:top-22 lg:bottom-6 lg:left-6 lg:right-6 lg:top-23 lg:bg-bg-secondary/96"
             initial={prefersReducedMotion ? false : { opacity: 0, clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
             animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 1.5rem)" }}
             exit={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
             transition={prefersReducedMotion ? { duration: 0.12 } : menuTransition}
           >
-            <div className="h-full overflow-y-auto overflow-x-hidden rounded-3xl">
+            <div className="absolute inset-0 overflow-y-auto overflow-x-hidden rounded-3xl">
               <div className="grid min-h-full gap-6 px-5 py-6 sm:px-7 sm:py-8 lg:grid-cols-[0.9fr_0.48fr_1.28fr] lg:gap-10 lg:px-10 lg:py-10 xl:px-12 xl:py-12">
               <motion.nav
                 aria-label="Primary navigation"
@@ -196,7 +204,7 @@ export function Header() {
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         className={cn(
-                          "group flex items-center gap-4 text-[34px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:text-5xl lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
+                          "flex items-center gap-4 text-[34px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:text-5xl lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
                           highlighted ? "text-accent" : "text-text-primary"
                         )}
                         onMouseEnter={() => setHoveredItem(item.href)}
@@ -242,9 +250,8 @@ export function Header() {
                       {siteConfig.email}
                     </Link>
                   </div>
-                  <div className="hidden space-y-2 lg:block">
+                  <div className="hidden space-y-3 lg:block">
                     <p>Website design and development</p>
-                    <br />
                     <p>Business automation workflows</p>
                   </div>
                   <div className="space-y-1">
@@ -257,8 +264,7 @@ export function Header() {
                     <Link href={siteConfig.socials.github.href} target="_blank" rel="noopener noreferrer" className="block text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none">
                       {siteConfig.socials.github.label}
                     </Link>
-                    </div>
-                    <br/>
+                  </div>
                   <p className="mono text-base uppercase text-text-secondary">Working globally</p>
                 </div>
 
@@ -293,8 +299,7 @@ export function Header() {
                         alt="Muhammad Umar Malik"
                         fill
                         sizes="(min-width: 768px) 25vw, 100vw"
-                        className="object-cover object-[50%_0%] transition duration-700 group-hover:scale-105"
-                        onError={() => setShowPortrait(false)}
+                        className="object-cover object-center transition duration-700 group-hover:scale-105"
                       />
                     
                     <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/70 to-transparent" />
@@ -372,6 +377,7 @@ export function Header() {
               </div>
             </div>
           </motion.div>
+          </>
         ) : null}
       </AnimatePresence>
     </>
