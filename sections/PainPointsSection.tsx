@@ -76,7 +76,7 @@ function PainCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.7, delay: i * 0.07, ease }}
-      className="group relative flex min-h-72 cursor-default flex-col overflow-hidden rounded-2xl p-8 transition-colors duration-300 lg:min-h-80 lg:p-10"
+      className="group relative flex cursor-default flex-col overflow-hidden rounded-2xl p-5 transition-colors duration-300 sm:p-6 sm:min-h-64 md:min-h-72 lg:min-h-80 lg:p-10"
       style={{ background: "var(--bg-primary)" }}
       suppressHydrationWarning
     >
@@ -166,7 +166,7 @@ function PainCard({
 export default function PainPointsSection() {
   return (
     <section
-      className="relative overflow-hidden mt-4 p-6 pb-24 pt-20 md:px-10 md:pt-24 lg:px-14 lg:pb-32 lg:pt-28"
+      className="relative overflow-hidden mt-4 px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-18 md:px-10 md:pt-24 lg:px-14 lg:pb-32 lg:pt-28 2xl:px-20 2xl:py-40"
       style={{ background: "var(--bg-secondary)" }}
     >
       {/* Dot-grid texture */}
@@ -181,7 +181,7 @@ export default function PainPointsSection() {
       />
 
       {/* ── Section header ── */}
-      <div className="relative mb-16 flex flex-col gap-5 md:mb-20 md:flex-row md:items-end md:justify-between">
+      <div className="relative mb-10 flex flex-col gap-4 sm:mb-14 md:mb-20 md:flex-row md:items-end md:justify-between">
         <div>
           <motion.p
             initial={{ opacity: 0, x: -16 }}

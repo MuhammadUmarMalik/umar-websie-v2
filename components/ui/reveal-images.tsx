@@ -12,13 +12,13 @@ interface ShowImageListItemProps {
 
 function RevealImageListItem({ text, images }: ShowImageListItemProps) {
   const container =
-    "absolute right-4 top-6 z-40 h-20 w-16 sm:right-8 sm:top-8 sm:h-24 sm:w-20 lg:right-12 lg:top-10 lg:h-32 lg:w-28";
+    "absolute right-3 top-5 z-40 h-16 w-12 sm:right-6 sm:top-7 sm:h-20 sm:w-16 md:right-8 md:top-8 md:h-24 md:w-20 lg:right-12 lg:top-10 lg:h-32 lg:w-28";
   const effect =
     "relative h-full w-full scale-0 overflow-hidden rounded-md opacity-0 shadow-none transition-all delay-100 duration-500 group-hover:scale-100 group-hover:opacity-100 group-hover:shadow-xl";
 
   return (
     <div className="group relative w-full overflow-visible border-b border-border/60 py-6 sm:py-8 lg:py-10">
-      <h4 className="mono pr-24 font-display text-[clamp(2rem,6vw,4.75rem)] font-black leading-none text-text-primary transition-all duration-500 group-hover:opacity-40 sm:pr-32 lg:pr-48">
+      <h4 className="mono pr-16 font-display text-[clamp(1.5rem,5.5vw,4.75rem)] font-black leading-none text-text-primary transition-all duration-500 group-hover:opacity-40 sm:pr-24 md:pr-28 lg:pr-48">
         {text}
       </h4>
       <div className={container}>
@@ -133,7 +133,7 @@ function RevealImageList() {
   ];
 
   return (
-    <div className="mt-12 flex w-full flex-col rounded-sm bg-bg-secondary px-10 py-4">
+    <div className="mt-12 flex w-full flex-col rounded-sm bg-bg-secondary px-4 py-4 sm:px-6 md:px-10">
       <h3 className="mono text-sm font-black uppercase text-text-secondary">
         Our services
       </h3>

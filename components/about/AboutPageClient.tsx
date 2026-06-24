@@ -281,30 +281,30 @@ export default function AboutPageClient() {
         {/* Inview anchor */}
         <div ref={heroRevealRef} className="pointer-events-none absolute top-1/3" />
 
-        {/* ── DESKTOP LAYOUT ──────────────────────────────────────── */}
-        <div className="hidden items-center lg:flex">
-          <div className="mx-auto grid w-full max-w-7xl grid-cols-[1fr_auto] items-center gap-12 px-10 py-24 xl:gap-16 xl:px-16">
+        {/* ── UNIFIED RESPONSIVE LAYOUT ───────────────────────────── */}
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-10 lg:px-10 xl:px-16">
+          <div className="grid grid-cols-1 gap-8 pt-24 pb-14 sm:gap-10 sm:pt-32 sm:pb-16 md:pt-40 md:pb-20 [@media(orientation:landscape)_and_(max-width:1023px)]:grid-cols-[1fr_auto] [@media(orientation:landscape)_and_(max-width:1023px)]:items-center [@media(orientation:landscape)_and_(max-width:1023px)]:gap-6 [@media(orientation:landscape)_and_(max-width:1023px)]:pt-20 [@media(orientation:landscape)_and_(max-width:1023px)]:pb-6 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12 lg:pt-36 lg:pb-24 xl:gap-16 xl:pt-44 xl:pb-28">
 
-            {/* Left: headline + meta */}
+            {/* Text: headline + meta */}
             <motion.div
               initial={{ opacity: 0, x: -24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col justify-center"
             >
-              <p className="mono mb-5 text-[11px] uppercase tracking-[0.22em] text-accent">
+              <p className="mono mb-4 text-[11px] uppercase tracking-[0.22em] text-accent sm:mb-5">
                 Full-Stack Engineer &amp; Designer
               </p>
-              <h1 className="font-display text-5xl font-bold italic leading-[1.04] tracking-tight text-text-primary xl:text-6xl">
+              <h1 className="font-display text-4xl font-bold italic leading-[1.04] tracking-tight text-text-primary sm:text-5xl lg:text-5xl xl:text-6xl">
                 I Build Things That Fix
                 <br />
                 <span className="text-accent">Real Problems.</span>
               </h1>
-              <p className="mt-6 max-w-[42ch] text-base leading-7 text-text-secondary">
+              <p className="mt-5 max-w-[42ch] text-base leading-7 text-text-secondary sm:mt-6">
                 Full-stack engineer, UI/UX designer, and automation builder
                 helping businesses fix what is broken and build what is missing.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-7 flex flex-wrap gap-3 sm:mt-8">
                 <Link
                   href="/contact"
                   className="group inline-flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-accent-foreground transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
@@ -322,7 +322,7 @@ export default function AboutPageClient() {
                   See Work
                 </Link>
               </div>
-              <div className="mt-10 flex gap-10 border-t border-border pt-8">
+              <div className="mt-8 flex gap-8 border-t border-border pt-7 sm:mt-10 sm:gap-10 sm:pt-8">
                 {[
                   { value: "12+", label: "Projects Shipped" },
                   { value: "2+", label: "Years Building" },
@@ -340,14 +340,14 @@ export default function AboutPageClient() {
               </div>
             </motion.div>
 
-            {/* Right: photo */}
+            {/* Photo */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
               className="flex items-center justify-center"
             >
-              <div className="relative h-125 w-95 overflow-hidden rounded-3xl xl:h-140 xl:w-105">
+              <div className="relative h-80 max-h-[50svh] w-full overflow-hidden rounded-2xl sm:h-96 sm:rounded-3xl [@media(orientation:landscape)_and_(max-width:1023px)]:h-[calc(100svh-7rem)] [@media(orientation:landscape)_and_(max-width:1023px)]:max-h-none [@media(orientation:landscape)_and_(max-width:1023px)]:w-44 lg:max-h-none lg:h-125 lg:w-95 xl:h-140 xl:w-105">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/umar-dp.png"
@@ -361,76 +361,10 @@ export default function AboutPageClient() {
 
           </div>
         </div>
-
-        {/* ── MOBILE / TABLET LAYOUT ──────────────────────────────── */}
-        <div className="flex flex-col items-center px-6 pb-20 pt-32 text-center lg:hidden">
-          <motion.h1
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display text-5xl font-bold italic leading-[1.06] tracking-tight text-text-primary sm:text-6xl"
-          >
-            Muhammad
-            <br />
-            <span className="text-accent">Umar Malik</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
-            className="mt-5 max-w-[32ch] text-base leading-7 text-text-secondary"
-          >
-            Full-stack engineer, designer, and automation builder helping businesses fix what is broken.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
-            className="mt-8 flex flex-wrap justify-center gap-3"
-          >
-            <Link
-              href="/contact"
-              className="group inline-flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-accent-foreground transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-            >
-              Work With Me
-              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-            </Link>
-            <Link
-              href="/portfolio"
-              className="mono inline-flex h-11 items-center rounded-full border border-border px-6 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent hover:text-accent active:scale-[0.98]"
-            >
-              See Work
-            </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.32 }}
-            className="mt-10 flex gap-10 border-t border-border pt-8"
-          >
-            {[
-              { value: "12+", label: "Projects" },
-              { value: "2+", label: "Years" },
-              { value: "4+", label: "Domains" },
-            ].map((s) => (
-              <div key={s.label}>
-                <p className="font-display text-3xl font-bold italic leading-none text-text-primary">
-                  {s.value}
-                </p>
-                <p className="mono mt-1.5 text-[10px] uppercase tracking-widest text-text-secondary">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
       </section>
 
       {/* ── STORY ─────────────────────────────────────────────────── */}
-      <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
+      <section className="border-t border-border px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:px-20 2xl:px-28 2xl:py-28">
         <div className="mx-auto max-w-7xl">
           <div
             ref={storyRevealRef}
@@ -498,7 +432,7 @@ export default function AboutPageClient() {
       </section>
 
       {/* ── TECH STACK ────────────────────────────────────────────── */}
-      <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
+      <section className="border-t border-border px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:px-20 2xl:px-28 2xl:py-28">
         <div className="mx-auto max-w-7xl" ref={techRevealRef}>
           {/* Header */}
           <motion.div
@@ -563,7 +497,7 @@ export default function AboutPageClient() {
       </section>
 
       {/* ── PROCESS ───────────────────────────────────────────────── */}
-      <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
+      <section className="border-t border-border px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:px-20 2xl:px-28 2xl:py-28">
         <div className="mx-auto max-w-7xl" ref={processRevealRef}>
           {/* Header */}
           <motion.div
@@ -625,7 +559,7 @@ export default function AboutPageClient() {
       </section>
 
       {/* ── VALUES ────────────────────────────────────────────────── */}
-      <section className="border-t border-border px-6 py-24 md:px-12 lg:px-20">
+      <section className="border-t border-border px-4 py-16 sm:px-6 sm:py-20 md:px-12 lg:px-20 2xl:px-28 2xl:py-28">
         <div className="mx-auto max-w-7xl" ref={valuesRevealRef}>
           <motion.div
             initial="hidden"

@@ -37,10 +37,10 @@ export default function PricingPage() {
         }}
       />
       {/* Hero */}
-      <section className="px-6 pb-16 pt-36 md:px-12 lg:px-20 lg:pt-48">
+      <section className="px-4 pb-12 pt-28 sm:px-6 sm:pt-32 md:px-12 lg:px-20 lg:pt-48 2xl:px-28">
         <div className="mx-auto max-w-7xl">
           <p className="mono mb-4 text-sm uppercase tracking-widest text-accent">Pricing</p>
-          <h1 className="max-w-3xl font-display text-4xl font-bold leading-tight md:text-6xl lg:text-7xl">
+          <h1 className="max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl">
             Simple. Transparent.
             <br className="hidden md:block" /> No Surprises.
           </h1>
@@ -52,9 +52,9 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Tiers */}
-      <section className="px-6 pb-8 pt-4 md:px-12 lg:px-20">
+      <section className="px-4 pb-6 pt-4 sm:px-6 md:px-12 lg:px-20 2xl:px-28">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3">
             {pricingPackages.map((plan) => (
               <div
                 key={plan.name}
@@ -152,7 +152,7 @@ export default function PricingPage() {
       </section>
 
       {/* Add-ons */}
-      <section className="border-t border-border px-6 py-20 md:px-12 lg:px-20">
+      <section className="border-t border-border px-4 py-14 sm:px-6 sm:py-16 md:px-12 lg:px-20 2xl:px-28">
         <div className="mx-auto max-w-7xl">
           <p className="mono mb-2 text-sm uppercase tracking-widest text-accent">Add-Ons</p>
           <h2 className="mb-10 font-display text-3xl font-bold md:text-4xl">
@@ -190,7 +190,7 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="border-t border-border px-6 py-20 md:px-12 lg:px-20">
+      <section className="border-t border-border px-4 py-14 sm:px-6 sm:py-16 md:px-12 lg:px-20 2xl:px-28">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 md:grid-cols-[280px_1fr]">
             {/* Left: heading */}

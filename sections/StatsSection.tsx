@@ -101,7 +101,7 @@ function StatCard({
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative flex min-h-70 flex-col p-8 cursor-default transition-colors duration-300 lg:p-10 lg:min-h-75 ${GRID_CLASSES[i]}`}
+      className={`group relative flex min-h-60 flex-col p-5 cursor-default transition-colors duration-300 sm:min-h-65 sm:p-7 lg:p-10 lg:min-h-75 ${GRID_CLASSES[i]}`}
       style={{ background: "var(--bg-primary)" }}
       suppressHydrationWarning
     >
@@ -174,7 +174,7 @@ export default function StatsSection() {
 
   return (
     <section
-      className="relative overflow-hidden px-6 py-24 md:px-10 lg:px-14 lg:py-32"
+      className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-20 md:px-10 lg:px-14 lg:py-32 2xl:px-20 2xl:py-40"
       style={{ background: "var(--bg-secondary)" }}
     >
       {/* Subtle dot-grid texture */}
@@ -195,7 +195,7 @@ export default function StatsSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={headerInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16 flex flex-col gap-5 md:mb-20 md:flex-row md:items-end md:justify-between"
+          className="mb-10 flex flex-col gap-4 sm:mb-14 md:mb-20 md:flex-row md:items-end md:justify-between"
         >
           <div>
             <motion.p

@@ -124,14 +124,14 @@ export function PortfolioGrid() {
       </div>
 
       {/* Project grid */}
-      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {filtered.map((project) => (
           <article
             key={project.title}
             className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-bg-card transition-all duration-300 hover:border-accent/50"
           >
             {/* Thumbnail */}
-            <div className="relative h-52 overflow-hidden bg-bg-secondary">
+            <div className="relative h-44 overflow-hidden bg-bg-secondary sm:h-48 md:h-52 xl:h-56">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={project.image}

@@ -41,13 +41,13 @@ export default function ContactPage() {
       />
 
       {/* Hero */}
-      <section className="px-6 pb-16 pt-36 md:px-12 lg:px-20 lg:pt-48">
+      <section className="px-4 pb-12 pt-28 sm:px-6 sm:pt-32 md:px-12 lg:px-20 lg:pt-48 2xl:px-28">
         <div className="mx-auto max-w-screen-2xl">
           <p className="mono mb-4 text-sm uppercase text-accent">Contact</p>
-          <h1 className="max-w-3xl font-display text-4xl font-bold leading-none md:text-6xl lg:text-7xl">
+          <h1 className="max-w-3xl font-display text-3xl font-bold leading-none sm:text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl">
             Let&apos;s Build Something Together.
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-text-secondary">
+          <p className="mt-5 max-w-xl text-base leading-7 text-text-secondary sm:text-lg sm:leading-8">
             Tell me about your business and what you&apos;re trying to fix. I&apos;ll get back to
             you within 24 hours.
           </p>
@@ -55,8 +55,8 @@ export default function ContactPage() {
       </section>
 
       {/* Form + Info */}
-      <section className="px-6 py-16 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-screen-2xl grid gap-12 lg:grid-cols-[1.4fr_1fr]">
+      <section className="px-4 py-12 sm:px-6 sm:py-16 md:px-12 lg:px-20 2xl:px-28">
+        <div className="mx-auto max-w-screen-2xl grid gap-10 sm:gap-12 lg:grid-cols-[1.4fr_1fr]">
           {/* Form */}
           <ContactForm />
 
