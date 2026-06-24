@@ -215,7 +215,7 @@ export function ProjectShowcase() {
         {/* ── Floating preview card ─────────────────────────────── */}
         {/* position:absolute (not fixed) so Lenis v1 transform on <html> doesn't displace the card */}
         <div
-          className="pointer-events-none absolute z-50"
+          className="pointer-events-none absolute z-50 hidden lg:block"
           style={{
             left: 0,
             top: 0,
@@ -318,11 +318,11 @@ export function ProjectShowcase() {
                   }}
                 />
 
-                <div className="relative flex items-start justify-between gap-4">
+                <div className="relative flex items-start justify-between gap-3 sm:gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="inline-flex items-center gap-2">
                       <h3
-                        className="font-medium text-lg tracking-tight"
+                        className="font-medium text-base tracking-tight sm:text-lg"
                         style={{ color: "var(--text-primary)" }}
                       >
                         <span className="relative">

@@ -28,8 +28,8 @@ export function Footer() {
     <footer className="border-t border-border bg-bg-primary">
 
 {/* ── Main grid ───────────────────────────────────────── */}
-      <div className="px-6 py-14 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-7xl grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      <div className="px-4 py-12 sm:px-6 sm:py-14 md:px-12 lg:px-20 2xl:px-28 2xl:py-20">
+        <div className="mx-auto max-w-7xl grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8 2xl:gap-12">
 
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -114,7 +114,7 @@ export function Footer() {
       </div>
 
       {/* ── Bottom bar ──────────────────────────────────────── */}
-      <div className="border-t border-border px-6 py-6 md:px-12 lg:px-20">
+      <div className="border-t border-border px-4 py-5 sm:px-6 sm:py-6 md:px-12 lg:px-20 2xl:px-28">
         <div className="mx-auto max-w-7xl flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p className="mono text-xs uppercase text-text-secondary">
             © {new Date().getFullYear()} Muhammad Umar Malik. All rights reserved.

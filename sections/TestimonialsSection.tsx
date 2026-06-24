@@ -55,7 +55,7 @@ const thirdColumn = testimonials.slice(4, 6);
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative w-full bg-background px-6 py-24 text-foreground md:px-10 lg:px-14 lg:py-32">
+    <section className="relative w-full bg-background px-4 py-16 text-foreground sm:px-6 sm:py-20 md:px-10 lg:px-14 lg:py-32 2xl:px-20 2xl:py-40">
       <div className="relative z-10">
         <MotionReveal className="mx-auto flex max-w-135 flex-col items-center justify-center">
           <div className="flex justify-center">
@@ -64,7 +64,7 @@ export default function TestimonialsSection() {
             </div>
           </div>
 
-          <h2 className="mt-5 text-center font-display text-5xl font-bold leading-[0.95] sm:text-6xl md:text-7xl">
+          <h2 className="mt-5 text-center font-display text-4xl font-bold leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl">
             What clients say
           </h2>
           <p className="mt-5 text-center opacity-75">

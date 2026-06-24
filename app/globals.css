@@ -517,4 +517,45 @@ select {
   html {
     @apply font-sans;
   }
+
+  /* Prevent horizontal overflow on all screens */
+  body, html {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Improve touch targets on mobile */
+  @media (max-width: 639px) {
+    button, a, [role="button"] {
+      min-height: 44px;
+    }
+  }
+
+  /* Landscape phone: tighten vertical spacing */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .hero-section {
+      min-height: 100svh;
+    }
+  }
+}
+
+/* =========================
+   Responsive Shadow Utility
+========================= */
+
+.shadow-gold {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 8px 32px -4px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+/* =========================
+   Container Responsive Padding
+========================= */
+
+/* For extra-small screens (<375px), tighten all section padding */
+@media (max-width: 374px) {
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
 }

@@ -16,7 +16,7 @@ export default function CTABanner() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="px-6 py-20 md:px-10 lg:px-14 lg:py-28">
+    <section className="px-4 py-14 sm:px-6 sm:py-18 md:px-10 lg:px-14 lg:py-28 2xl:px-20 2xl:py-36">
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 28 }}
@@ -47,7 +47,7 @@ export default function CTABanner() {
 
         <div className="relative z-10 flex flex-col lg:flex-row">
           {/* ── Left — headline ── */}
-          <div className="flex flex-1 flex-col justify-between p-8 md:p-12 lg:p-14">
+          <div className="flex flex-1 flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14">
            
             <div className="mt-8 lg:mt-auto">
               <motion.p
@@ -63,7 +63,7 @@ export default function CTABanner() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.85, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-5xl font-bold italic leading-none tracking-tight text-text-primary md:text-6xl lg:text-[5.25rem]"
+                className="font-display text-4xl font-bold italic leading-none tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-[5.25rem] 2xl:text-[6rem]"
               >
                 Your Business
                 <br />
@@ -98,7 +98,7 @@ export default function CTABanner() {
             initial={{ opacity: 0, x: 20 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col justify-between p-8 md:p-12 lg:w-115 lg:p-14"
+            className="flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:w-115 lg:p-14"
           >
             <div>
               <p className="text-lg leading-relaxed text-text-secondary">

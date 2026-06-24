@@ -144,7 +144,7 @@ export default function ServicesPageClient() {
   return (
     <main>
       {/* ── Hero ── */}
-      <section className="px-6 pt-32 pb-20 md:px-10 lg:px-14 lg:pt-40">
+      <section className="px-4 pt-28 pb-14 sm:px-6 sm:pt-32 sm:pb-16 md:px-10 lg:px-14 lg:pt-40 2xl:px-20">
         <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-accent">
@@ -152,7 +152,7 @@ export default function ServicesPageClient() {
             </span>
           </FadeUp>
           <FadeUp delay={0.1}>
-            <h1 className="mt-4 font-display text-5xl font-bold italic leading-[1.05] tracking-tight text-text-primary md:text-6xl lg:text-7xl">
+            <h1 className="mt-4 font-display text-4xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl">
               Services Built Around
               <br />
               <span className="not-italic text-accent">Your Business Problem.</span>
@@ -187,7 +187,7 @@ export default function ServicesPageClient() {
       </section>
 
       {/* ── Pain points ── */}
-      <section className="px-6 py-16 md:px-10 lg:px-14">
+      <section className="px-4 py-12 sm:px-6 sm:py-16 md:px-10 lg:px-14 2xl:px-20">
         <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
@@ -209,7 +209,7 @@ export default function ServicesPageClient() {
       </section>
 
       {/* ── Service cards ── */}
-      <section className="px-6 py-20 md:px-10 lg:px-14">
+      <section className="px-4 py-14 sm:px-6 sm:py-16 md:px-10 lg:px-14 2xl:px-20">
         <div className="mx-auto max-w-7xl">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">
@@ -260,7 +260,7 @@ export default function ServicesPageClient() {
       </section>
 
       {/* ── Why me ── */}
-      <section className="px-6 py-20 md:px-10 lg:px-14">
+      <section className="px-4 py-14 sm:px-6 sm:py-16 md:px-10 lg:px-14 2xl:px-20">
         <div className="mx-auto max-w-7xl">
           <div className="rounded-2xl border border-border bg-bg-card p-8 md:p-12 lg:p-14">
             <FadeUp>
@@ -294,7 +294,7 @@ export default function ServicesPageClient() {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="px-6 py-20 md:px-10 lg:px-14">
+      <section className="px-4 py-14 sm:px-6 sm:py-16 md:px-10 lg:px-14 2xl:px-20">
         <div className="mx-auto max-w-7xl lg:grid lg:grid-cols-[1fr_2fr] lg:gap-16">
           <FadeUp>
             <span className="mono text-xs uppercase tracking-widest text-text-secondary">FAQ</span>

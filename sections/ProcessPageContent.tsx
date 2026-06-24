@@ -149,7 +149,7 @@ function StepSection({
         />
       </div>
 
-      <div className="relative overflow-hidden px-6 py-20 md:px-10 lg:px-14 lg:py-28">
+      <div className="relative overflow-hidden px-4 py-14 sm:px-6 sm:py-16 md:px-10 lg:px-14 lg:py-28 2xl:px-20">
         {/* Watermark number */}
         <motion.span
           aria-hidden
@@ -386,7 +386,7 @@ export default function ProcessPageContent() {
   return (
     <main className="bg-background text-foreground">
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="px-6 pb-20 pt-36 md:px-10 lg:px-14 lg:pb-28 lg:pt-52">
+      <section className="px-4 pb-16 pt-28 sm:px-6 sm:pt-32 md:px-10 lg:px-14 lg:pb-28 lg:pt-48 2xl:px-20">
         <div ref={heroRef} className="mx-auto max-w-7xl">
           {/* Overline */}
           <motion.div
@@ -491,7 +491,7 @@ export default function ProcessPageContent() {
       {/* ── Principles ────────────────────────────────────────────────────── */}
       <section
         ref={principlesRef}
-        className="border-t px-6 py-24 md:px-10 lg:px-14 lg:py-32"
+        className="border-t px-4 py-16 sm:px-6 sm:py-20 md:px-10 lg:px-14 lg:py-32 2xl:px-20"
         style={{ borderColor: "var(--border)" }}
       >
         <div className="mx-auto max-w-7xl">
@@ -555,7 +555,7 @@ export default function ProcessPageContent() {
 
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section
-        className="border-t px-6 py-24 md:px-10 lg:px-14 lg:py-32"
+        className="border-t px-4 py-16 sm:px-6 sm:py-20 md:px-10 lg:px-14 lg:py-32 2xl:px-20"
         style={{ borderColor: "var(--border)" }}
       >
         <div className="mx-auto max-w-7xl">

@@ -112,14 +112,14 @@ export function StackShowcase() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <section className="grid min-h-[calc(100svh-72px)] w-full grid-cols-1 items-center gap-10 px-6 py-20 md:grid-cols-[1fr_minmax(300px,420px)] md:px-12 lg:px-20">
+      <section className="grid min-h-[calc(100svh-72px)] w-full grid-cols-1 items-center gap-10 px-4 py-14 sm:px-6 sm:py-16 md:grid-cols-[1fr_minmax(300px,420px)] md:px-12 lg:px-20 2xl:px-28">
         <div className="max-w-3xl">
           <p className="mono mb-4 text-sm uppercase text-accent">
             Software Engineer & Designer
           </p>
           <h1
             ref={headingRef}
-            className="font-display text-5xl font-bold leading-[0.95] text-balance md:text-7xl lg:text-8xl"
+            className="font-display text-4xl font-bold leading-[0.95] text-balance sm:text-5xl md:text-7xl lg:text-8xl"
           >
             I Fix What&apos;s Costing Your Business.
           </h1>
@@ -177,7 +177,7 @@ export function StackShowcase() {
           ))}
         </div>
       </section>
-      <section className="px-6 py-20 md:px-12 lg:px-20 lg:py-30">
+      <section className="px-4 py-14 sm:px-6 sm:py-16 md:px-12 lg:px-20 lg:py-30 2xl:px-28">
         <div className="mx-auto max-w-7xl">
           <p className="mono text-sm uppercase text-accent">Services</p>
           <h2 className="mt-3 max-w-3xl text-3xl font-semibold leading-tight md:text-5xl">

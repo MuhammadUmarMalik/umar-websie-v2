@@ -70,7 +70,7 @@ function StepItem({
         />
       </div>
 
-      <div className="relative overflow-hidden py-16 md:py-20 lg:py-24">
+      <div className="relative overflow-hidden py-10 md:py-18 lg:py-24">
         {/* Giant watermark number — bleeds off opposite side from main text */}
         <motion.span
           initial={{ opacity: 0 }}
@@ -214,7 +214,7 @@ export default function ProcessSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative px-6 py-28 md:px-10 lg:px-14 lg:py-36"
+      className="relative px-4 py-20 sm:px-6 sm:py-24 md:px-10 lg:px-14 lg:py-36 2xl:px-20 2xl:py-44"
     >
       <div>
         {/* Header */}
@@ -223,7 +223,7 @@ export default function ProcessSection() {
           initial={{ opacity: 0, y: 28 }}
           animate={headingInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-20 flex flex-col gap-5 md:mb-24 md:flex-row md:items-end md:justify-between"
+          className="mb-12 flex flex-col gap-4 sm:mb-16 md:mb-24 md:flex-row md:items-end md:justify-between"
         >
           <div>
             <motion.p

@@ -56,7 +56,7 @@ export function Header() {
           "z-70 transition-all duration-300",
           floatingHeader
             ? cn(
-                "fixed left-3 right-3 top-3 rounded-2xl border bg-bg-primary/90 text-text-primary backdrop-blur-xl sm:left-4 sm:right-4 sm:top-4 lg:left-6 lg:right-6",
+                "fixed left-3 right-3 top-3 rounded-2xl border bg-bg-primary/90 text-text-primary backdrop-blur-xl sm:left-4 sm:right-4 sm:top-4 lg:left-6 lg:right-6 2xl:left-8 2xl:right-8",
                 open
                   ? "border-border/70 shadow-none"
                   : "border-border/60 shadow-[0_10px_32px_rgba(0,0,0,0.08)]",
@@ -70,8 +70,8 @@ export function Header() {
           className={cn(
             "grid grid-cols-[1fr_auto] items-center transition-all duration-300 lg:grid-cols-[1fr_auto_1fr]",
             floatingHeader
-              ? "h-13 px-4 sm:h-14 sm:px-5 lg:px-6"
-              : "h-18 px-4 sm:px-8 lg:px-16"
+              ? "h-13 px-4 sm:h-14 sm:px-5 lg:px-6 2xl:px-8"
+              : "h-16 px-4 sm:h-18 sm:px-8 lg:px-16 2xl:px-24"
           )}
         >
           <Link
@@ -170,14 +170,14 @@ export function Header() {
           />
           <motion.div
             id="site-navigation"
-            className="fixed bottom-3 left-3 right-3 top-19 z-60 overflow-hidden rounded-3xl border border-border/70 bg-bg-primary/96 text-text-primary shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:top-22 lg:bottom-6 lg:left-6 lg:right-6 lg:top-23 lg:bg-bg-secondary/96"
+            className="fixed bottom-3 left-3 right-3 top-19 z-60 overflow-hidden rounded-3xl border border-border/70 bg-bg-primary/96 text-text-primary shadow-[0_18px_55px_rgba(0,0,0,0.10)] backdrop-blur-xl sm:bottom-4 sm:left-4 sm:right-4 sm:top-22 lg:bottom-6 lg:left-6 lg:right-6 lg:top-23 lg:bg-bg-secondary/96 2xl:bottom-8 2xl:left-8 2xl:right-8"
             initial={prefersReducedMotion ? false : { opacity: 0, clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
             animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 1.5rem)" }}
             exit={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
             transition={prefersReducedMotion ? { duration: 0.12 } : menuTransition}
           >
             <div className="absolute inset-0 overflow-y-auto overflow-x-hidden rounded-3xl">
-              <div className="grid min-h-full gap-6 px-5 py-6 sm:px-7 sm:py-8 lg:grid-cols-[0.9fr_0.48fr_1.28fr] lg:gap-10 lg:px-10 lg:py-10 xl:px-12 xl:py-12">
+              <div className="grid min-h-full gap-6 px-5 py-6 sm:px-7 sm:py-8 lg:grid-cols-[0.9fr_0.48fr_1.28fr] lg:gap-10 lg:px-10 lg:py-10 xl:px-12 xl:py-12 2xl:px-16 2xl:py-14">
               <motion.nav
                 aria-label="Primary navigation"
                 className="flex flex-col items-start self-start lg:gap-0"
@@ -204,7 +204,7 @@ export function Header() {
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         className={cn(
-                          "flex items-center gap-4 text-[34px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:text-5xl lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
+                          "flex items-center gap-3 text-[28px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none xs:text-[32px] sm:text-5xl sm:gap-4 lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
                           highlighted ? "text-accent" : "text-text-primary"
                         )}
                         onMouseEnter={() => setHoveredItem(item.href)}

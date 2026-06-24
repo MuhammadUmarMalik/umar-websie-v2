@@ -105,7 +105,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="min-h-[155svh] p-2 bg-background text-foreground"
+      className="min-h-[115svh] p-2 bg-background text-foreground"
     >
       <motion.div
         className="sticky top-0 isolate min-h-[calc(100svh-16px)]  rounded-2xl origin-top overflow-hidden bg-bg-primary"
@@ -126,7 +126,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_64%_25%,transparent_0%,rgba(0,0,0,0.18)_44%,rgba(0,0,0,0.58)_100%)]" />
 
         <motion.article
-          className="absolute right-5 top-24 z-10 hidden w-52.5 text-[#ffffff] md:block lg:right-14 lg:top-28 lg:w-58"
+          className="absolute right-5 top-24 z-10 hidden w-44 text-[#ffffff] md:block md:w-52 lg:right-14 lg:top-28 lg:w-58 xl:w-64"
           style={{ y: cardY, opacity: cardOpacity }}
           aria-label="Featured profile card"
         >
@@ -162,7 +162,7 @@ export default function HeroSection() {
         </motion.article>
 
         <motion.div
-          className="absolute inset-x-0 bottom-0 z-10 grid gap-8 p-6 sm:p-10 lg:grid-cols-[1fr_440px] lg:items-end lg:p-14"
+          className="absolute inset-x-0 bottom-0 z-10 grid gap-6 p-4 sm:gap-8 sm:p-8 lg:grid-cols-[1fr_440px] lg:items-end lg:p-14 2xl:p-20"
           style={{ y: contentY, opacity: contentOpacity }}
         >
           <div>
@@ -178,7 +178,7 @@ export default function HeroSection() {
             <div className="flex items-end gap-5">
               <WordsPullUp
                 text="I Fix What's Costing Your Business."
-                className="max-w-7xl font-display text-4sxl font-bold leading-[0.97] text-[#ffffff] sm:text-xl lg:text-6xl xl:text-7xl"
+                className="max-w-7xl font-display text-4xl font-bold leading-[0.97] text-[#ffffff] sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl"
               />
             </div>
           </div>
@@ -196,10 +196,10 @@ export default function HeroSection() {
               work.
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-3">
+            <div className="mt-4 flex flex-wrap gap-2.5 sm:mt-5 sm:gap-3">
               <Link
                 href="/portfolio"
-                className="inline-flex h-13 items-center rounded-full bg-[#ffffff] px-8 text-[15px] font-semibold text-black transition-all duration-200 hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffffff] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                className="inline-flex h-11 items-center rounded-full bg-[#ffffff] px-6 text-[14px] font-semibold text-black transition-all duration-200 hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffffff] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-13 sm:px-8 sm:text-[15px]"
               >
                 View My Work
               </Link>
@@ -207,10 +207,10 @@ export default function HeroSection() {
                 href={siteConfig.calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex h-13 items-center gap-4 rounded-full border border-[#f4f1de]/35 py-1 pl-6 pr-1 text-[15px] font-semibold text-[#f4f1de] backdrop-blur-sm transition-all duration-200 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                className="group inline-flex h-11 items-center gap-3 rounded-full border border-[#f4f1de]/35 py-1 pl-5 pr-1 text-[14px] font-semibold text-[#f4f1de] backdrop-blur-sm transition-all duration-200 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-13 sm:gap-4 sm:pl-6 sm:text-[15px]"
               >
                 Book a Free Call
-                <span className="grid size-11 place-items-center rounded-full bg-[#ffffff] text-black transition-all duration-200 group-hover:translate-x-1 group-hover:bg-accent group-hover:text-bg-primary">
+                <span className="grid size-9 place-items-center rounded-full bg-[#ffffff] text-black transition-all duration-200 group-hover:translate-x-1 group-hover:bg-accent group-hover:text-bg-primary sm:size-11">
                   <ArrowRight className="size-4" aria-hidden />
                 </span>
               </Link>

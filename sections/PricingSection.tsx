@@ -4,7 +4,7 @@ import { pricingPackages, siteConfig } from "@/lib/constants";
 
 export default function PricingSection() {
   return (
-    <section className="relative w-full bg-background px-6 py-24 text-foreground md:px-10 lg:px-14 lg:py-32">
+    <section className="relative w-full bg-background px-4 py-16 text-foreground sm:px-6 sm:py-20 md:px-10 lg:px-14 lg:py-32 2xl:px-20 2xl:py-40">
       {/* Section header */}
       <div className="mx-auto max-w-135 text-center">
         <div className="flex justify-center">
@@ -12,7 +12,7 @@ export default function PricingSection() {
             Pricing
           </div>
         </div>
-        <h2 className="mt-5 font-display text-5xl font-bold leading-[0.95] sm:text-6xl md:text-7xl">
+        <h2 className="mt-5 font-display text-4xl font-bold leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl">
           Simple. Transparent.
         </h2>
         <p className="mt-5 opacity-75">
@@ -22,7 +22,7 @@ export default function PricingSection() {
       </div>
 
       {/* Pricing cards */}
-      <div className="mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-3">
+      <div className="mx-auto mt-10 grid max-w-5xl gap-4 sm:gap-5 lg:grid-cols-3 2xl:max-w-6xl">
         {pricingPackages.map((plan) => (
           <div
             key={plan.name}
