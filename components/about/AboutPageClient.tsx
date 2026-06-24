@@ -3,7 +3,7 @@
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Play } from "lucide-react";
 import CTABanner from "@/sections/CTABanner";
 
 // ─── SVG Tech Icons ───────────────────────────────────────────────
@@ -277,165 +277,155 @@ export default function AboutPageClient() {
     <main className="bg-background text-foreground overflow-hidden">
 
       {/* ── HERO ──────────────────────────────────────────────────── */}
-      <section className="relative flex min-h-dvh items-center overflow-hidden px-4 md:px-8 lg:px-12">
-        {/* Subtle grid */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(214,251,97,0.025) 1px, transparent 1px), linear-gradient(to bottom, rgba(214,251,97,0.025) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-          }}
-        />
-        {/* Glow — top left */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -left-24 -top-48 h-175 w-175 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, color-mix(in srgb, #D6FB61 7%, transparent) 0%, transparent 65%)",
-          }}
-        />
-        {/* Glow — bottom right */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -bottom-32 right-0 h-125 w-125 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, color-mix(in srgb, #D6FB61 4%, transparent) 0%, transparent 65%)",
-          }}
-        />
+      <section className="relative overflow-hidden bg-background">
+        {/* Inview anchor */}
+        <div ref={heroRevealRef} className="pointer-events-none absolute top-1/3" />
 
-        <div className="relative mx-auto grid w-full max-w-360 items-center gap-16 pb-24 pt-36 lg:grid-cols-[1fr_440px] lg:pb-0 lg:pt-0 xl:grid-cols-[1fr_480px] xl:gap-24">
+        {/* ── DESKTOP LAYOUT ──────────────────────────────────────── */}
+        <div className="hidden items-center lg:flex">
+          <div className="mx-auto grid w-full max-w-7xl grid-cols-[1fr_auto] items-center gap-12 px-10 py-24 xl:gap-16 xl:px-16">
 
-          {/* ── LEFT: Content ──────────────────────────────── */}
-          <div>
-            {/* Inview anchor */}
-            <div ref={heroRevealRef} />
-
-            {/* Headline — clip-reveal per line */}
-            <motion.h1
-              initial="hidden"
-              animate={isHeroInView ? "visible" : "hidden"}
-              variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.11 } } }}
-              className="font-display text-5xl font-bold italic leading-[1.02] tracking-tight text-text-primary md:text-6xl lg:text-[5.25rem] xl:text-[6.5rem]"
-            >
-              {(
-                [
-                  { text: "I Build Things", accent: false },
-                  { text: "That Fix", accent: false },
-                  { text: "Real Problems.", accent: true },
-                ] as { text: string; accent: boolean }[]
-              ).map(({ text, accent }) => (
-                <span key={text} className="block overflow-hidden leading-[1.1]">
-                  <motion.span
-                    className={`block${accent ? " text-accent" : ""}`}
-                    variants={{
-                      hidden: { y: "110%", opacity: 0 },
-                      visible: {
-                        y: "0%",
-                        opacity: 1,
-                        transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
-                      },
-                    }}
-                  >
-                    {text}
-                  </motion.span>
-                </span>
-              ))}
-            </motion.h1>
-
-            {/* Body */}
-            <motion.p
-              initial="hidden"
-              animate={isHeroInView ? "visible" : "hidden"}
-              variants={fadeUp}
-              custom={3}
-              className="mt-8 max-w-[42ch] text-lg leading-8 text-text-secondary"
-            >
-              Full-stack engineer, UI/UX designer, and automation builder — I
-              help small businesses fix what&apos;s broken and build what&apos;s
-              missing.
-            </motion.p>
-
-            {/* Stats strip */}
+            {/* Left: headline + meta */}
             <motion.div
-              initial="hidden"
-              animate={isHeroInView ? "visible" : "hidden"}
-              variants={fadeUp}
-              custom={4}
-              className="mt-10 flex flex-wrap gap-10 border-t border-border pt-8"
+              initial={{ opacity: 0, x: -24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col justify-center"
             >
-              {[
-                { value: "12+", label: "Projects Shipped" },
-                { value: "2+", label: "Years Building" },
-                { value: "4+", label: "Service Domains" },
-              ].map((s) => (
-                <div key={s.label}>
-                  <p className="font-display text-3xl font-bold italic leading-none text-text-primary">
-                    {s.value}
-                  </p>
-                  <p className="mono mt-1.5 text-[11px] uppercase tracking-widest text-text-secondary">
-                    {s.label}
-                  </p>
-                </div>
-              ))}
+              <p className="mono mb-5 text-[11px] uppercase tracking-[0.22em] text-accent">
+                Full-Stack Engineer &amp; Designer
+              </p>
+              <h1 className="font-display text-5xl font-bold italic leading-[1.04] tracking-tight text-text-primary xl:text-6xl">
+                I Build Things That Fix
+                <br />
+                <span className="text-accent">Real Problems.</span>
+              </h1>
+              <p className="mt-6 max-w-[42ch] text-base leading-7 text-text-secondary">
+                Full-stack engineer, UI/UX designer, and automation builder
+                helping businesses fix what is broken and build what is missing.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/contact"
+                  className="group inline-flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-accent-foreground transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+                >
+                  Work With Me
+                  <ArrowRight
+                    className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                    aria-hidden
+                  />
+                </Link>
+                <Link
+                  href="/portfolio"
+                  className="mono inline-flex h-11 items-center rounded-full border border-border px-6 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent hover:text-accent active:scale-[0.98]"
+                >
+                  See Work
+                </Link>
+              </div>
+              <div className="mt-10 flex gap-10 border-t border-border pt-8">
+                {[
+                  { value: "12+", label: "Projects Shipped" },
+                  { value: "2+", label: "Years Building" },
+                  { value: "4+", label: "Service Domains" },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <p className="font-display text-3xl font-bold italic leading-none text-text-primary">
+                      {s.value}
+                    </p>
+                    <p className="mono mt-1.5 text-[10px] uppercase tracking-widest text-text-secondary">
+                      {s.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
-            {/* CTAs */}
+            {/* Right: photo */}
             <motion.div
-              initial="hidden"
-              animate={isHeroInView ? "visible" : "hidden"}
-              variants={fadeUp}
-              custom={5}
-              className="mt-10 flex flex-wrap items-center gap-4"
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+              className="flex items-center justify-center"
             >
-              <Link
-                href="/contact"
-                className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-accent px-7 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-hover hover:shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_35%,transparent)] active:scale-[0.98]"
-              >
-                Work With Me
-                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-              </Link>
-              <Link
-                href="/portfolio"
-                className="mono inline-flex h-12 items-center gap-2 rounded-full border border-border px-7 text-sm text-text-secondary transition-all duration-200 hover:border-text-secondary hover:text-text-primary active:scale-[0.98]"
-              >
-                See My Work
-              </Link>
+              <div className="relative h-125 w-95 overflow-hidden rounded-3xl xl:h-140 xl:w-105">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/umar-dp.png"
+                  alt="Muhammad Umar Malik"
+                  className="h-full w-full object-cover object-top"
+                  draggable={false}
+                />
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-accent/15 to-transparent" />
+              </div>
             </motion.div>
+
           </div>
+        </div>
 
-          {/* ── RIGHT: Profile Photo ────────────────────────── */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={isHeroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="hidden lg:flex lg:items-center lg:justify-end"
+        {/* ── MOBILE / TABLET LAYOUT ──────────────────────────────── */}
+        <div className="flex flex-col items-center px-6 pb-20 pt-32 text-center lg:hidden">
+          <motion.h1
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-5xl font-bold italic leading-[1.06] tracking-tight text-text-primary sm:text-6xl"
           >
-            <div className="relative">
-              {/* Accent glow behind photo */}
-              <div
-                aria-hidden
-                className="absolute inset-0 rounded-2xl"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 60% 40%, color-mix(in srgb, #D6FB61 18%, transparent) 0%, transparent 70%)",
-                  filter: "blur(32px)",
-                  transform: "scale(1.15)",
-                }}
-              />
-              {/* Photo */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/umar-dp.png"
-                alt="Muhammad Umar Malik"
-                className="relative w-full max-w-105 rounded-2xl object-cover"
-              />
-            </div>
+            Muhammad
+            <br />
+            <span className="text-accent">Umar Malik</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
+            className="mt-5 max-w-[32ch] text-base leading-7 text-text-secondary"
+          >
+            Full-stack engineer, designer, and automation builder helping businesses fix what is broken.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
+            className="mt-8 flex flex-wrap justify-center gap-3"
+          >
+            <Link
+              href="/contact"
+              className="group inline-flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-accent-foreground transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+            >
+              Work With Me
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+            </Link>
+            <Link
+              href="/portfolio"
+              className="mono inline-flex h-11 items-center rounded-full border border-border px-6 text-sm font-semibold text-text-primary transition-all duration-200 hover:border-accent hover:text-accent active:scale-[0.98]"
+            >
+              See Work
+            </Link>
           </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.32 }}
+            className="mt-10 flex gap-10 border-t border-border pt-8"
+          >
+            {[
+              { value: "12+", label: "Projects" },
+              { value: "2+", label: "Years" },
+              { value: "4+", label: "Domains" },
+            ].map((s) => (
+              <div key={s.label}>
+                <p className="font-display text-3xl font-bold italic leading-none text-text-primary">
+                  {s.value}
+                </p>
+                <p className="mono mt-1.5 text-[10px] uppercase tracking-widest text-text-secondary">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
