@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { siteConfig } from "@/lib/constants";
+import DecryptedText from "@/components/ui/DecryptedText";
 
 const STATS = [
   { value: "12+", label: "Businesses helped" },
@@ -56,7 +57,7 @@ export default function CTABanner() {
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="mono mb-5 text-xs uppercase tracking-widest text-text-secondary"
               >
-                Ready to grow?
+                <DecryptedText text="Ready to grow?" animateOn="view" sequential={true} speed={40} revealDirection="start" />
               </motion.p>
 
               <motion.h2
@@ -65,13 +66,13 @@ export default function CTABanner() {
                 transition={{ duration: 0.85, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="font-display text-4xl font-bold italic leading-none tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-[5.25rem] 2xl:text-[6rem]"
               >
-                Your Business
+                <DecryptedText text="Your Business" animateOn="view" sequential={true} speed={25} revealDirection="start" />
                 <br />
-                Deserves a
+                <DecryptedText text="Deserves a" animateOn="view" sequential={true} speed={25} revealDirection="start" />
                 <br />
-                <span className="not-italic text-accent">Website</span>
+                <span className="not-italic text-accent"><DecryptedText text="Website" animateOn="view" sequential={true} speed={25} revealDirection="start" /></span>
                 <br />
-                That Works.
+                <DecryptedText text="That Works." animateOn="view" sequential={true} speed={25} revealDirection="start" />
               </motion.h2>
             </div>
 

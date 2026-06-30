@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { siteConfig } from "@/lib/constants";
+import DecryptedText from "@/components/ui/DecryptedText";
 
 interface WordsPullUpProps {
   text: string;
@@ -162,7 +163,7 @@ export default function HeroSection() {
         </motion.article>
 
         <motion.div
-          className="absolute inset-x-0 bottom-0 z-10 grid gap-6 p-4 sm:gap-8 sm:p-8 lg:grid-cols-[1fr_440px] lg:items-end lg:p-14 2xl:p-20"
+          className="absolute inset-x-0 bottom-0 z-10 grid gap-6 p-4 sm:gap-8 sm:p-8 lg:grid-cols-[1fr_440px] lg:items-end lg:p-10 2xl:p-16"
           style={{ y: contentY, opacity: contentOpacity }}
         >
           <div>
@@ -172,7 +173,7 @@ export default function HeroSection() {
               animate="visible"
               variants={fadeUp}
             >
-              Software Engineer & Designer
+              <DecryptedText text="Software Engineer & Designer" animateOn="hover" sequential={true} speed={30} revealDirection="start" />
             </motion.p>
 
             <div className="flex items-end gap-5">
@@ -207,11 +208,11 @@ export default function HeroSection() {
                 href={siteConfig.calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex h-11 items-center gap-3 rounded-full border border-[#f4f1de]/35 py-1 pl-5 pr-1 text-[14px] font-semibold text-[#f4f1de] backdrop-blur-sm transition-all duration-200 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-13 sm:gap-4 sm:pl-6 sm:text-[15px]"
+                className="group inline-flex h-11 items-center gap-3 rounded-full border border-[#f4f1de]/35 py-1 px-2 text-[14px] font-semibold text-[#f4f1de] backdrop-blur-sm transition-all duration-200 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-13 sm:gap-4 sm:pl-6 sm:text-[15px]"
               >
                 Book a Free Call
                 <span className="grid size-9 place-items-center rounded-full bg-[#ffffff] text-black transition-all duration-200 group-hover:translate-x-1 group-hover:bg-accent group-hover:text-bg-primary sm:size-11">
-                  <ArrowRight className="size-4" aria-hidden />
+                  <ArrowRight className="size-6" aria-hidden />
                 </span>
               </Link>
             </div>

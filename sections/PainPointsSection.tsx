@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import DecryptedText from "@/components/ui/DecryptedText";
 
 const painPoints = [
   {
@@ -116,7 +117,7 @@ function PainCard({
           color: "var(--text-primary)",
         }}
       >
-        {item.title}
+        <DecryptedText text={item.title} animateOn="hover" sequential={true} speed={28} revealDirection="start" />
       </h3>
 
       {/* Description */}
@@ -192,7 +193,7 @@ export default function PainPointsSection() {
             style={{ color: "var(--accent)" }}
             suppressHydrationWarning
           >
-            Pain Points
+            <DecryptedText text="Pain Points" animateOn="view" sequential={true} speed={40} revealDirection="start" />
           </motion.p>
 
           <motion.h2
@@ -207,9 +208,9 @@ export default function PainPointsSection() {
             }}
             suppressHydrationWarning
           >
-            What&apos;s Holding Your
+            <DecryptedText text="What's Holding Your" animateOn="view" sequential={true} speed={26} revealDirection="start" />
             <br />
-            Business Back?
+            <DecryptedText text="Business Back?" animateOn="view" sequential={true} speed={26} revealDirection="start" />
           </motion.h2>
         </div>
 
@@ -251,7 +252,7 @@ export default function PainPointsSection() {
           className="font-display text-2xl font-bold italic lg:text-[1.9rem]"
           style={{ color: "var(--text-primary)" }}
         >
-          Recognize any of these?
+          <DecryptedText text="Recognize any of these?" animateOn="hover" sequential={true} speed={30} revealDirection="start" />
         </p>
 
         <Link

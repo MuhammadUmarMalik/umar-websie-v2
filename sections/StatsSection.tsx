@@ -2,6 +2,7 @@
 
 import { motion, useInView, animate } from "motion/react";
 import { useRef, useEffect, useState } from "react";
+import DecryptedText from "@/components/ui/DecryptedText";
 
 const statsData = [
   {
@@ -206,7 +207,7 @@ export default function StatsSection() {
               style={{ color: "var(--accent)" }}
               suppressHydrationWarning
             >
-              Results I&apos;ve Delivered
+              <DecryptedText text="Results I've Delivered" animateOn="view" sequential={true} speed={40} revealDirection="start" />
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 18 }}
@@ -219,7 +220,7 @@ export default function StatsSection() {
               }}
               suppressHydrationWarning
             >
-              Numbers That Matter
+              <DecryptedText text="Numbers That Matter" animateOn="view" sequential={true} speed={25} revealDirection="start" />
             </motion.h2>
           </div>
 

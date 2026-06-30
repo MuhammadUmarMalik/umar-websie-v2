@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { pricingPackages, siteConfig } from "@/lib/constants";
+import DecryptedText from "@/components/ui/DecryptedText";
 
 export default function PricingSection() {
   return (
@@ -9,11 +10,11 @@ export default function PricingSection() {
       <div className="mx-auto max-w-135 text-center">
         <div className="flex justify-center">
           <div className="mono rounded-lg border border-accent/40 bg-accent/10 px-4 py-1 text-xs uppercase text-accent shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_45%,transparent)]">
-            Pricing
+            <DecryptedText text="Pricing" animateOn="view" sequential={true} speed={40} revealDirection="start" />
           </div>
         </div>
         <h2 className="mt-5 font-display text-4xl font-bold leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl">
-          Simple. Transparent.
+          <DecryptedText text="Simple. Transparent." animateOn="view" sequential={true} speed={25} revealDirection="start" />
         </h2>
         <p className="mt-5 opacity-75">
           No retainer traps. No surprise invoices. Pick the plan that fits where your business is
