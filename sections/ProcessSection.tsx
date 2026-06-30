@@ -2,6 +2,7 @@
 
 import { motion, useInView, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import DecryptedText from "@/components/ui/DecryptedText";
 
 const steps = [
   {
@@ -128,7 +129,7 @@ function StepItem({
                 color: "var(--text-primary)",
               }}
             >
-              {step.title}
+              <DecryptedText text={step.title} animateOn="hover" sequential={true} speed={28} revealDirection="start" />
             </h3>
 
             {/* Description */}
@@ -234,7 +235,7 @@ export default function ProcessSection() {
               style={{ color: "var(--accent)" }}
               suppressHydrationWarning
             >
-              Process
+              <DecryptedText text="Process" animateOn="view" sequential={true} speed={40} revealDirection="start" />
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -247,7 +248,7 @@ export default function ProcessSection() {
               }}
               suppressHydrationWarning
             >
-              How I Work
+              <DecryptedText text="How I Work" animateOn="view" sequential={true} speed={25} revealDirection="start" />
             </motion.h2>
           </div>
           <motion.p

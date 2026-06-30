@@ -3,6 +3,7 @@ import {
   type Testimonial,
 } from "@/components/ui/testimonials-columns-1";
 import { MotionReveal } from "@/components/ui/motion-reveal";
+import DecryptedText from "@/components/ui/DecryptedText";
 
 const testimonials: Testimonial[] = [
   {
@@ -60,12 +61,12 @@ export default function TestimonialsSection() {
         <MotionReveal className="mx-auto flex max-w-135 flex-col items-center justify-center">
           <div className="flex justify-center">
             <div className="mono rounded-lg border border-accent/40 bg-accent/10 px-4 py-1 text-xs uppercase text-accent shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_45%,transparent)]">
-              Testimonials
+              <DecryptedText text="Testimonials" animateOn="view" sequential={true} speed={40} revealDirection="start" />
             </div>
           </div>
 
           <h2 className="mt-5 text-center font-display text-4xl font-bold leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl">
-            What clients say
+            <DecryptedText text="What clients say" animateOn="view" sequential={true} speed={25} revealDirection="start" />
           </h2>
           <p className="mt-5 text-center opacity-75">
             See what business owners and teams say about working together.

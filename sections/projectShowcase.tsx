@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ProjectShowcase } from "@/components/ui/project-showcase";
+import DecryptedText from "@/components/ui/DecryptedText";
 
 export default function Project() {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -30,7 +31,7 @@ export default function Project() {
               className="mono mb-4 text-xs uppercase tracking-[0.22em]"
               style={{ color: "var(--accent)" }}
             >
-              Selected Projects
+              <DecryptedText text="Selected Projects" animateOn="view" sequential={true} speed={40} revealDirection="start" />
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 18 }}
@@ -42,7 +43,7 @@ export default function Project() {
                 color: "var(--text-primary)",
               }}
             >
-              Work That Ships
+              <DecryptedText text="Work That Ships" animateOn="view" sequential={true} speed={25} revealDirection="start" />
             </motion.h2>
           </div>
 
