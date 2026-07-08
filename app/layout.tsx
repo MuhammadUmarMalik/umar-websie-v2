@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
   publisher: "Muhammad Umar Malik",
   category: "technology",
   verification: {
-    google: "gifUySHi_sgkvuJMrKCFSpEj3BOO6RfrUNu90NPbg1A",
+    google: "ifUySHi_sgkvuJMrKCFSpEj3BOO6RfrUNu90NPbg1A",
   },
   openGraph: {
     title: "Muhammad Umar Malik — Software Engineer & Designer",
@@ -114,6 +115,7 @@ export default function RootLayout({
           <Analytics />
         </Providers>
       </body>
+      <GoogleAnalytics gaId="G-H9W4E8ZV6V" />
     </html>
   );
 }

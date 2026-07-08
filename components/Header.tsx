@@ -86,7 +86,7 @@ export function Header() {
               isHomeHero ? "text-white" : "text-text-primary",
               floatingHeader ? "text-sm" : "text-base sm:text-lg",
             )}>
-              Muhammad Umar Malik
+              {siteConfig.shortName}
             </span>
           </Link>
 

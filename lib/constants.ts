@@ -14,6 +14,7 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com"
 
 export const siteConfig = {
   name: "Muhammad Umar Malik",
+  shortName: "Umar",
   url: siteUrl,
   description:
     "Software engineer and designer helping small businesses fix websites, improve UX, generate leads, and automate repetitive work.",

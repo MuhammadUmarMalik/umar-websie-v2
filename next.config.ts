@@ -67,32 +67,39 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    const isProd = process.env.NODE_ENV === "production";
     return [
       {
         // Apply security headers to all routes
         source: "/(.*)",
         headers: securityHeaders,
       },
-      {
-        // Aggressive cache for versioned static assets (JS/CSS chunks have content hashes)
-        source: "/_next/static/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        // Images in /public get a 7-day cache
-        source: "/(.*\\.(?:png|jpg|jpeg|webp|avif|svg|gif|ico))",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=604800, stale-while-revalidate=86400",
-          },
-        ],
-      },
+      // Immutable caching only in production — dev chunks reuse stable URLs without
+      // content hashes, so an immutable cache causes stale JS after file edits.
+      ...(isProd
+        ? [
+            {
+              // Aggressive cache for versioned static assets (JS/CSS chunks have content hashes)
+              source: "/_next/static/(.*)",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=31536000, immutable",
+                },
+              ],
+            },
+            {
+              // Images in /public get a 7-day cache
+              source: "/(.*\\.(?:png|jpg|jpeg|webp|avif|svg|gif|ico))",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=604800, stale-while-revalidate=86400",
+                },
+              ],
+            },
+          ]
+        : []),
     ];
   },
 };
