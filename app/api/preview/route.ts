@@ -1,7 +1,49 @@
 import { NextRequest, NextResponse } from "next/server";
+import sharp from "sharp";
 
-const cache = new Map<string, { buffer: ArrayBuffer; type: string; ts: number }>();
-const TTL_MS = 60 * 60 * 1000; // 1 hour
+export const runtime = "nodejs";
+
+/** Only these hosts may be screenshotted — stops the route being an open proxy. */
+const ALLOWED_HOSTS = new Set([
+  "www.tripit.com",
+  "www.javisgravy.com",
+  "www.babi.sh",
+  "www.edusuite.pk",
+  "www.extendicare.com",
+]);
+
+/**
+ * The preview card renders at 340x210 CSS px with `object-fit: cover` /
+ * `object-position: top`, so 2x of that crop is all the pixels we can show.
+ * Serving the raw ~1.3 MB Microlink capture wasted ~95% of the bytes.
+ */
+const OUT_W = 680;
+const OUT_H = 420;
+
+const DAY_S = 86_400;
+const TTL_MS = 30 * DAY_S * 1000;
+
+/** Warm-instance memo. The CDN headers below are what actually carry the cache. */
+const cache = new Map<string, { body: Uint8Array<ArrayBuffer>; ts: number }>();
+
+/**
+ * Copies into a plain `ArrayBuffer`-backed view. `new Uint8Array(buf)` widens to
+ * `ArrayBufferLike`, which TS won't accept as a `BodyInit`.
+ */
+function toBody(buf: Buffer): Uint8Array<ArrayBuffer> {
+  const out = new Uint8Array(buf.byteLength);
+  out.set(buf);
+  return out;
+}
+
+/**
+ * Browser holds it a day, the CDN a month, and serves stale for a week while
+ * revalidating — a marketing-site screenshot does not change hour to hour.
+ */
+const CACHE_HEADERS = {
+  "Content-Type": "image/webp",
+  "Cache-Control": `public, max-age=${DAY_S}, s-maxage=${30 * DAY_S}, stale-while-revalidate=${7 * DAY_S}`,
+} as const;
 
 export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get("url");
@@ -9,14 +51,19 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Missing url param", { status: 400 });
   }
 
+  let host: string;
+  try {
+    host = new URL(url).host;
+  } catch {
+    return new NextResponse("Invalid url param", { status: 400 });
+  }
+  if (!ALLOWED_HOSTS.has(host)) {
+    return new NextResponse("Host not allowed", { status: 403 });
+  }
+
   const hit = cache.get(url);
   if (hit && Date.now() - hit.ts < TTL_MS) {
-    return new NextResponse(hit.buffer, {
-      headers: {
-        "Content-Type": hit.type,
-        "Cache-Control": "public, max-age=3600",
-      },
-    });
+    return new NextResponse(hit.body, { headers: CACHE_HEADERS });
   }
 
   try {
@@ -27,6 +74,8 @@ export async function GET(request: NextRequest) {
 
     const metaRes = await fetch(apiUrl, {
       signal: AbortSignal.timeout(15_000),
+      // Persist across invocations so a cold lambda doesn't re-bill Microlink
+      next: { revalidate: 30 * DAY_S },
     });
 
     if (!metaRes.ok) {
@@ -49,17 +98,17 @@ export async function GET(request: NextRequest) {
       return new NextResponse("Screenshot image unavailable", { status: 502 });
     }
 
-    const type = imgRes.headers.get("Content-Type") ?? "image/jpeg";
-    const buffer = await imgRes.arrayBuffer();
+    // Step 3: crop to the slot we actually render and re-encode as WebP
+    const body = toBody(
+      await sharp(Buffer.from(await imgRes.arrayBuffer()))
+        .resize(OUT_W, OUT_H, { fit: "cover", position: "top" })
+        .webp({ quality: 78 })
+        .toBuffer(),
+    );
 
-    cache.set(url, { buffer, type, ts: Date.now() });
+    cache.set(url, { body, ts: Date.now() });
 
-    return new NextResponse(buffer, {
-      headers: {
-        "Content-Type": type,
-        "Cache-Control": "public, max-age=3600",
-      },
-    });
+    return new NextResponse(body, { headers: CACHE_HEADERS });
   } catch {
     return new NextResponse("Screenshot timeout", { status: 504 });
   }

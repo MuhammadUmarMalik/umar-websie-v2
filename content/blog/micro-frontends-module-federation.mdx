@@ -1,0 +1,92 @@
+---
+title: "Building Micro-Frontends with Module Federation"
+slug: "micro-frontends-module-federation"
+date: "2024-02-20"
+excerpt: "Module Federation lets multiple React apps share code at runtime, eliminating duplicate dependencies and enabling true team autonomy. Here's how we set it up for a 3-app ecosystem."
+coverImage: "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=400&fit=crop&auto=format&q=80"
+author: "Muhammad Umar Malik"
+tags: ["React", "Module Federation", "Micro-Frontends", "Webpack"]
+---
+
+# My Module Federation Journey
+
+About a year ago, my team faced a choice: rebuild our monolithic React app from scratch, or find a way to incrementally modernize it. We chose the latter, and Module Federation became the bridge.
+
+## The Problem with Monoliths
+
+When your single React app grows past 50+ components and 30+ developers:
+
+1. **Deployment bottlenecks** — One small change requires a full rebuild and redeploy of the entire application
+2. **Dependency conflicts** — Different teams need different versions of the same packages
+3. **Cognitive load** — No one understands the full app; every change risks breaking unseen corners
+
+Module Federation solves all three by letting each team own their own bundle.
+
+## How It Works
+
+At its core, Module Federation is a runtime code-sharing mechanism. Here's the simplest configuration:
+
+**Host app (entry point):**
+
+```javascript
+// webpack.config.js
+plugins: [
+  new ModuleFederationPlugin({
+    name: "host",
+    remotes: {
+      auth: "auth@http://localhost:3002/remoteEntry.js",
+      dashboard: "dashboard@http://localhost:3003/remoteEntry.js",
+    },
+  }),
+];
+```
+
+**Remote app (feature):**
+
+```javascript
+// webpack.config.js
+plugins: [
+  new ModuleFederationPlugin({
+    name: "auth",
+    filename: "remoteEntry.js",
+    exposes: {
+      "./AuthButton": "./src/AuthButton.tsx",
+    },
+    shared: {
+      react: { eager: true, singleton: true },
+      "react-dom": { eager: true, singleton: true },
+    },
+  }),
+];
+```
+
+## Real-Win Benefits We've Seen
+
+| Benefit              | Before                     | After            |
+| -------------------- | -------------------------- | ---------------- |
+| Feature deploy time  | 45+ minutes                | 5-8 minutes      |
+| Duplicate React deps | 3× (18MB each)             | 1× (6MB shared)  |
+| Team independence    | Blocked by merge conflicts | Fully autonomous |
+| Production incidents | 2-3/week                   | ~1/month         |
+
+The key insight: **don't federate everything**. Start with just the boundaries where teams need independence most.
+
+## Caveats & Lessons Learned
+
+1. **TypeScript compatibility** — Ensure all federated packages use the same `tsconfig` settings. `isolatedModules` and `strict: true` must align across apps.
+2. **CSS isolation** — Module Federation doesn't share CSS by default. We use `mini-css-extract-plugin` with `experimental.css: true` or extract shared styles to a global CSS bundle.
+3. **Version pinning** — `shared` versions must match exactly. Use `package.json` `engines` field or a `tools.config` file to enforce.
+4. **Loading spinners** — Remote components show a blank slot until loaded. Always provide a loading state or skeleton.
+
+## Getting Started Checklist
+
+- [ ] Identify 1-2 bounded contexts to extract first
+- [ ] Configure webpack Module Federation plugin in each app
+- [ ] Agree on shared dependency versions across the org
+- [ ] Set up type definitions for remote components
+- [ ] Write integration tests for each remote-to-host handoff
+- [ ] Monitor bundle size impact with `source-map-explorer`
+
+The learning curve is real, but the payoff in team autonomy is worth it. We went from "one deployment blocks everyone" to "each team ships daily without touching others' code."
+
+---

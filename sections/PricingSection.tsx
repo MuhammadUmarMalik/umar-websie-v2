@@ -10,15 +10,27 @@ export default function PricingSection() {
       <div className="mx-auto max-w-135 text-center">
         <div className="flex justify-center">
           <div className="mono rounded-lg border border-accent/40 bg-accent/10 px-4 py-1 text-xs uppercase text-accent shadow-[0_0_28px_color-mix(in_srgb,var(--accent)_45%,transparent)]">
-            <DecryptedText text="Pricing" animateOn="view" sequential={true} speed={40} revealDirection="start" />
+            <DecryptedText
+              text="Pricing"
+              animateOn="view"
+              sequential={true}
+              speed={40}
+              revealDirection="start"
+            />
           </div>
         </div>
         <h2 className="mt-5 font-display text-4xl font-bold leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl">
-          <DecryptedText text="Simple. Transparent." animateOn="view" sequential={true} speed={25} revealDirection="start" />
+          <DecryptedText
+            text="Simple. Transparent."
+            animateOn="view"
+            sequential={true}
+            speed={25}
+            revealDirection="start"
+          />
         </h2>
         <p className="mt-5 opacity-75">
-          No retainer traps. No surprise invoices. Pick the plan that fits where your business is
-          right now.
+          No retainer traps. No surprise invoices. Pick the plan that fits where
+          your business is right now.
         </p>
       </div>
 
@@ -47,8 +59,12 @@ export default function PricingSection() {
                 </span>
               )}
 
-              <p className="font-display text-xl font-bold text-text-primary">{plan.name}</p>
-              <p className="mt-1.5 text-sm leading-6 text-text-secondary">{plan.description}</p>
+              <p className="font-display text-xl font-bold text-text-primary">
+                {plan.name}
+              </p>
+              <p className="mt-1.5 text-sm leading-6 text-text-secondary">
+                {plan.description}
+              </p>
 
               {/* Price */}
               <div className="mt-5">
@@ -57,7 +73,9 @@ export default function PricingSection() {
                     {plan.priceNote}
                   </span>
                 ) : (
-                  <span className="mono block select-none text-xs opacity-0">_</span>
+                  <span className="mono block select-none text-xs opacity-0">
+                    _
+                  </span>
                 )}
                 <span
                   className={`font-display text-4xl font-bold leading-tight ${
@@ -76,7 +94,10 @@ export default function PricingSection() {
             <ul className="flex flex-1 flex-col gap-2.5">
               {plan.features.slice(0, 4).map((feature) => (
                 <li key={feature} className="flex items-start gap-2.5 text-sm">
-                  <Check className="mt-0.5 size-3.5 shrink-0 text-accent" aria-hidden />
+                  <Check
+                    className="mt-0.5 size-3.5 shrink-0 text-accent"
+                    aria-hidden
+                  />
                   <span className="text-text-secondary">{feature}</span>
                 </li>
               ))}
@@ -89,9 +110,15 @@ export default function PricingSection() {
 
             {/* CTA */}
             <Link
-              href={plan.price === "Let's talk" ? siteConfig.calendlyUrl : "/contact"}
+              href={
+                plan.price === "Let's talk"
+                  ? siteConfig.calendlyUrl
+                  : "/contact"
+              }
               target={plan.price === "Let's talk" ? "_blank" : undefined}
-              rel={plan.price === "Let's talk" ? "noopener noreferrer" : undefined}
+              rel={
+                plan.price === "Let's talk" ? "noopener noreferrer" : undefined
+              }
               className={`group mt-7 flex h-12 w-full items-center justify-center gap-2.5 rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
                 plan.featured
                   ? "bg-accent text-white hover:bg-accent-hover hover:text-white hover:shadow-[0_0_24px_color-mix(in_srgb,var(--accent)_35%,transparent)]"
@@ -99,7 +126,10 @@ export default function PricingSection() {
               }`}
             >
               {plan.price === "Let's talk" ? "Book a Call" : "Get Started"}
-              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+              <ArrowRight
+                className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                aria-hidden
+              />
             </Link>
           </div>
         ))}
