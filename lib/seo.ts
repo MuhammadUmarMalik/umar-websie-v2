@@ -315,6 +315,44 @@ export function breadcrumbSchema(items: { name: string; href: string }[]) {
   };
 }
 
+/** BlogPosting — powers article rich results for a single blog post */
+export function articleSchema({
+  title,
+  description,
+  slug,
+  date,
+  author,
+  image,
+}: {
+  title: string;
+  description: string;
+  slug: string;
+  date: string;
+  author: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${siteConfig.url}/blog/${slug}#article`,
+    mainEntityOfPage: `${siteConfig.url}/blog/${slug}`,
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: date,
+    image: image || `${siteConfig.url}/opengraph-image`,
+    author: {
+      "@type": "Person",
+      name: author,
+      url: siteConfig.url,
+    },
+    publisher: {
+      "@id": `${siteConfig.url}/#person`,
+    },
+    inLanguage: "en",
+  };
+}
+
 /** CollectionPage + ItemList for the Portfolio page */
 export function portfolioSchema() {
   return {
