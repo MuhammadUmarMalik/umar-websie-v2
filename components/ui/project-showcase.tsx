@@ -57,13 +57,32 @@ const CHROME_H = 32
 const previewSrc = (url: string) =>
   `/api/preview?url=${encodeURIComponent(url)}`
 
-/* ─── Single project preview (always loads, never idle) ───────────── */
+/* Desktop-only: the floating preview card is `hidden lg:block`, so on smaller
+   viewports its screenshots (~8 MB across the five projects) would be fetched
+   for a card that can never be seen. Gate the whole card on the same breakpoint. */
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)")
+    const sync = () => setIsDesktop(mq.matches)
+    sync()
+    mq.addEventListener("change", sync)
+    return () => mq.removeEventListener("change", sync)
+  }, [])
+
+  return isDesktop
+}
+
+/* ─── Single project preview (screenshot fetched on first hover) ───── */
 function ProjectPreview({
   project,
   isActive,
+  shouldLoad,
 }: {
   project: Project
   isActive: boolean
+  shouldLoad: boolean
 }) {
   const [imgStatus, setImgStatus] = useState<"loading" | "loaded" | "error">("loading")
 
@@ -114,7 +133,7 @@ function ProjectPreview({
       </div>
 
       {/* Layer 2 – shimmer while screenshot is in-flight */}
-      {imgStatus === "loading" && (
+      {shouldLoad && imgStatus === "loading" && (
         <div
           style={{
             position: "absolute",
@@ -127,25 +146,28 @@ function ProjectPreview({
         />
       )}
 
-      {/* Layer 3 – real screenshot, fades in once loaded */}
-      {/* img is always mounted so browser fetches immediately */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={previewSrc(project.link)}
-        alt=""
-        onLoad={() => setImgStatus("loaded")}
-        onError={() => setImgStatus("error")}
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "top",
-          opacity: imgStatus === "loaded" ? 1 : 0,
-          transition: "opacity 0.35s ease",
-        }}
-      />
+      {/* Layer 3 – real screenshot, mounted only once this project has been
+          hovered, so we never fetch previews the visitor doesn't look at */}
+      {shouldLoad && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={previewSrc(project.link)}
+          alt=""
+          decoding="async"
+          onLoad={() => setImgStatus("loaded")}
+          onError={() => setImgStatus("error")}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "top",
+            opacity: imgStatus === "loaded" ? 1 : 0,
+            transition: "opacity 0.35s ease",
+          }}
+        />
+      )}
 
       {/* Bottom vignette */}
       <div
@@ -167,11 +189,17 @@ export function ProjectShowcase() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 })
   const [smooth, setSmooth] = useState({ x: 0, y: 0 })
   const [visible, setVisible] = useState(false)
+  /* Which projects have been hovered at least once — their screenshot stays
+     mounted afterwards so re-hovering is instant. */
+  const [requested, setRequested] = useState<Set<number>>(() => new Set())
   const sectionRef = useRef<HTMLElement>(null)
   const rafRef = useRef<number | null>(null)
+  const isDesktop = useIsDesktop()
 
-  /* smooth mouse lerp */
+  /* smooth mouse lerp — desktop only; the card it drives is `hidden lg:block`,
+     so on touch viewports this rAF loop would burn the main thread for nothing */
   useEffect(() => {
+    if (!isDesktop) return
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t
     const loop = () => {
       setSmooth((p) => ({ x: lerp(p.x, mouse.x, 0.12), y: lerp(p.y, mouse.y, 0.12) }))
@@ -179,41 +207,23 @@ export function ProjectShowcase() {
     }
     rafRef.current = requestAnimationFrame(loop)
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
-  }, [mouse])
-
-  /* preload all screenshots as soon as section enters viewport */
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          projects.forEach((p) => {
-            const img = new window.Image()
-            img.src = previewSrc(p.link)
-          })
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.05 }
-    )
-    observer.observe(section)
-    return () => observer.disconnect()
-  }, [])
+  }, [mouse, isDesktop])
 
   return (
     <>
       <section
         ref={sectionRef}
         onMouseMove={(e: React.MouseEvent) => {
+          if (!isDesktop) return
           const rect = sectionRef.current?.getBoundingClientRect()
           if (!rect) return
           setMouse({ x: e.clientX - rect.left, y: e.clientY - rect.top })
         }}
         className="relative w-full"
       >
-        {/* ── Floating preview card ─────────────────────────────── */}
+        {/* ── Floating preview card (desktop only) ──────────────── */}
         {/* position:absolute (not fixed) so Lenis v1 transform on <html> doesn't displace the card */}
+        {isDesktop && (
         <div
           className="pointer-events-none absolute z-50 hidden lg:block"
           style={{
@@ -277,10 +287,12 @@ export function ProjectShowcase() {
                 key={project.title}
                 project={project}
                 isActive={hoveredIndex === i}
+                shouldLoad={requested.has(i)}
               />
             ))}
           </div>
         </div>
+        )}
 
         {/* ── Project rows ─────────────────────────────────────── */}
         <div>
@@ -292,6 +304,7 @@ export function ProjectShowcase() {
               rel="noopener noreferrer"
               className="group block"
               onMouseEnter={(e) => {
+                if (!isDesktop) return
                 const rect = sectionRef.current?.getBoundingClientRect()
                 if (rect) {
                   const x = e.clientX - rect.left
@@ -301,6 +314,10 @@ export function ProjectShowcase() {
                 }
                 setHoveredIndex(i)
                 setVisible(true)
+                /* Fetch this project's screenshot on first hover only */
+                setRequested((prev) =>
+                  prev.has(i) ? prev : new Set(prev).add(i)
+                )
               }}
               onMouseLeave={() => { setHoveredIndex(null); setVisible(false) }}
             >
