@@ -24,7 +24,17 @@ const DAY_S = 86_400;
 const TTL_MS = 30 * DAY_S * 1000;
 
 /** Warm-instance memo. The CDN headers below are what actually carry the cache. */
-const cache = new Map<string, { body: Uint8Array; ts: number }>();
+const cache = new Map<string, { body: Uint8Array<ArrayBuffer>; ts: number }>();
+
+/**
+ * Copies into a plain `ArrayBuffer`-backed view. `new Uint8Array(buf)` widens to
+ * `ArrayBufferLike`, which TS won't accept as a `BodyInit`.
+ */
+function toBody(buf: Buffer): Uint8Array<ArrayBuffer> {
+  const out = new Uint8Array(buf.byteLength);
+  out.set(buf);
+  return out;
+}
 
 /**
  * Browser holds it a day, the CDN a month, and serves stale for a week while
@@ -89,7 +99,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Step 3: crop to the slot we actually render and re-encode as WebP
-    const body = new Uint8Array(
+    const body = toBody(
       await sharp(Buffer.from(await imgRes.arrayBuffer()))
         .resize(OUT_W, OUT_H, { fit: "cover", position: "top" })
         .webp({ quality: 78 })

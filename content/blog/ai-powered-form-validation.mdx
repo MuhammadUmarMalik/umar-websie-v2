@@ -30,11 +30,11 @@ const validateField = async (value, fieldName) => {
   if (!value.match(emailRegex)) {
     return "Please enter a valid email address";
   }
-  
+
   // Then check AI-suggested improvements
   const suggestion = await aiSuggest(value, fieldName);
   if (suggestion) return suggestion;
-  
+
   return null;
 };
 ```
@@ -60,7 +60,3 @@ Companies that shift from "submit-and-pray" validation to AI-guided forms typica
 The investment pays for itself quickly when you consider the lifetime value of a successfully acquired customer.
 
 ---
-
-> **Further reading**: *“Forms That Convert”* by Luke Wroblewski — the definitive guide on form design patterns that work.
->
-> **Tool note**: This post was written with AI assistance for research and example generation, but all insights and business data are independently verified.

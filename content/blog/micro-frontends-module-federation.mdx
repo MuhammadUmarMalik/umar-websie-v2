@@ -27,6 +27,7 @@ Module Federation solves all three by letting each team own their own bundle.
 At its core, Module Federation is a runtime code-sharing mechanism. Here's the simplest configuration:
 
 **Host app (entry point):**
+
 ```javascript
 // webpack.config.js
 plugins: [
@@ -41,6 +42,7 @@ plugins: [
 ```
 
 **Remote app (feature):**
+
 ```javascript
 // webpack.config.js
 plugins: [
@@ -60,12 +62,12 @@ plugins: [
 
 ## Real-Win Benefits We've Seen
 
-| Benefit | Before | After |
-|---------|--------|-------|
-| Feature deploy time | 45+ minutes | 5-8 minutes |
-| Duplicate React deps | 3× (18MB each) | 1× (6MB shared) |
-| Team independence | Blocked by merge conflicts | Fully autonomous |
-| Production incidents | 2-3/week | ~1/month |
+| Benefit              | Before                     | After            |
+| -------------------- | -------------------------- | ---------------- |
+| Feature deploy time  | 45+ minutes                | 5-8 minutes      |
+| Duplicate React deps | 3× (18MB each)             | 1× (6MB shared)  |
+| Team independence    | Blocked by merge conflicts | Fully autonomous |
+| Production incidents | 2-3/week                   | ~1/month         |
 
 The key insight: **don't federate everything**. Start with just the boundaries where teams need independence most.
 
@@ -88,7 +90,3 @@ The key insight: **don't federate everything**. Start with just the boundaries w
 The learning curve is real, but the payoff in team autonomy is worth it. We went from "one deployment blocks everyone" to "each team ships daily without touching others' code."
 
 ---
-
-> **Note**: This technical post reflects my personal experience and lessons learned. All code examples are simplified for clarity — always test federation configurations in a staging environment before production.
->
-> **Tool note**: This post was written with AI assistance for research and example generation, but all insights and business data are independently verified.
