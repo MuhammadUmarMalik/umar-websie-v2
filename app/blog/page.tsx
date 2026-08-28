@@ -51,11 +51,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           <Breadcrumbs items={CRUMBS} />
           <p className="mono mb-4 text-sm uppercase tracking-widest text-accent">Blog</p>
           <h1 className="max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl">
-            Notes on building better websites.
+            Web Design, Conversion &amp; Automation Blog
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-text-secondary">
-            Practical articles about website conversion, speed, UI/UX, and business automation for
-            small businesses.
+            Notes on building better websites — practical articles about conversion, speed, UI/UX,
+            and business automation for small businesses.
           </p>
         </div>
       </section>

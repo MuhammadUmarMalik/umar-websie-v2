@@ -61,7 +61,9 @@ export function BlogHeader({
       {coverImage && (
         <Image
           src={coverImage}
-          alt=""
+          // The post's lead image is content, not decoration — it is the one
+          // Google Images has to index for this URL, so it needs a real alt.
+          alt={`Cover image for the article: ${title}`}
           width={1200}
           height={630}
           priority

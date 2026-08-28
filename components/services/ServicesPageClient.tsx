@@ -96,7 +96,7 @@ const FAQS = [
   },
   {
     q: "What does a project cost?",
-    a: "Website projects start from $499 (Starter) and $999 (Growth). Automation and design projects are scoped per requirements. See the Pricing page for full details.",
+    a: "Website projects start from $249 (Starter) and $499 (Growth). Automation and design projects are scoped per requirements. See the Pricing page for full details.",
   },
 ];
 
@@ -159,16 +159,17 @@ export default function ServicesPageClient() {
             </span>
           </FadeUp>
           <FadeUp delay={0.1}>
-            <h1 className="mt-4 font-display text-4xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl">
-              Services Built Around
+            <h1 className="mt-4 font-display text-3xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl">
+              Web Development, UI/UX
               <br />
-              <span className="not-italic text-accent">Your Business Problem.</span>
+              <span className="not-italic text-accent">&amp; Automation Services.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.2}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-secondary">
-              Not every business needs a full rebuild. I start by finding what&apos;s actually
-              costing you — leads, time, trust — then fix it with the right solution.
+              Services built around your business problem. Not every business needs a full
+              rebuild — I start by finding what&apos;s actually costing you (leads, time, trust)
+              then fix it with the right solution.
             </p>
           </FadeUp>
           <FadeUp delay={0.3}>

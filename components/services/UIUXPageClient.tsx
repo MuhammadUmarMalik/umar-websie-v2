@@ -221,15 +221,16 @@ export default function UIUXPageClient() {
             </span>
           </FadeUp>
           <FadeUp delay={0.1}>
-            <h1 className="mt-4 font-display text-4xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl">
-              Design That Guides Visitors
+            <h1 className="mt-4 font-display text-3xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl">
+              UI/UX Design Services
               <br />
-              <span className="not-italic text-accent">to Take Action.</span>
+              <span className="not-italic text-accent">That Convert Visitors.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.2}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-secondary">
-              Confused visitors don&apos;t convert. I design clean, intuitive interfaces —
+              Design that guides visitors to take action. Confused visitors don&apos;t convert, so
+              I design clean, intuitive interfaces —
               websites, landing pages, SaaS dashboards — with clear user flows, strong CTAs,
               and mobile-first layouts. In Figma. Designed first. Built second.
             </p>

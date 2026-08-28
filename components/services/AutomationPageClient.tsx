@@ -233,15 +233,16 @@ export default function AutomationPageClient() {
             </span>
           </FadeUp>
           <FadeUp delay={0.1}>
-            <h1 className="mt-4 font-display text-4xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl">
-              Stop Repeating Work.
+            <h1 className="mt-4 font-display text-3xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl">
+              Business Process Automation
               <br />
-              <span className="not-italic text-accent">Automate It.</span>
+              <span className="not-italic text-accent">with n8n, Make &amp; AI.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.2}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-secondary">
-              I connect your tools — forms, CRM, email, WhatsApp, spreadsheets — and build
+              Stop repeating work. I connect your tools — forms, CRM, email, WhatsApp,
+              spreadsheets — and build
               workflows that run automatically. Using n8n, Make, and the OpenAI API, I
               eliminate the manual tasks eating your team&apos;s time every week.
             </p>

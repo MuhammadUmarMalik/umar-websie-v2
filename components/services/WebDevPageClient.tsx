@@ -194,17 +194,18 @@ export default function WebDevPageClient() {
             </span>
           </FadeUp>
           <FadeUp delay={0.1}>
-            <h1 className="mt-4 font-display text-4xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl">
-              Websites That Earn Trust
+            <h1 className="mt-4 font-display text-3xl font-bold italic leading-[1.05] tracking-tight text-text-primary sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl">
+              Small Business Website Development
               <br />
-              <span className="not-italic text-accent">and Generate Leads.</span>
+              <span className="not-italic text-accent">That Generates Leads.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.2}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-text-secondary">
-              A fast, responsive, conversion-focused website built in Next.js, React, or
+              Websites that earn trust. Fast, responsive, and conversion-focused, built in
+              Next.js, React, or
               WordPress — designed first, tested thoroughly, and handed over with full
-              documentation. Starting from $499.
+              documentation. Starting from $249.
             </p>
           </FadeUp>
           <FadeUp delay={0.3}>

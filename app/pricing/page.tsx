@@ -43,12 +43,12 @@ export default function PricingPage() {
           <Breadcrumbs items={CRUMBS} />
           <p className="mono mb-4 text-sm uppercase tracking-widest text-accent">Pricing</p>
           <h1 className="max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl">
-            Simple. Transparent.
-            <br className="hidden md:block" /> No Surprises.
+            Website &amp; Automation
+            <br className="hidden md:block" /> Pricing
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-text-secondary">
-            Every plan is built around results — not just deliverables. Pick the tier that fits your
-            stage, or let&apos;s scope something custom.
+            Simple, transparent, no surprises. Every plan is built around results — not just
+            deliverables. Pick the tier that fits your stage, or let&apos;s scope something custom.
           </p>
         </div>
       </section>

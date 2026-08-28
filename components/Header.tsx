@@ -9,7 +9,10 @@ import { useEffect, useState } from "react";
 import { featuredProjects, marketingPages, siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-const navItems = marketingPages.filter((item) => item.label !== "Services");
+// Services is back in the primary nav. It is the hub for the three commercial
+// service pages and was previously reachable from the footer only, which gave
+// the site's highest-intent cluster the weakest internal link profile.
+const navItems = marketingPages;
 const menuEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const menuTransition = { duration: 0.9, ease: menuEase };
 

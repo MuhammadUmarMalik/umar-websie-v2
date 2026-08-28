@@ -149,7 +149,8 @@ export function PortfolioGrid() {
                 <span className="mono text-xs uppercase text-accent">{project.category}</span>
                 <span className="mono text-xs text-text-secondary">{project.year}</span>
               </div>
-              <h2 className="mt-3 text-xl font-semibold text-text-primary">{project.title}</h2>
+              {/* h3: these sit under the "All Work" h2 on /portfolio. */}
+              <h3 className="mt-3 text-xl font-semibold text-text-primary">{project.title}</h3>
               <p className="mt-2 text-sm leading-6 text-text-secondary">{project.result}</p>
 
               <div className="mt-4 flex flex-wrap gap-2">

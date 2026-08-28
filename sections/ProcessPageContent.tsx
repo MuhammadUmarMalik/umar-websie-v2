@@ -421,9 +421,11 @@ export default function ProcessPageContent() {
 
           {/* Headline — one h1. The second line is a span, not a second h1;
               the two-heading version was using <h1> purely for the line break. */}
+          {/* Clamp stepped down from 136px max: the keyword-bearing headline is
+              roughly twice the character count of the old "Five Steps." line. */}
           <h1
             className="font-display font-bold leading-[0.95]"
-            style={{ fontSize: "clamp(58px, 9.5vw, 136px)" }}
+            style={{ fontSize: "clamp(36px, 6.2vw, 92px)" }}
           >
             <span className="block overflow-hidden">
               <motion.span
@@ -433,7 +435,7 @@ export default function ProcessPageContent() {
                 transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.06 }}
                 style={{ color: "var(--text-primary)" }}
               >
-                Five Steps.
+                My Web Design Process:
               </motion.span>
             </span>
             <span className="block overflow-hidden">
@@ -444,7 +446,7 @@ export default function ProcessPageContent() {
                 transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.14 }}
                 style={{ color: "var(--accent)" }}
               >
-                Zero Guesswork.
+                From Audit to Launch.
               </motion.span>
             </span>
           </h1>
@@ -458,9 +460,9 @@ export default function ProcessPageContent() {
               className="max-w-lg text-[17px] leading-[1.9]"
               style={{ color: "var(--text-secondary)" }}
             >
-              A structured, repeatable process that removes the chaos from
-              projects. You know exactly what&apos;s happening, what comes next,
-              and what you&apos;ll receive at every stage.
+              Five steps, zero guesswork. A structured, repeatable process that
+              removes the chaos from projects — you know exactly what&apos;s
+              happening, what comes next, and what you&apos;ll receive at every stage.
             </motion.p>
 
             <motion.div

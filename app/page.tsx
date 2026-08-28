@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CTABanner from "@/sections/CTABanner";
+import FAQSection from "@/sections/FAQSection";
 import HeroSection from "@/sections/HeroSection";
 import PainPointsSection from "@/sections/PainPointsSection";
 import ProcessSection from "@/sections/ProcessSection";
@@ -50,6 +51,7 @@ export default function Home() {
       <StatsSection />
       <Project />
       <TestimonialsSection />
+      <FAQSection />
       <CTABanner />
     </>
   );

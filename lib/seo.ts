@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { siteConfig, faqs as siteFaqs, servicePages, caseStudies } from "@/lib/constants";
+import {
+  siteConfig,
+  faqs as siteFaqs,
+  servicePages,
+  caseStudies,
+  pricingPackages,
+  type CaseStudy,
+} from "@/lib/constants";
 
 type SeoInput = {
   title: string;
@@ -20,61 +27,61 @@ export const seoMap: Record<string, SeoInput> = {
     path: "/"
   },
   about: {
-    title: "About Umar Malik",
+    title: "About Umar Malik: Full-Stack Developer",
     description:
-      "How I combine software engineering, UI/UX design, and automation to solve practical small-business problems — and how I decide what's worth fixing.",
+      "How I combine software engineering, UI/UX design, and automation to solve practical small-business problems. See how I decide what's worth fixing.",
     path: "/about"
   },
   services: {
     title: "Web, UI/UX & Automation Services",
     description:
-      "Website development, UI/UX design, and business automation for small businesses. Fixed scope, fixed price, from $499. See what fits your problem.",
+      "Website development, UI/UX design, and business automation for small businesses. Fixed scope, fixed price, from $249. See what fits your problem.",
     path: "/services"
   },
   websiteDevelopment: {
     title: "Website Development That Wins Leads",
     description:
-      "Fast, responsive Next.js and WordPress websites for small businesses losing customers to slow pages and unclear calls to action. From $499, 7-10 days.",
+      "Fast, responsive Next.js and WordPress websites for small businesses losing leads to slow pages and weak calls to action. From $249, live in 7-10 days.",
     path: "/website-development"
   },
   businessAutomation: {
     title: "Business Automation with n8n & AI",
     description:
-      "Stop retyping data between tools. Automated lead capture, CRM updates, dashboards, and email workflows built with n8n, Make.com, and custom APIs.",
+      "Stop retyping data between tools. Lead capture, CRM updates, and email workflows built with n8n, Make, and AI. Book a free automation audit.",
     path: "/business-automation"
   },
   uiUxDesign: {
     title: "UI/UX Design for Higher Conversion",
     description:
-      "Clean UI/UX design for websites, landing pages, and SaaS dashboards. Clearer user flow, stronger trust signals, and more visitors who actually convert.",
+      "Conversion-focused UI/UX design for websites, landing pages, and SaaS dashboards. Figma wireframes through dev-ready handoff. See the process.",
     path: "/ui-ux-design"
   },
   portfolio: {
-    title: "Client Work & Case Studies",
+    title: "Portfolio & Case Studies",
     description:
-      "Real websites, dashboards, and automations built for small businesses — with the problem, the fix, and the measured result for each project.",
+      "Real websites, dashboards, and automations for small businesses — the problem, the fix, and the result behind each project. Explore the work.",
     path: "/portfolio"
   },
   process: {
-    title: "My Process: Audit to Launch",
+    title: "Web Design Process: Audit to Launch",
     description:
-      "A practical five-step process — business audit, competitor research, Figma design sign-off, production build, and tested launch. No guesswork, no surprises.",
+      "A five-step process: business audit, competitor research, Figma design sign-off, production build, and tested launch. See how your project runs.",
     path: "/process"
   },
   pricing: {
-    title: "Pricing: Starter, Growth, Custom",
+    title: "Website Pricing: How Much It Costs",
     description:
-      "Transparent pricing for small-business websites and automation. Starter from $499, Growth from $999, or custom-scoped. You own everything at handover.",
+      "Transparent pricing for small-business websites and automation. Starter from $249, Growth from $499, or custom-scoped. You own everything at handover.",
     path: "/pricing"
   },
   blog: {
-    title: "Website & Automation Notes",
+    title: "Blog: Web Design, SEO & Automation",
     description:
-      "Practical articles on website speed, conversion, UI/UX, and business automation — written for small business owners, not for other developers.",
+      "Practical articles on website speed, conversion, UI/UX, and business automation — written for business owners, not developers. Read the latest.",
     path: "/blog"
   },
   contact: {
-    title: "Contact & Free Discovery Call",
+    title: "Contact: Book a Free Discovery Call",
     description:
       "Share your website or automation problem and get a clear plan for design, development, testing, and launch. Response within 24 hours.",
     path: "/contact"
@@ -403,13 +410,65 @@ export function portfolioSchema() {
         position: i + 1,
         name: cs.title,
         description: `Problem: ${cs.problem} Solution: ${cs.solution} Result: ${cs.result}`,
+        // Each entry now resolves to its own case study page, so the list is
+        // navigable rather than a dead-end summary.
+        url: `${siteConfig.url}/portfolio/${cs.slug}`,
       })),
     },
   };
 }
 
-/** Service + Offers schema for the Pricing page */
+/**
+ * Article schema for a single case study.
+ *
+ * `Article` rather than `CreativeWork`: Google has documented article rich
+ * results, and a case study is the closest fit for a narrative page with an
+ * author and a subject. `about` names the service so the page is tied to the
+ * matching commercial page in the entity graph.
+ */
+export function caseStudySchema(cs: CaseStudy) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${siteConfig.url}/portfolio/${cs.slug}#article`,
+    mainEntityOfPage: `${siteConfig.url}/portfolio/${cs.slug}`,
+    headline: cs.headline,
+    description: `${cs.problem} ${cs.solution} ${cs.result}`,
+    author: { "@id": `${siteConfig.url}/#person` },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    inLanguage: "en",
+    about: {
+      "@type": "Service",
+      name: cs.service,
+      provider: { "@id": `${siteConfig.url}/#organization` },
+    },
+    keywords: cs.stack.join(", "),
+    ...(cs.image ? { image: `${siteConfig.url}${cs.image}` } : {}),
+  };
+}
+
+/**
+ * Service + Offers schema for the Pricing page.
+ *
+ * Derived from `pricingPackages` rather than hardcoded. Google treats markup
+ * that contradicts the visible page as a structured-data policy violation, and
+ * these numbers previously drifted out of sync with the rendered cards. Tiers
+ * without a numeric price ("Custom") are skipped — an Offer needs a real price.
+ */
 export function pricingSchema() {
+  const offers = pricingPackages
+    .map((plan) => ({ plan, amount: plan.price.replace(/[^0-9.]/g, "") }))
+    .filter(({ amount }) => amount.length > 0)
+    .map(({ plan, amount }) => ({
+      "@type": "Offer",
+      name: `${plan.name} Website Package`,
+      description: `${plan.description} Includes: ${plan.features.join(", ")}.`,
+      price: amount,
+      priceCurrency: "USD",
+      eligibleRegion: "Worldwide",
+      url: `${siteConfig.url}/pricing`,
+    }));
+
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -417,27 +476,6 @@ export function pricingSchema() {
     name: "Website Development and Business Automation Services",
     provider: { "@id": `${siteConfig.url}/#organization` },
     areaServed: "Worldwide",
-    offers: [
-      {
-        "@type": "Offer",
-        name: "Starter Website Package",
-        description:
-          "Up to 5 pages, responsive design, basic on-page SEO, contact form integration, 2 revision rounds, delivered in 7–10 days.",
-        price: "499",
-        priceCurrency: "USD",
-        eligibleRegion: "Worldwide",
-        url: `${siteConfig.url}/pricing`,
-      },
-      {
-        "@type": "Offer",
-        name: "Growth Website Package",
-        description:
-          "Up to 10 pages, custom UI/UX design, full SEO and Core Web Vitals optimisation, CMS integration, lead capture forms, email automation, Google Analytics 4 setup, 3 revision rounds, delivered in 14–21 days.",
-        price: "999",
-        priceCurrency: "USD",
-        eligibleRegion: "Worldwide",
-        url: `${siteConfig.url}/pricing`,
-      },
-    ],
+    offers,
   };
 }

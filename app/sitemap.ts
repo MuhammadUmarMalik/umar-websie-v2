@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { caseStudies } from "@/lib/constants";
 
 const base = (
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.umarmalik-dev.com"
@@ -37,7 +38,7 @@ const ROUTES: Array<{
   { path: "/business-automation", changeFrequency: "monthly", priority: 0.9 },
   { path: "/ui-ux-design", changeFrequency: "monthly", priority: 0.9 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
-  { path: "/portfolio", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/portfolio", changeFrequency: "monthly", priority: 0.9 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/process", changeFrequency: "monthly", priority: 0.7 },
@@ -53,6 +54,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(PAGE_UPDATED[path] ?? FALLBACK_UPDATED),
       changeFrequency,
       priority,
+    })),
+    // Case study detail pages. They carry commercial intent and are what earn
+    // links, so they sit level with the service pages rather than the blog.
+    ...caseStudies.map((cs) => ({
+      url: `${base}/portfolio/${cs.slug}`,
+      lastModified: new Date(PAGE_UPDATED["/portfolio"] ?? FALLBACK_UPDATED),
+      changeFrequency: "yearly" as const,
+      priority: 0.8,
     })),
     // Posts sit below the service pages on purpose — this is a lead-gen site,
     // and blog posts were previously outranking the pages that convert.

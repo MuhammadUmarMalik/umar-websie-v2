@@ -30,7 +30,7 @@ const SERVICE_FAQS = [
   {
     question: "What does a project cost?",
     answer:
-      "Website projects start from $499 (Starter) and $999 (Growth). Automation and design projects are scoped per requirements.",
+      "Website projects start from $249 (Starter) and $499 (Growth). Automation and design projects are scoped per requirements.",
   },
 ];
 
