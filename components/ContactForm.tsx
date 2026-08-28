@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 import { ArrowRight } from "lucide-react";
+import { trackFormSubmit } from "@/lib/gtm";
 
 const projectTypes = [
   "Website",
@@ -62,6 +63,9 @@ export function ContactForm() {
         }),
       });
       if (!res.ok) throw new Error("Failed");
+      // Only after the API accepts the submission — a failed POST must not
+      // register as a conversion.
+      trackFormSubmit("contact");
       setStatus("success");
       setForm(initialForm);
     } catch {

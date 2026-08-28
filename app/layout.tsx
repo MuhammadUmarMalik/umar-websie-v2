@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Footer } from "../components/Footer";
+import {
+  GoogleTagManager,
+  GoogleTagManagerNoScript,
+} from "../components/GoogleTagManager";
+import { GtmClickTracker } from "../components/GtmClickTracker";
 import { Header } from "../components/Header";
 import { Providers } from "../components/Providers";
 import { ThirdPartyScripts } from "../components/ThirdPartyScripts";
@@ -95,9 +100,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Both IDs are inlined at build time, so they must be referenced as full
-  // `process.env.NEXT_PUBLIC_*` expressions. Absent ID => tag simply not rendered.
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+  // Inlined at build time, so this must be a full `process.env.NEXT_PUBLIC_*`
+  // expression. Absent ID => tag simply not rendered. (The GTM ID is read the
+  // same way inside components/GoogleTagManager.tsx.)
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
@@ -115,7 +120,8 @@ export default function RootLayout({
         jetBrainsMono.variable,
       )}
     >
-      {gtmId ? <GoogleTagManager gtmId={gtmId} /> : null}
+      {/* GTM container script — injected into <head> client-side */}
+      <GoogleTagManager />
       <head>
         {/* Warm the TLS handshake for the hero video and remote images so they
             aren't paying connection setup on the critical path. */}
@@ -127,7 +133,10 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        {/* GTM <noscript> fallback — must be the first element inside <body> */}
+        <GoogleTagManagerNoScript />
         <Providers>
+          <GtmClickTracker />
           <ThirdPartyScripts />
           <Header />
           {children}

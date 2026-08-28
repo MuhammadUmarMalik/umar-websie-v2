@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { siteConfig } from "@/lib/constants";
+import { trackCtaClick } from "@/lib/gtm";
 import DecryptedText from "@/components/ui/DecryptedText";
 
 const STATS = [
@@ -130,6 +131,9 @@ export default function CTABanner() {
               {/* Primary — Start your project */}
               <Link
                 href="/contact"
+                onClick={() =>
+                  trackCtaClick("Start your project", { location: "cta_banner" })
+                }
                 className="group flex w-full cursor-pointer items-center justify-between rounded-full bg-accent px-6 py-4 text-sm font-semibold transition-all duration-200 hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
                 style={{ color: "var(--accent-foreground)" }}
               >

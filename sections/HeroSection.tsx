@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useRef } from "react";
 import { siteConfig } from "@/lib/constants";
+import { trackCtaClick } from "@/lib/gtm";
 import { cn } from "@/lib/utils";
 import DecryptedText from "@/components/ui/DecryptedText";
 
@@ -193,6 +194,7 @@ export default function HeroSection() {
             <div className="mt-4 flex flex-wrap gap-2.5 sm:mt-5 sm:gap-3">
               <Link
                 href="/portfolio"
+                onClick={() => trackCtaClick("View My Work", { location: "hero" })}
                 className="inline-flex h-11 items-center rounded-full bg-[#ffffff] px-6 text-[14px] font-semibold text-black transition-all duration-200 hover:bg-accent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffffff] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent sm:h-13 sm:px-8 sm:text-[15px]"
               >
                 View My Work

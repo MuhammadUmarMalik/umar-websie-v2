@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { trackCtaClick } from "@/lib/gtm";
 import DecryptedText from "@/components/ui/DecryptedText";
 
 const painPoints = [
@@ -257,6 +258,9 @@ export default function PainPointsSection() {
 
         <Link
           href="/contact"
+          onClick={() =>
+            trackCtaClick("Let's Fix It Together", { location: "pain_points" })
+          }
           className="group inline-flex shrink-0 items-center gap-4 rounded-full border py-2 px-2 text-sm font-semibold transition-all duration-300 hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           style={{
             borderColor: "var(--accent)",
