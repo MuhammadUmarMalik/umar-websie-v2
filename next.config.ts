@@ -32,12 +32,12 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.com https://*.vercel-insights.com https://us.i.posthog.com https://snap.licdn.com https://use.typekit.net https://www.googletagmanager.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.com https://*.vercel-insights.com https://us.i.posthog.com https://snap.licdn.com https://use.typekit.net https://www.googletagmanager.com https://*.googletagmanager.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.typekit.net",
       "font-src 'self' https://fonts.gstatic.com https://use.typekit.net data:",
-      "img-src 'self' data: blob: https://images.unsplash.com https://*.posthog.com https://www.googletagmanager.com https://www.google-analytics.com",
+      "img-src 'self' data: blob: https://images.unsplash.com https://*.posthog.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com",
       "media-src 'self' https://d8j0ntlcm91z4.cloudfront.net",
-      "connect-src 'self' https://us.i.posthog.com https://*.vercel-insights.com https://vitals.vercel-insights.com https://snap.licdn.com https://script.google.com https://*.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://*.analytics.google.com",
+      "connect-src 'self' https://us.i.posthog.com https://*.vercel-insights.com https://vitals.vercel-insights.com https://snap.licdn.com https://script.google.com https://*.googleapis.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com",
       // GTM preview/debug mode embeds Tag Assistant in an iframe
       "frame-src 'self' https://www.googletagmanager.com https://tagassistant.google.com",
       "frame-ancestors 'none'",
