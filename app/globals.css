@@ -491,6 +491,32 @@ select {
   100% { background-position: -200% 0; }
 }
 
+/* Hero heading entrance.
+   Deliberately CSS, not JS, and transform-only — no opacity. The heading is
+   the LCP element on the homepage, so it must be opaque in the server-rendered
+   HTML. Animating it via Framer Motion meant shipping inline `opacity:0` on
+   every word and not painting until hydration finished. */
+@keyframes word-pull-up {
+  from {
+    transform: translateY(70px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.word-pull-up > span > span {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .word-pull-up > span > span {
+    animation: word-pull-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.18s + var(--word-index) * 0.08s);
+  }
+}
+
 /* =========================
    Base Layer
 ========================= */

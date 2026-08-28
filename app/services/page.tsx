@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { createMetadata, seoMap, faqSchema, breadcrumbSchema, servicesListSchema } from "@/lib/seo";
+import {
+  createMetadata,
+  seoMap,
+  faqSchema,
+  breadcrumbSchema,
+  serviceSchema,
+  servicesListSchema,
+} from "@/lib/seo";
 import ServicesPageClient from "@/components/services/ServicesPageClient";
 
 export const metadata: Metadata = createMetadata(seoMap.services);
@@ -23,13 +30,25 @@ const SERVICE_FAQS = [
   {
     question: "What does a project cost?",
     answer:
-      "Website projects start from $499 (Starter) and $999 (Growth). Automation and design projects are scoped per requirements.",
+      "Website projects start from $249 (Starter) and $499 (Growth). Automation and design projects are scoped per requirements.",
   },
 ];
 
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            serviceSchema({
+              name: "Web Development, UI/UX Design, and Business Automation",
+              description: seoMap.services.description,
+              path: "/services",
+            })
+          ),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesListSchema()) }}

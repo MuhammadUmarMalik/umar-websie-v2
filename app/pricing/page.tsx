@@ -4,9 +4,15 @@ import { ArrowRight, Check, Clock, Lock, MessageCircle } from "lucide-react";
 import CTABanner from "@/sections/CTABanner";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { addOns, pricingPackages, siteConfig } from "@/lib/constants";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { createMetadata, seoMap, pricingSchema, faqSchema, breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata(seoMap.pricing);
+
+const CRUMBS = [
+  { name: "Home", href: "/" },
+  { name: "Pricing", href: "/pricing" },
+];
 
 const guarantees = [
   { icon: Clock, text: "On-time delivery, always" },
@@ -28,25 +34,21 @@ export default function PricingPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", href: "/" },
-              { name: "Pricing", href: "/pricing" },
-            ])
-          ),
+          __html: JSON.stringify(breadcrumbSchema(CRUMBS)),
         }}
       />
       {/* Hero */}
       <section className="px-4 pb-12 pt-28 sm:px-6 sm:pt-32 md:px-12 lg:px-20 lg:pt-48 2xl:px-28">
         <div className="mx-auto max-w-7xl">
+          <Breadcrumbs items={CRUMBS} />
           <p className="mono mb-4 text-sm uppercase tracking-widest text-accent">Pricing</p>
           <h1 className="max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl">
-            Simple. Transparent.
-            <br className="hidden md:block" /> No Surprises.
+            Website &amp; Automation
+            <br className="hidden md:block" /> Pricing
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-text-secondary">
-            Every plan is built around results — not just deliverables. Pick the tier that fits your
-            stage, or let&apos;s scope something custom.
+            Simple, transparent, no surprises. Every plan is built around results — not just
+            deliverables. Pick the tier that fits your stage, or let&apos;s scope something custom.
           </p>
         </div>
       </section>

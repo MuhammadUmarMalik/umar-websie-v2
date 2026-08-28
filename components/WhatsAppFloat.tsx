@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
+import { siteConfig } from "@/lib/constants"
 
 function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/923062617205"
+      href={siteConfig.whatsapp.href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

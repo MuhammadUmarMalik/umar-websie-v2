@@ -66,6 +66,30 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async redirects() {
+    return [
+      // /work used to render an empty page (HTTP 200 with no content) — a soft 404.
+      {
+        source: "/work",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/work/:path*",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      // Collapse the apex -> www hop. Without this, http://umarmalik-dev.com
+      // takes two redirects (to https apex, then to www) before it lands.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "umarmalik-dev.com" }],
+        destination: "https://www.umarmalik-dev.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     const isProd = process.env.NODE_ENV === "production";
     return [

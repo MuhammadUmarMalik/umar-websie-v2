@@ -10,8 +10,10 @@ import {
   Workflow,
 } from "lucide-react";
 
+// Must match the canonical host Vercel serves from (www), otherwise every
+// canonical tag, sitemap loc, and JSON-LD @id points at a URL that 308s.
 const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.umarmalik-dev.com"
 ).replace(/\/+$/, "");
 
 export const siteConfig = {
@@ -22,6 +24,11 @@ export const siteConfig = {
     "Software engineer and designer helping small businesses fix websites, improve UX, generate leads, and automate repetitive work.",
   email: "umarmalik.cs711@gmail.com",
   calendlyUrl: "https://calendly.com/umarmalik-cs711/30min",
+  whatsapp: {
+    // E.164 for schema.org, digits-only for the wa.me deep link.
+    tel: "+92-306-2617205",
+    href: "https://wa.me/923062617205",
+  },
   socials: {
     instagram: {
       label: "Instagram: @umarmalik_dev",
@@ -42,7 +49,7 @@ export const marketingPages = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Process", href: "/process" },
-  { label: "Work", href: "/portfolio" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
@@ -126,29 +133,79 @@ export const automationExamples = [
   "AI reply drafts",
 ];
 
-export const caseStudies = [
+export type CaseStudy = {
+  slug: string;
+  title: string;
+  /** Search-intent headline for the detail page's <h1> and <title>. */
+  headline: string;
+  industry: string;
+  service: string;
+  timeline: string;
+  problem: string;
+  solution: string;
+  result: string;
+  /** Comma-joined summary, kept for the existing cards and portfolio schema. */
+  tech: string;
+  stack: string[];
+  image?: string;
+  /**
+   * Quantified outcomes. Numbers are what make a case study rank and convert,
+   * and these are client facts I cannot derive from the repo — add real ones
+   * (e.g. { label: "Load time", value: "4.8s to 0.9s" }) as they are confirmed.
+   * The detail page renders the metrics band only when this is non-empty.
+   */
+  metrics: { label: string; value: string }[];
+};
+
+export const caseStudies: CaseStudy[] = [
   {
+    slug: "rice-mill-erp",
     title: "Rice Mill ERP",
+    headline: "Rice Mill ERP: Replacing Manual Inventory With One Dashboard",
+    industry: "Agriculture & manufacturing",
+    service: "Web app development",
+    timeline: "Custom scope",
     problem: "Manual inventory and reporting slowed daily operations.",
     solution: "Centralized dashboard, workflows, and reporting modules.",
     result: "Cleaner operations and faster business visibility.",
     tech: "Next.js, SQL, automation",
+    stack: ["Next.js", "SQL", "Automation"],
+    image: "/rice-erp.png",
+    metrics: [],
   },
   {
+    slug: "business-website-redesign",
     title: "Business Website Redesign",
+    headline: "Business Website Redesign: From Slow Pages to a Clear Conversion Path",
+    industry: "Professional services",
+    service: "Website development",
+    timeline: "14-21 days",
     problem: "Slow pages, weak mobile layout, and unclear conversion path.",
     solution: "Responsive rebuild with sharper service messaging and CTAs.",
     result: "Improved trust, speed, and lead capture readiness.",
     tech: "Next.js, Tailwind, SEO",
+    stack: ["Next.js", "Tailwind CSS", "On-page SEO"],
+    metrics: [],
   },
   {
+    slug: "automation-workflow",
     title: "Automation Workflow",
+    headline: "Automation Workflow: Cutting Manual Lead Follow-Up Across Four Tools",
+    industry: "Small business operations",
+    service: "Business automation",
+    timeline: "2-4 weeks",
     problem: "Leads and follow-ups were handled manually across tools.",
     solution: "Connected forms, notifications, status tracking, and reports.",
     result: "Less admin work and faster customer response.",
     tech: "Forms, AI, integrations",
+    stack: ["n8n", "OpenAI API", "Webhooks"],
+    metrics: [],
   },
 ];
+
+export function getCaseStudy(slug: string): CaseStudy | undefined {
+  return caseStudies.find((cs) => cs.slug === slug);
+}
 
 export const pricingPackages = [
   {
