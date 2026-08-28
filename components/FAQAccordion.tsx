@@ -8,31 +8,44 @@ export function FAQAccordion() {
 
   return (
     <div className="divide-y divide-border">
-      {faqs.map((faq, i) => (
-        <div key={i}>
-          <button
-            type="button"
-            onClick={() => setOpenIndex(openIndex === i ? null : i)}
-            className="group flex w-full items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            aria-expanded={openIndex === i}
-          >
-            <span className={`font-semibold transition-colors duration-200 ${openIndex === i ? "text-accent" : "text-text-primary group-hover:text-accent/80"}`}>
-              {faq.question}
-            </span>
-            <span
-              className={`mono shrink-0 text-accent transition-transform duration-200 ${
-                openIndex === i ? "rotate-45" : ""
-              }`}
-              aria-hidden
+      {faqs.map((faq, i) => {
+        const isOpen = openIndex === i;
+        const panelId = `faq-panel-${i}`;
+        const buttonId = `faq-button-${i}`;
+
+        return (
+          <div key={i}>
+            <button
+              type="button"
+              id={buttonId}
+              onClick={() => setOpenIndex(isOpen ? null : i)}
+              className="group flex w-full items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+              aria-expanded={isOpen}
+              aria-controls={panelId}
             >
-              +
-            </span>
-          </button>
-          {openIndex === i && (
-            <p className="pb-5 leading-7 text-text-secondary">{faq.answer}</p>
-          )}
-        </div>
-      ))}
+              <span className={`font-semibold transition-colors duration-200 ${isOpen ? "text-accent" : "text-text-primary group-hover:text-accent/80"}`}>
+                {faq.question}
+              </span>
+              <span
+                className={`mono shrink-0 text-accent transition-transform duration-200 ${
+                  isOpen ? "rotate-45" : ""
+                }`}
+                aria-hidden
+              >
+                +
+              </span>
+            </button>
+            {/* Rendered always, toggled with `hidden`, rather than mounted on
+                open. The answers back a FAQPage schema, and conditional render
+                kept them out of the server HTML entirely — so the markup
+                described content that was not on the page. Google indexes
+                collapsed accordion content, so `hidden` is safe here. */}
+            <p id={panelId} hidden={!isOpen} className="pb-5 leading-7 text-text-secondary">
+              {faq.answer}
+            </p>
+          </div>
+        );
+      })}
     </div>
   );
 }

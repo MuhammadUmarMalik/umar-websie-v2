@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 const categories = ["All", "Web Development", "UI/UX Design", "Automation"] as const;
@@ -132,11 +133,13 @@ export function PortfolioGrid() {
           >
             {/* Thumbnail */}
             <div className="relative h-44 overflow-hidden bg-bg-secondary sm:h-48 md:h-52 xl:h-56">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={project.image}
-                alt={project.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                alt={`${project.title} — ${project.category} project by Muhammad Umar Malik`}
+                fill
+                sizes="(min-width: 1536px) 320px, (min-width: 1024px) 30vw, (min-width: 768px) 45vw, 92vw"
+                loading="lazy"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-linear-to-b from-transparent to-bg-card/60" />
             </div>
@@ -146,7 +149,8 @@ export function PortfolioGrid() {
                 <span className="mono text-xs uppercase text-accent">{project.category}</span>
                 <span className="mono text-xs text-text-secondary">{project.year}</span>
               </div>
-              <h2 className="mt-3 text-xl font-semibold text-text-primary">{project.title}</h2>
+              {/* h3: these sit under the "All Work" h2 on /portfolio. */}
+              <h3 className="mt-3 text-xl font-semibold text-text-primary">{project.title}</h3>
               <p className="mt-2 text-sm leading-6 text-text-secondary">{project.result}</p>
 
               <div className="mt-4 flex flex-wrap gap-2">

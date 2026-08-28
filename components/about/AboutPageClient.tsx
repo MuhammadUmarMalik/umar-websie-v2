@@ -2,8 +2,10 @@
 
 import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
 import { useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Play } from "lucide-react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import CTABanner from "@/sections/CTABanner";
 
 // ─── SVG Tech Icons ───────────────────────────────────────────────
@@ -292,17 +294,24 @@ export default function AboutPageClient() {
               transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col justify-center"
             >
+              <Breadcrumbs
+                items={[
+                  { name: "Home", href: "/" },
+                  { name: "About", href: "/about" },
+                ]}
+                className="mb-5"
+              />
               <p className="mono mb-4 text-[11px] uppercase tracking-[0.22em] text-accent sm:mb-5">
                 Full-Stack Engineer &amp; Designer
               </p>
-              <h1 className="font-display text-4xl font-bold italic leading-[1.04] tracking-tight text-text-primary sm:text-5xl lg:text-5xl xl:text-6xl">
-                I Build Things That Fix
+              <h1 className="font-display text-3xl font-bold italic leading-[1.04] tracking-tight text-text-primary sm:text-4xl lg:text-4xl xl:text-5xl">
+                About Muhammad Umar Malik
                 <br />
-                <span className="text-accent">Real Problems.</span>
+                <span className="text-accent">Full-Stack Developer &amp; Designer.</span>
               </h1>
               <p className="mt-5 max-w-[42ch] text-base leading-7 text-text-secondary sm:mt-6">
-                Full-stack engineer, UI/UX designer, and automation builder
-                helping businesses fix what is broken and build what is missing.
+                I build things that fix real problems — helping businesses repair what is broken
+                and build what is missing, across engineering, UI/UX, and automation.
               </p>
               <div className="mt-7 flex flex-wrap gap-3 sm:mt-8">
                 <Link
@@ -348,11 +357,12 @@ export default function AboutPageClient() {
               className="flex items-center justify-center"
             >
               <div className="relative h-80 max-h-[50svh] w-full overflow-hidden rounded-2xl sm:h-96 sm:rounded-3xl [@media(orientation:landscape)_and_(max-width:1023px)]:h-[calc(100svh-7rem)] [@media(orientation:landscape)_and_(max-width:1023px)]:max-h-none [@media(orientation:landscape)_and_(max-width:1023px)]:w-44 lg:max-h-none lg:h-125 lg:w-95 xl:h-140 xl:w-105">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src="/umar-dp.png"
-                  alt="Muhammad Umar Malik"
-                  className="h-full w-full object-cover object-top"
+                  alt="Muhammad Umar Malik, software engineer and designer"
+                  fill
+                  sizes="(min-width: 1280px) 420px, (min-width: 1024px) 380px, 90vw"
+                  className="object-cover object-top"
                   draggable={false}
                 />
                 <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-accent/15 to-transparent" />

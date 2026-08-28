@@ -9,39 +9,15 @@ import {
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { Fragment, useRef } from "react";
 import { siteConfig } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 import DecryptedText from "@/components/ui/DecryptedText";
 
 interface WordsPullUpProps {
   text: string;
   className?: string;
 }
-
-const wordContainer: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.18,
-    },
-  },
-};
-
-const wordItem: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 70,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.85,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
 
 const fadeUp: Variants = {
   hidden: {
@@ -58,26 +34,33 @@ const fadeUp: Variants = {
   },
 };
 
+/**
+ * The homepage LCP element. The stagger is driven by CSS (see `.word-pull-up`
+ * in globals.css) rather than Framer Motion so the text is opaque in the SSR
+ * payload and paints at FCP instead of waiting on hydration.
+ */
 function WordsPullUp({ text, className }: WordsPullUpProps) {
   return (
-    <motion.h1
-      aria-label={text}
-      className={className}
-      initial="hidden"
-      animate="visible"
-      variants={wordContainer}
-    >
-      {text.split(" ").map((word) => (
-        <span
-          key={word}
-          className="mb-[-0.12em] mr-[0.14em] inline-block overflow-hidden pb-[0.12em]"
-        >
-          <motion.span className="inline-block" variants={wordItem}>
-            {word}
-          </motion.span>
-        </span>
+    <h1 aria-label={text} className={cn("word-pull-up", className)}>
+      {text.split(" ").map((word, index) => (
+        // The literal space between words is deliberate. Spacing used to come
+        // from `mr-[0.14em]` alone, which left the H1's text content as one
+        // unbroken run ("WebsitesAutomationThat...") in the HTML — the words
+        // were only separated visually. Real whitespace keeps the heading
+        // parseable; the margin is gone so spacing is not applied twice.
+        <Fragment key={`${word}-${index}`}>
+          {index > 0 ? " " : null}
+          <span className="mb-[-0.12em] inline-block overflow-hidden pb-[0.12em]">
+            <span
+              className="inline-block"
+              style={{ "--word-index": index } as React.CSSProperties}
+            >
+              {word}
+            </span>
+          </span>
+        </Fragment>
       ))}
-    </motion.h1>
+    </h1>
   );
 }
 
@@ -120,6 +103,13 @@ export default function HeroSection() {
           muted
           loop
           playsInline
+          // TODO: add poster="/hero-poster.webp" once the asset exists.
+          // Extract frame 0 of the MP4 and save it to public/ as WebP:
+          //   ffmpeg -i <video-url> -vframes 1 -q:v 80 public/hero-poster.webp
+          // A poster paints at FCP and becomes an optimizable LCP candidate
+          // instead of the hero sitting black until the video buffers. Leaving
+          // preload at "metadata" until then — "none" without a poster would
+          // make the blank window longer, not shorter.
           preload="metadata"
           aria-label="Cinematic background video"
         />
@@ -177,9 +167,12 @@ export default function HeroSection() {
             </motion.p>
 
             <div className="flex items-end gap-5">
+              {/* The H1 carries both head terms now. It is two words longer
+                  than the old line, so the ramp steps down one size at the top
+                  end to keep it at three lines on wide screens. */}
               <WordsPullUp
-                text="I Fix What's Costing Your Business."
-                className="max-w-7xl font-display text-4xl font-bold leading-[0.97] text-[#ffffff] sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl"
+                text="Websites & Automation That Fix What's Costing Your Business."
+                className="max-w-7xl font-display text-3xl font-bold leading-[0.97] text-[#ffffff] sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl"
               />
             </div>
           </div>

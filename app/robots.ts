@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 
-const base = (process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com").replace(/\/+$/, "");
+const base = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.umarmalik-dev.com"
+).replace(/\/+$/, "");
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -8,9 +10,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/studio/", "/api/"],
+        // No trailing slashes — "/studio/" does not match the bare "/studio"
+        // URL, which returns 200 and would otherwise stay crawlable.
+        disallow: ["/studio", "/api"],
       },
     ],
     sitemap: `${base}/sitemap.xml`,
+    host: base,
   };
 }

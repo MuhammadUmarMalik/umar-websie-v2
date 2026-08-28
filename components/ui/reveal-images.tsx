@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface ImageSource {
@@ -9,6 +10,21 @@ interface ShowImageListItemProps {
   text: string;
   images: [ImageSource, ImageSource];
 }
+
+// Matches the `container` sizes below.
+const REVEAL_SIZES = "(min-width: 1024px) 112px, (min-width: 768px) 80px, 64px";
+
+// These sit inside a `scale-0` wrapper until the row is hovered. A lazy image
+// in a zero-area box never intersects the viewport, so the IntersectionObserver
+// never fires and it never loads — the reveal stayed blank. Eager is also what
+// the interaction needs: the picture has to already be decoded when the hover
+// starts, not begin downloading then.
+//
+// `loading="eager"` on next/image is NOT the same as `priority`: only `priority`
+// (or `preload`) emits a <link rel="preload">, so these still don't put 12
+// render-blocking Unsplash preloads in the homepage <head> the way the raw
+// <img> tags did.
+const REVEAL_LOADING = "eager" as const;
 
 function RevealImageListItem({ text, images }: ShowImageListItemProps) {
   const container =
@@ -23,11 +39,13 @@ function RevealImageListItem({ text, images }: ShowImageListItemProps) {
       </h4>
       <div className={container}>
         <div className={effect}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             alt={images[1].alt}
             src={images[1].src}
-            className="h-full w-full object-cover"
+            fill
+            sizes={REVEAL_SIZES}
+            loading={REVEAL_LOADING}
+            className="object-cover"
           />
         </div>
       </div>
@@ -38,11 +56,13 @@ function RevealImageListItem({ text, images }: ShowImageListItemProps) {
         )}
       >
         <div className={cn(effect, "duration-200")}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             alt={images[0].alt}
             src={images[0].src}
-            className="h-full w-full object-cover"
+            fill
+            sizes={REVEAL_SIZES}
+            loading={REVEAL_LOADING}
+            className="object-cover"
           />
         </div>
       </div>
