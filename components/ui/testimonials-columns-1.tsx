@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 
 export type Testimonial = {
@@ -40,12 +41,19 @@ export const TestimonialsColumn = (props: {
                   {text}
                 </div>
                 <div className="mt-5 flex items-center gap-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     width={40}
                     height={40}
                     src={image}
-                    alt={name}
+                    alt={`${name}, ${role}`}
+                    // Eager, not lazy: the cards live in a fixed-height,
+                    // overflow-hidden marquee that is permanently mid-transform,
+                    // so most of them never intersect the viewport and a lazy
+                    // avatar simply never loads. Eager (unlike `priority`)
+                    // still emits no <link rel="preload"> — and these are
+                    // 40px thumbnails.
+                    loading="eager"
+                    sizes="40px"
                     className="h-10 w-10 shrink-0 rounded-full bg-muted object-cover"
                   />
                   <div className="flex min-w-0 flex-col">

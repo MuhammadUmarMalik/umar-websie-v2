@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import { PortfolioGrid } from "@/sections/PortfolioGrid";
 import CTABanner from "@/sections/CTABanner";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { createMetadata, seoMap, portfolioSchema, breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata(seoMap.portfolio);
+
+// Single source of truth for both the visible trail and the JSON-LD.
+const CRUMBS = [
+  { name: "Home", href: "/" },
+  { name: "Portfolio", href: "/portfolio" },
+];
 
 export default function PortfolioPage() {
   return (
@@ -15,17 +22,13 @@ export default function PortfolioPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", href: "/" },
-              { name: "Portfolio", href: "/portfolio" },
-            ])
-          ),
+          __html: JSON.stringify(breadcrumbSchema(CRUMBS)),
         }}
       />
       {/* Hero */}
       <section className="px-4 pb-12 pt-28 sm:px-6 sm:pt-32 md:px-12 lg:px-20 lg:pt-48 2xl:px-28">
         <div className="mx-auto max-w-7xl">
+          <Breadcrumbs items={CRUMBS} />
           <p className="mono mb-4 text-sm uppercase text-accent">My Work</p>
           <h1 className="max-w-3xl font-display text-3xl font-bold leading-none sm:text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl">
             Real Projects. Real Results.

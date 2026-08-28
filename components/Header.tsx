@@ -176,8 +176,8 @@ export function Header() {
             exit={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
             transition={prefersReducedMotion ? { duration: 0.12 } : menuTransition}
           >
-            <div className="absolute inset-0 overflow-y-auto overflow-x-hidden rounded-3xl">
-              <div className="grid min-h-full gap-6 px-5 py-6 sm:px-7 sm:py-8 lg:grid-cols-[0.9fr_0.48fr_1.28fr] lg:gap-10 lg:px-10 lg:py-10 xl:px-12 xl:py-12 2xl:px-16 2xl:py-14">
+            <div className="absolute inset-0 overflow-y-auto overflow-x-hidden rounded-3xl lg:overflow-hidden">
+              <div className="grid min-h-full gap-6 px-5 py-6 sm:px-7 sm:py-8 lg:h-full lg:grid-cols-[0.9fr_0.48fr_1.28fr] lg:gap-10 lg:px-10 lg:py-8 xl:px-12 xl:py-10 2xl:px-16 2xl:py-12">
               <motion.nav
                 aria-label="Primary navigation"
                 className="flex flex-col items-start self-start lg:gap-0"
@@ -204,7 +204,7 @@ export function Header() {
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         className={cn(
-                          "flex items-center gap-3 text-[28px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none xs:text-[32px] sm:text-5xl sm:gap-4 lg:gap-5 lg:text-6xl lg:leading-[0.98] xl:text-7xl",
+                          "flex items-center gap-3 text-[28px] font-medium leading-[1.08] tracking-normal transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none xs:text-[32px] sm:text-5xl sm:gap-4 lg:gap-4 lg:text-[min(3.6vw,7.2vh)] lg:leading-[1.05] xl:gap-5 xl:text-[min(3.4vw,7.6vh)]",
                           highlighted ? "text-accent" : "text-text-primary"
                         )}
                         onMouseEnter={() => setHoveredItem(item.href)}
@@ -217,7 +217,7 @@ export function Header() {
                           {highlighted ? (
                             <motion.span
                               aria-hidden
-                              className="mt-1 block size-5 shrink-0 bg-accent lg:mt-2 lg:size-8"
+                              className="mt-1 block size-5 shrink-0 bg-accent lg:mt-[0.12em] lg:size-[0.46em]"
                               initial={{ opacity: 0, scale: 0.65, x: -18 }}
                               animate={{ opacity: 1, scale: 1, x: 0 }}
                               exit={{ opacity: 0, scale: 0.65, x: -18 }}
@@ -292,7 +292,7 @@ export function Header() {
                   onClick={() => setOpen(false)}
                   className="group flex w-full cursor-pointer flex-col text-text-primary transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
                 >
-                <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-88 xl:h-104">
+                <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-[min(22rem,44vh)] xl:h-[min(26rem,50vh)]">
 
                       <Image
                         src="/umar-dp.png"
@@ -312,7 +312,7 @@ export function Header() {
                 </Link>
 
                 <div className="flex w-full flex-col">
-                  <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-88 xl:h-104">
+                  <div className="relative h-72 w-full overflow-hidden rounded-xl bg-bg-card lg:h-[min(22rem,44vh)] xl:h-[min(26rem,50vh)]">
                     <AnimatePresence initial={false}>
                       {featuredProjects.map((project, i) =>
                         i === projectIndex ? (

@@ -7,69 +7,74 @@ type SeoInput = {
   path?: string;
 };
 
+/**
+ * Titles are budgeted to <= 38 characters. The root layout's `title.template`
+ * appends " | Muhammad Umar Malik" (+22 chars), so anything longer gets
+ * truncated in the SERP. Descriptions target 145-155 characters.
+ */
 export const seoMap: Record<string, SeoInput> = {
   home: {
-    title: "Software Engineer and Designer for Small Business Websites and Automation",
+    title: "Small Business Web Design & Automation",
     description:
-      "Muhammad Umar Malik helps small businesses fix slow websites, poor UX, low leads, and manual workflows with custom websites and automation.",
+      "I fix slow websites, weak UX, and manual workflows for small businesses. Custom Next.js sites and automation that generate leads. Free discovery call.",
     path: "/"
   },
   about: {
-    title: "About Muhammad Umar Malik — Full-Stack Engineer & Designer",
+    title: "About Umar Malik",
     description:
-      "Learn how Muhammad Umar Malik combines software engineering, UI/UX design, and automation to solve practical small-business problems.",
+      "How I combine software engineering, UI/UX design, and automation to solve practical small-business problems — and how I decide what's worth fixing.",
     path: "/about"
   },
   services: {
-    title: "Websites, UI/UX Design, and Business Automation for Small Businesses",
+    title: "Web, UI/UX & Automation Services",
     description:
-      "Website development, business automation, and UI/UX design services for small businesses that need clearer systems and better results.",
+      "Website development, UI/UX design, and business automation for small businesses. Fixed scope, fixed price, from $499. See what fits your problem.",
     path: "/services"
   },
   websiteDevelopment: {
-    title: "Website Development for Small Businesses That Need More Leads",
+    title: "Website Development That Wins Leads",
     description:
-      "Fast, responsive, conversion-focused website development for businesses dealing with slow pages, poor UI, checkout issues, and low leads.",
+      "Fast, responsive Next.js and WordPress websites for small businesses losing customers to slow pages and unclear calls to action. From $499, 7-10 days.",
     path: "/website-development"
   },
   businessAutomation: {
-    title: "Business Automation Services — Cut Manual Repetitive Work",
+    title: "Business Automation with n8n & AI",
     description:
-      "Automate manual business tasks with AI workflows, forms, dashboards, CRM flows, email alerts, and custom integrations using n8n and Make.",
+      "Stop retyping data between tools. Automated lead capture, CRM updates, dashboards, and email workflows built with n8n, Make.com, and custom APIs.",
     path: "/business-automation"
   },
   uiUxDesign: {
-    title: "UI/UX Design Services for Better Website Conversion",
+    title: "UI/UX Design for Higher Conversion",
     description:
-      "Clean UI/UX design for websites, landing pages, SaaS dashboards, and service businesses that need better user flow and trust.",
+      "Clean UI/UX design for websites, landing pages, and SaaS dashboards. Clearer user flow, stronger trust signals, and more visitors who actually convert.",
     path: "/ui-ux-design"
   },
   portfolio: {
-    title: "Website and Automation Projects — Muhammad Umar Malik",
+    title: "Client Work & Case Studies",
     description:
-      "View selected website development, UI/UX design, business automation, and full-stack software projects with real business results.",
+      "Real websites, dashboards, and automations built for small businesses — with the problem, the fix, and the measured result for each project.",
     path: "/portfolio"
   },
   process: {
-    title: "The Process — Audit, Design, Build, Test, and Launch",
+    title: "My Process: Audit to Launch",
     description:
-      "A practical 5-step process: business audit, competitor research, Figma design, production build, and tested launch. No guesswork.",
+      "A practical five-step process — business audit, competitor research, Figma design sign-off, production build, and tested launch. No guesswork, no surprises.",
     path: "/process"
   },
   pricing: {
-    title: "Website and Automation Pricing — Starter, Growth, Custom",
+    title: "Pricing: Starter, Growth, Custom",
     description:
-      "Transparent pricing for small-business website and workflow projects. Starter from $499, Growth from $999, or custom-scoped.",
+      "Transparent pricing for small-business websites and automation. Starter from $499, Growth from $999, or custom-scoped. You own everything at handover.",
     path: "/pricing"
   },
   blog: {
-    title: "Small Business Website and Automation Insights — Muhammad Umar Malik",
+    title: "Website & Automation Notes",
     description:
-      "Practical articles about website conversion, speed, UI/UX, and business automation for small businesses.",
+      "Practical articles on website speed, conversion, UI/UX, and business automation — written for small business owners, not for other developers.",
     path: "/blog"
   },
   contact: {
-    title: "Get in Touch — Book a Free Discovery Call",
+    title: "Contact & Free Discovery Call",
     description:
       "Share your website or automation problem and get a clear plan for design, development, testing, and launch. Response within 24 hours.",
     path: "/contact"
@@ -118,9 +123,12 @@ export function websiteSchema() {
     "@type": "WebSite",
     "@id": `${siteConfig.url}/#website`,
     name: siteConfig.name,
+    alternateName: ["Umar Malik", "umarmalik-dev"],
     url: siteConfig.url,
     description: siteConfig.description,
     inLanguage: "en",
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    author: { "@id": `${siteConfig.url}/#person` },
   };
 }
 
@@ -176,10 +184,34 @@ export function organizationSchema() {
     founder: { "@id": `${siteConfig.url}/#person` },
     areaServed: "Worldwide",
     serviceType: ["Website Development", "UI/UX Design", "Business Automation"],
-    priceRange: "$499–$999+",
+    // Must be a plain range or $-band. The previous "$499–$999+" used an
+    // en-dash, which several structured-data parsers reject.
+    priceRange: "$$",
+    telephone: siteConfig.whatsapp.tel,
     address: {
+      // TODO: add addressLocality + addressRegion. Country alone is too thin
+      // to compete for regional queries, but I'm not guessing your city here.
       "@type": "PostalAddress",
       addressCountry: "PK",
+    },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Services",
+      itemListElement: servicePages.map((service) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+          description: service.summary,
+          url: `${siteConfig.url}${service.href}`,
+        },
+      })),
     },
     sameAs: [
       siteConfig.socials.linkedin.href,

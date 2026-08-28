@@ -31,7 +31,7 @@ const jetBrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.umarmalik-dev.com",
   ),
   title: {
     default: "Muhammad Umar Malik — Software Engineer & Designer",
@@ -50,7 +50,12 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  authors: [{ name: "Muhammad Umar Malik", url: process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com" }],
+  authors: [
+    {
+      name: "Muhammad Umar Malik",
+      url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.umarmalik-dev.com",
+    },
+  ],
   creator: "Muhammad Umar Malik",
   publisher: "Muhammad Umar Malik",
   category: "technology",
@@ -105,6 +110,16 @@ export default function RootLayout({
         jetBrainsMono.variable,
       )}
     >
+      <head>
+        {/* Warm the TLS handshake for the hero video and remote images so they
+            aren't paying connection setup on the critical path. */}
+        <link
+          rel="preconnect"
+          href="https://d8j0ntlcm91z4.cloudfront.net"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+      </head>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Providers>
           <ThirdPartyScripts />

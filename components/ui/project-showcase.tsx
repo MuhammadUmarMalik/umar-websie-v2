@@ -152,8 +152,9 @@ function ProjectPreview({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={previewSrc(project.link)}
-          alt=""
+          alt={`Screenshot of the ${project.title} website`}
           decoding="async"
+          loading="lazy"
           onLoad={() => setImgStatus("loaded")}
           onError={() => setImgStatus("error")}
           style={{

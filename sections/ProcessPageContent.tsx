@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useRef, useState } from "react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import CTABanner from "@/sections/CTABanner";
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
@@ -393,8 +394,15 @@ export default function ProcessPageContent() {
             initial={{ opacity: 0, x: -18 }}
             animate={heroInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-6 flex items-center gap-3"
+            className="mb-6 flex flex-wrap items-center gap-3"
           >
+            <Breadcrumbs
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Process", href: "/process" },
+              ]}
+              className="mb-0 basis-full"
+            />
             <span
               style={{
                 display: "inline-block",
@@ -411,35 +419,35 @@ export default function ProcessPageContent() {
             </span>
           </motion.div>
 
-          {/* Headline */}
-          <div className="overflow-hidden">
-            <motion.h1
-              initial={{ y: 90, opacity: 0 }}
-              animate={heroInView ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.06 }}
-              className="font-display font-bold leading-[0.95]"
-              style={{
-                fontSize: "clamp(58px, 9.5vw, 136px)",
-                color: "var(--text-primary)",
-              }}
-            >
-              Five Steps.
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden">
-            <motion.h1
-              initial={{ y: 90, opacity: 0 }}
-              animate={heroInView ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.14 }}
-              className="font-display font-bold italic leading-[0.95]"
-              style={{
-                fontSize: "clamp(58px, 9.5vw, 136px)",
-                color: "var(--accent)",
-              }}
-            >
-              Zero Guesswork.
-            </motion.h1>
-          </div>
+          {/* Headline — one h1. The second line is a span, not a second h1;
+              the two-heading version was using <h1> purely for the line break. */}
+          <h1
+            className="font-display font-bold leading-[0.95]"
+            style={{ fontSize: "clamp(58px, 9.5vw, 136px)" }}
+          >
+            <span className="block overflow-hidden">
+              <motion.span
+                className="block"
+                initial={{ y: 90, opacity: 0 }}
+                animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.06 }}
+                style={{ color: "var(--text-primary)" }}
+              >
+                Five Steps.
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span
+                className="block italic"
+                initial={{ y: 90, opacity: 0 }}
+                animate={heroInView ? { y: 0, opacity: 1 } : {}}
+                transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.14 }}
+                style={{ color: "var(--accent)" }}
+              >
+                Zero Guesswork.
+              </motion.span>
+            </span>
+          </h1>
 
           {/* Subtitle + phase pills grid */}
           <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">

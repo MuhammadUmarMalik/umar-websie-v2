@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { createMetadata, seoMap, faqSchema, breadcrumbSchema, servicesListSchema } from "@/lib/seo";
+import {
+  createMetadata,
+  seoMap,
+  faqSchema,
+  breadcrumbSchema,
+  serviceSchema,
+  servicesListSchema,
+} from "@/lib/seo";
 import ServicesPageClient from "@/components/services/ServicesPageClient";
 
 export const metadata: Metadata = createMetadata(seoMap.services);
@@ -30,6 +37,18 @@ const SERVICE_FAQS = [
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            serviceSchema({
+              name: "Web Development, UI/UX Design, and Business Automation",
+              description: seoMap.services.description,
+              path: "/services",
+            })
+          ),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesListSchema()) }}

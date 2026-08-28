@@ -10,8 +10,10 @@ import {
   Workflow,
 } from "lucide-react";
 
+// Must match the canonical host Vercel serves from (www), otherwise every
+// canonical tag, sitemap loc, and JSON-LD @id points at a URL that 308s.
 const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://umarmalik-dev.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.umarmalik-dev.com"
 ).replace(/\/+$/, "");
 
 export const siteConfig = {
@@ -22,6 +24,11 @@ export const siteConfig = {
     "Software engineer and designer helping small businesses fix websites, improve UX, generate leads, and automate repetitive work.",
   email: "umarmalik.cs711@gmail.com",
   calendlyUrl: "https://calendly.com/umarmalik-cs711/30min",
+  whatsapp: {
+    // E.164 for schema.org, digits-only for the wa.me deep link.
+    tel: "+92-306-2617205",
+    href: "https://wa.me/923062617205",
+  },
   socials: {
     instagram: {
       label: "Instagram: @umarmalik_dev",
@@ -42,7 +49,7 @@ export const marketingPages = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Process", href: "/process" },
-  { label: "Work", href: "/portfolio" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },

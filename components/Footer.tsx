@@ -73,9 +73,14 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <p className="mono mb-5 text-xs uppercase tracking-widest text-text-secondary">
+            {/* /services was previously reachable from the header only — the
+                thinnest internal link profile of any commercial page. */}
+            <Link
+              href="/services"
+              className="mono mb-5 block text-xs uppercase tracking-widest text-text-secondary transition-colors duration-200 hover:text-text-primary"
+            >
               Services
-            </p>
+            </Link>
             <nav aria-label="Footer services" className="flex flex-col gap-3">
               {servicePages.map((s) => (
                 <Link

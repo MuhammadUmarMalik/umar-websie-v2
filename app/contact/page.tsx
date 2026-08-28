@@ -2,9 +2,15 @@ import type { Metadata } from "next";
 import { ArrowRight, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/lib/constants";
 import { ContactForm } from "@/components/ContactForm";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { createMetadata, seoMap, organizationSchema, breadcrumbSchema } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata(seoMap.contact);
+
+const CRUMBS = [
+  { name: "Home", href: "/" },
+  { name: "Contact", href: "/contact" },
+];
 
 const contactPageSchema = {
   "@context": "https://schema.org",
@@ -31,18 +37,14 @@ export default function ContactPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", href: "/" },
-              { name: "Contact", href: "/contact" },
-            ])
-          ),
+          __html: JSON.stringify(breadcrumbSchema(CRUMBS)),
         }}
       />
 
       {/* Hero */}
       <section className="px-4 pb-12 pt-28 sm:px-6 sm:pt-32 md:px-12 lg:px-20 lg:pt-48 2xl:px-28">
         <div className="mx-auto max-w-screen-2xl">
+          <Breadcrumbs items={CRUMBS} />
           <p className="mono mb-4 text-sm uppercase text-accent">Contact</p>
           <h1 className="max-w-3xl font-display text-3xl font-bold leading-none sm:text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl">
             Let&apos;s Build Something Together.

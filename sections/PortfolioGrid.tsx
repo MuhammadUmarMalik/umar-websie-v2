@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 const categories = ["All", "Web Development", "UI/UX Design", "Automation"] as const;
@@ -132,11 +133,13 @@ export function PortfolioGrid() {
           >
             {/* Thumbnail */}
             <div className="relative h-44 overflow-hidden bg-bg-secondary sm:h-48 md:h-52 xl:h-56">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={project.image}
-                alt={project.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                alt={`${project.title} — ${project.category} project by Muhammad Umar Malik`}
+                fill
+                sizes="(min-width: 1536px) 320px, (min-width: 1024px) 30vw, (min-width: 768px) 45vw, 92vw"
+                loading="lazy"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-linear-to-b from-transparent to-bg-card/60" />
             </div>

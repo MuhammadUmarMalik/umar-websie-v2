@@ -4,9 +4,15 @@ import { BlogCard } from "@/components/blog/BlogCard";
 import { Pagination } from "@/components/blog/Pagination";
 import { TagBadge } from "@/components/blog/TagBadge";
 import { getAllPosts, getAllTags } from "@/lib/blog";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { breadcrumbSchema, createMetadata, seoMap } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata(seoMap.blog);
+
+const CRUMBS = [
+  { name: "Home", href: "/" },
+  { name: "Blog", href: "/blog" },
+];
 
 const PAGE_SIZE = 6;
 
@@ -35,18 +41,14 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbSchema([
-              { name: "Home", href: "/" },
-              { name: "Blog", href: "/blog" },
-            ]),
-          ),
+          __html: JSON.stringify(breadcrumbSchema(CRUMBS)),
         }}
       />
 
       {/* Hero */}
       <section className="px-4 pb-12 pt-28 sm:px-6 sm:pt-32 md:px-12 lg:px-20 lg:pt-48 2xl:px-28">
         <div className="mx-auto max-w-7xl">
+          <Breadcrumbs items={CRUMBS} />
           <p className="mono mb-4 text-sm uppercase tracking-widest text-accent">Blog</p>
           <h1 className="max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl md:text-6xl lg:text-7xl 2xl:text-8xl">
             Notes on building better websites.

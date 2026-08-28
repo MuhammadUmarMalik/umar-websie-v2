@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
   ArrowRight,
   Gauge,
@@ -147,6 +148,12 @@ export default function ServicesPageClient() {
       <section className="px-4 pt-28 pb-14 sm:px-6 sm:pt-32 sm:pb-16 md:px-10 lg:px-14 lg:pt-40 2xl:px-20">
         <div className="mx-auto max-w-7xl">
           <FadeUp>
+            <Breadcrumbs
+              items={[
+                { name: "Home", href: "/" },
+                { name: "Services", href: "/services" },
+              ]}
+            />
             <span className="mono text-xs uppercase tracking-widest text-accent">
               Services
             </span>
