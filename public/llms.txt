@@ -67,6 +67,12 @@ Yes. Communication via email, WhatsApp, or video call, any timezone.
 **What tech stack do you use?**
 Next.js, React, Tailwind CSS, TypeScript for frontend; Node.js, PostgreSQL, Supabase for backend; n8n and Make.com for automation.
 
+## Blog
+
+Practical articles on website conversion, speed, UI/UX, business automation, and AI-assisted development workflows: [Blog](https://umarmalik-dev.com/blog)
+
+- [How to Set Up an AI Vibe Engineering Team With Claude Code](https://umarmalik-dev.com/blog/ai-vibe-engineering-team-claude-code): Full guide to building a six-agent Claude Code team — research, planning, architecture, frontend, backend, and QA — that ships tested, versioned software instead of demos. Covers vibe coding vs vibe engineering, agent definition files, CLAUDE.md rules, hooks, and release gates.
+
 ## Contact
 
 - Email: umarmalik.cs711@gmail.com

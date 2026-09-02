@@ -1,0 +1,227 @@
+---
+title: "How to Set Up an AI Vibe Engineering Team With Claude Code"
+seoTitle: "How to Set Up an AI Vibe Engineering Team With Claude Code"
+slug: "ai-vibe-engineering-team-claude-code"
+date: "2026-09-02"
+excerpt: "Set up six specialized Claude Code subagents — research, planning, architecture, frontend, backend, and QA — that ship tested, versioned software, not demos."
+coverImage: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=1200&h=630&fit=crop&auto=format&q=80"
+coverImageAlt: "Code editor open beside a terminal, representing a multi-agent Claude Code development workflow"
+author: "Muhammad Umar Malik"
+tags: ["Claude Code", "AI Agents", "Vibe Engineering", "Developer Workflow"]
+faqs:
+  - question: "What's the difference between vibe coding and vibe engineering?"
+    answer: "Vibe coding is prompt-to-code with no spec, no tests, and no documented reasoning. Vibe engineering keeps the AI-assisted speed but requires a written artifact — a spec, a contract, a test result — at every stage before work moves forward."
+  - question: "Do I need the Claude Agent SDK, or can I do this with Claude Code alone?"
+    answer: "Claude Code alone is enough to run this whole pipeline interactively, using agent definition files in .claude/agents and a CLAUDE.md rules file. The Agent SDK is only needed if you want to run it headlessly in CI, a script, or a scheduled job, or if you want hooks to mechanically enforce rules like 'QA cannot edit code'."
+  - question: "How many AI agents do I actually need for software development?"
+    answer: "Six is a solid default for full-stack product work: research and planning, task management, architecture, frontend, backend, and QA. Smaller teams or simpler apps can merge frontend and backend into one development agent, but keeping QA and architecture separate from implementation is worth preserving even in a lighter setup."
+  - question: "Can Claude Code subagents really work in parallel?"
+    answer: "Yes. Frontend and backend development can run in parallel once the architecture agent publishes a locked API contract. They do not need to wait on each other's implementation, only on that shared contract."
+---
+
+If you've spent any time building software with AI tools in 2026, you've felt the difference between two very different experiences. One is fast, exciting, and eventually falls apart. The other is slower to set up but produces something you can actually ship. The first is **vibe coding**. The second — the subject of this guide — is **vibe engineering**.
+
+This post walks through exactly how to set up a full AI development team inside **Claude Code**, using six specialized subagents that work together in a disciplined, looping pipeline: research, planning, architecture, frontend development, backend development, and QA. By the end, you'll have a repeatable system you can drop into any project to go from a rough idea to a tested, versioned, production-ready release — without vibe coding your way into technical debt.
+
+## Table of contents
+
+1. [What is vibe engineering (and how is it different from vibe coding)?](#what-is-vibe-engineering-and-how-is-it-different-from-vibe-coding)
+2. [Why a single AI agent isn't enough](#why-a-single-ai-agent-isnt-enough)
+3. [The six-agent Claude Code team, explained](#the-six-agent-claude-code-team-explained)
+4. [Step-by-step: setting up your Claude Code agent team](#step-by-step-setting-up-your-claude-code-agent-team)
+5. [The loop: how the agents hand off work to each other](#the-loop-how-the-agents-hand-off-work-to-each-other)
+6. [Enforcing the rules with hooks, not just prompts](#enforcing-the-rules-with-hooks-not-just-prompts)
+7. [Version control: shipping v1, v2, and production releases](#version-control-shipping-v1-v2-and-production-releases)
+8. [Common mistakes when setting up multi-agent Claude Code workflows](#common-mistakes-when-setting-up-multi-agent-claude-code-workflows)
+9. [FAQ](#faq)
+
+---
+
+## What is vibe engineering (and how is it different from vibe coding)?
+
+**Vibe coding** is the now-familiar pattern: you describe a feature in a sentence, an AI model generates code, you paste it in, and you move on. It's fast and it feels magical the first few times. But it comes with no spec, no plan, no tests, and no record of *why* any decision was made. Six weeks later, nobody — including the AI — can explain why the database is shaped the way it is, or whether an edge case was ever actually handled.
+
+**Vibe engineering** keeps the speed and the conversational interface, but adds the discipline that vibe coding throws away:
+
+1. Every stage of the process produces a **written artifact** — a research brief, a backlog, an architecture doc, a test report — instead of disappearing into a chat log.
+2. **Nothing gets built without a spec**, and nothing ships without passing tests mapped to written acceptance criteria.
+3. **Every non-trivial decision gets a one-paragraph reason** (an architecture decision record, or ADR), so future developers — human or AI — understand the "why," not just the "what."
+
+The practical difference: vibe coding produces a demo. Vibe engineering produces a product you can maintain, hand off, and confidently put a version number on. It's the same reasoning behind the [five-step delivery process](/process) I use on client projects — audit, research, design, build, test — just applied to an AI-assisted team instead of a human one.
+
+## Why a single AI agent isn't enough
+
+A single long-running Claude Code session *can* build software, but it tends to blur roles: the same context window that's reasoning about database indexes is also trying to write UI copy and decide sprint priorities. Two problems follow.
+
+**Context pollution.** As a session grows, unrelated details crowd the context window, and quality drifts on tasks that need focused expertise. A database schema decision needs different judgment than a component's accessibility behavior, and interleaving the two makes both worse.
+
+**No accountability.** If one agent writes the code *and* tests the code, there's no independent check — the same blind spots that caused a bug are the blind spots reviewing it.
+
+Splitting the work into **specialized subagents**, each with a narrow mandate, a limited toolset, and a single owner for each artifact, solves both problems. This is exactly what Claude Code's [subagent architecture](https://code.claude.com/docs/en/agent-sdk/subagents) is built for: each subagent runs in its own fresh context, does one job, and reports back a summary — not its entire internal reasoning — to whichever agent is directing the work.
+
+## The six-agent Claude Code team, explained
+
+Here's the full roster, in the order they typically run.
+
+### 1. Research and planning agent
+
+Scopes the problem before anyone touches code. Researches technical options, evaluates trade-offs, and produces a written recommendation with explicit non-goals. Never writes tasks or code — its only output is a decision-ready brief.
+
+### 2. Task management agent (agile/scrum)
+
+Turns the research brief into epics and user stories in proper agile format — `As a <user>, I want <capability>, so that <benefit>` — each with Given/When/Then acceptance criteria and a story-point estimate. Owns the backlog and the current sprint board.
+
+### 3. Architecture and system design agent
+
+Designs the system before implementation starts: the data model, a locked **API contract** (every endpoint, every request and response shape), workflow diagrams, and ADRs for major decisions. This is the seam that lets frontend and backend agents build in parallel without ever having to guess at each other's shape.
+
+### 4. Frontend development agent
+
+Builds UI strictly against the architecture doc's contract — reusable components, proper separation between UI and state management (server state and client state kept in distinct layers), and enforced UX basics: loading states, error states, accessible focus handling, and form validation.
+
+### 5. Backend development agent
+
+Implements the schema as real migrations, builds API endpoints exactly matching the published contract, keeps business logic out of route handlers, and wraps multi-step writes in transactions. Ships with unit and integration tests, not just a working demo path.
+
+### 6. QA / testing agent
+
+Verifies every story against its acceptance criteria — and does exploratory testing beyond them, covering edge cases, failure states, and concurrent actions. Critically: **QA never fixes bugs itself.** It logs a bug with a severity and a "layer" tag (frontend, backend, architecture, or scope) and hands it back to the agent that owns that layer. This keeps the loop's accountability clean instead of turning into everyone patching everyone else's code.
+
+## Step-by-step: setting up your Claude Code agent team
+
+### Step 1 — Set up the folder structure
+
+Claude Code subagents coordinate through files on disk, not by talking to each other directly. Create this structure at your project root:
+
+```
+.claude/agents/     one markdown file per subagent
+docs/research/
+docs/architecture/
+docs/adr/
+tasks/              backlog.md, sprint-current.md, bugs.md
+CLAUDE.md           standing rules every agent inherits
+CHANGELOG.md
+```
+
+### Step 2 — Write each agent's definition file
+
+Each subagent is a single markdown file with YAML frontmatter and a system prompt body:
+
+```markdown
+---
+name: qa-testing-agent
+description: Use after backend/frontend agents report a story done.
+  Verifies against acceptance criteria — never fixes bugs itself.
+tools: Read, Bash, Glob, Grep
+model: sonnet
+---
+
+You are the QA / Testing agent. You verify, you don't fix...
+```
+
+The `description` field is what tells the orchestrating agent *when* to delegate to this subagent — write it as a clear trigger condition, not just a label. The `tools` field restricts what that subagent can actually touch. A QA agent, for instance, should never have `Write` or `Edit` in its tool list at all. The full field reference lives in the [subagents documentation](https://docs.claude.com/en/docs/claude-code/sub-agents).
+
+### Step 3 — Write CLAUDE.md, the rules every agent inherits
+
+`CLAUDE.md` is re-loaded on **every single turn**, for every agent — including after context compaction on long sessions. This is where your non-negotiable rules belong, not buried in a one-time prompt that can get summarized away:
+
+```markdown
+## Hard gates
+
+- No code until a spec exists (research + architecture docs).
+- No merge without tests passing the written acceptance criteria.
+- No version tag while a P0 or P1 bug is open.
+- QA never edits code — it reports, the owning agent fixes.
+- State management stays separate from UI components, always.
+```
+
+### Step 4 — Define the orchestrator
+
+You need one agent — the main session, or a dedicated orchestrator subagent — that sequences the other six, checks that each gate is actually met before advancing, and routes QA bug reports to the correct owning agent. This is the piece that turns "six separate prompts" into an actual pipeline.
+
+## The loop: how the agents hand off work to each other
+
+```
+Research and planning
+        |
+Task management (agile)
+        |
+Architecture and system design
+        |
+   +----+----+
+Backend   Frontend    (build in parallel, against the same locked contract)
+   +----+----+
+        |
+   QA / testing  --fail-->  back to the owning agent
+        |
+      pass
+        |
+  Version and ship
+```
+
+Backend and frontend build **in parallel** once the architecture agent has published its API contract. That contract is the only thing either side needs to start, so neither blocks on the other's implementation.
+
+When QA finds a bug, it's tagged by layer and routed accordingly:
+
+- `backend` — back to the backend agent
+- `frontend` — back to the frontend agent
+- `architecture` — back to the architecture agent, because the contract itself was wrong, not just the code
+- `scope` — back to the task management agent, because the acceptance criteria didn't cover this case
+
+The loop only exits when every acceptance criterion in the sprint passes and zero P0/P1 bugs remain open — not when something "looks done."
+
+## Enforcing the rules with hooks, not just prompts
+
+A well-written prompt is a strong suggestion. A **hook** is a mechanical guarantee. The [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/agent-loop) exposes [hooks](https://docs.claude.com/en/docs/claude-code/hooks) that run in your own process — outside the model's context — so they can't be reasoned around by a subagent's own logic:
+
+```javascript
+// PreToolUse hook — runs before any tool call, for any agent
+if (agentName === "qa-testing-agent" && ["Write", "Edit"].includes(toolName)) {
+  return { decision: "block", reason: "QA reports bugs, it doesn't fix them." };
+}
+```
+
+The same pattern can block a `git tag` command while `tasks/bugs.md` still has an open P0/P1 bug — turning your version-control gate from a written rule into something the system physically won't let happen. If you already run [automated business workflows](/business-automation), this will feel familiar: the rule that matters is the one the system enforces, not the one written in a document nobody re-reads.
+
+## Version control: shipping v1, v2, and production releases
+
+A vibe engineering pipeline should end at a real, versioned release, not just "the code exists now":
+
+- **Branches:** `feature/<name>` into `dev`, then `staging`, then `main` for production.
+- **Tags:** semantic versioning — `v1.0.0-rc1` once QA first signs off, `v1.0.0` once promoted to `main`. Bugfixes bump the patch version, new features bump minor, breaking changes bump major.
+- **CHANGELOG.md** gets one plain-English bullet per completed story, written at merge time — not reconstructed from memory later.
+- Nothing reaches `main` without an architecture doc on file, every sprint acceptance criterion green in QA, and zero open P0/P1 bugs.
+
+## Common mistakes when setting up multi-agent Claude Code workflows
+
+**Skipping the research and planning stage for "small" features.** Even a one-line story deserves a one-line reason on file. The trail is what makes the system trustworthy later, not just the code.
+
+**Letting QA fix what it finds.** This collapses the accountability the whole loop depends on. QA reports, the owning agent fixes, QA re-verifies.
+
+**Writing rules only in the initial prompt.** Long sessions get compacted, and prompt-only instructions can get summarized away. Durable rules belong in `CLAUDE.md`, which reloads every turn.
+
+**Starting frontend and backend work before the API contract is locked.** This is exactly the coordination cost the architecture agent exists to remove. Skipping it reintroduces the guesswork vibe engineering is designed to eliminate.
+
+**Shipping with no version gate.** Without an explicit rule blocking a release while bugs are open, "ready to ship" quietly becomes a judgment call instead of a checked fact.
+
+## FAQ
+
+### What's the difference between vibe coding and vibe engineering?
+
+Vibe coding is prompt-to-code with no spec, no tests, and no documented reasoning. Vibe engineering keeps the AI-assisted speed but requires a written artifact — a spec, a contract, a test result — at every stage before work moves forward.
+
+### Do I need the Claude Agent SDK, or can I do this with Claude Code alone?
+
+Claude Code alone is enough to run this whole pipeline interactively, using agent definition files in `.claude/agents` and a `CLAUDE.md` rules file. The Agent SDK is only needed if you want to run it headlessly — in CI, a script, or a scheduled job — or if you want hooks to *mechanically* enforce rules like "QA can't edit code."
+
+### How many AI agents do I actually need for software development?
+
+Six is a solid default for full-stack product work: research and planning, task management, architecture, frontend, backend, and QA. Smaller teams or simpler apps can merge frontend and backend into one development agent, but keeping QA and architecture separate from implementation is worth preserving even in a lighter setup.
+
+### Can Claude Code subagents really work in parallel?
+
+Yes. Frontend and backend development can run in parallel once the architecture agent publishes a locked API contract. They don't need to wait on each other's implementation, only on that shared contract.
+
+---
+
+Setting this up takes an afternoon, and it changes what AI-assisted development can safely be trusted with. If you'd rather have the pipeline built and running on your own product instead of building it yourself, [tell me what you're working on](/contact) and I'll map it out with you.

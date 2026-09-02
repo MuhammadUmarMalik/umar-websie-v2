@@ -10,6 +10,8 @@ export interface BlogHeaderProps {
   date: string;
   author: string;
   coverImage: string;
+  /** Overrides the generic title-based cover alt with something image-specific. */
+  coverImageAlt?: string;
   readingMinutes: number;
   tags?: string[];
   className?: string;
@@ -20,6 +22,7 @@ export function BlogHeader({
   date,
   author,
   coverImage,
+  coverImageAlt,
   readingMinutes,
   tags = [],
   className,
@@ -63,7 +66,8 @@ export function BlogHeader({
           src={coverImage}
           // The post's lead image is content, not decoration — it is the one
           // Google Images has to index for this URL, so it needs a real alt.
-          alt={`Cover image for the article: ${title}`}
+          // Posts that describe their own cover win over the generic fallback.
+          alt={coverImageAlt ?? `Cover image for the article: ${title}`}
           width={1200}
           height={630}
           priority

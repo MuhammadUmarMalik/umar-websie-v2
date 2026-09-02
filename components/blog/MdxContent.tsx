@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef } from "react";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import rehypeSlug from "rehype-slug";
 import { cn } from "@/lib/utils";
 
 /**
@@ -97,7 +98,13 @@ const components = {
 export function MdxContent({ source }: { source: string }) {
   return (
     <div className="max-w-3xl">
-      <MDXRemote source={source} components={components} />
+      {/* rehype-slug gives every heading an id so in-post table-of-contents links resolve —
+          the `scroll-mt-24` on each heading above is what keeps them clear of the header. */}
+      <MDXRemote
+        source={source}
+        components={components}
+        options={{ mdxOptions: { rehypePlugins: [rehypeSlug] } }}
+      />
     </div>
   );
 }
