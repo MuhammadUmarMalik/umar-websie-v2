@@ -66,6 +66,9 @@ export const metadata: Metadata = {
   category: "technology",
   verification: {
     google: "ifUySHi_sgkvuJMrKCFSpEj3BOO6RfrUNu90NPbg1A",
+    other: {
+      "p:domain_verify": "a0ce26af14e7b3f7a0ee80570944c5df",
+    },
   },
   openGraph: {
     title: "Muhammad Umar Malik — Software Engineer & Designer",
