@@ -7,7 +7,7 @@ import { BlogHeader } from "@/components/blog/BlogHeader";
 import { MdxContent } from "@/components/blog/MdxContent";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/constants";
-import { articleSchema, breadcrumbSchema } from "@/lib/seo";
+import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/seo";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -29,7 +29,9 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const image = post.coverImage || "/opengraph-image";
 
   return {
-    title: post.title,
+    // `absolute` skips the site-wide "%s | Muhammad Umar Malik" template — post titles
+    // are already long enough that the suffix pushes them past the SERP cutoff.
+    title: { absolute: post.seoTitle || post.title },
     description: post.excerpt,
     alternates: { canonical: url },
     openGraph: {
@@ -91,6 +93,12 @@ export default async function PostPage({ params }: PostPageProps) {
           ),
         }}
       />
+      {post.faqs && post.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(post.faqs)) }}
+        />
+      )}
 
       <article className="px-4 pb-24 pt-28 sm:px-6 sm:pt-32 md:px-12 lg:px-20 lg:pt-40 2xl:px-28">
         <div className="mx-auto max-w-3xl">
@@ -99,6 +107,7 @@ export default async function PostPage({ params }: PostPageProps) {
             date={post.date}
             author={post.author}
             coverImage={post.coverImage}
+            coverImageAlt={post.coverImageAlt}
             readingMinutes={post.readingMinutes}
             tags={post.tags}
           />

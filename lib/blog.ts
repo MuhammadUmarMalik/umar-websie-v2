@@ -7,14 +7,25 @@ const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
 // --- Types ---
 
+export interface BlogFaq {
+  question: string;
+  answer: string;
+}
+
 export interface BlogFrontmatter {
   title: string;
+  /** Overrides `title` in the `<title>` tag when the on-page H1 is too long for a SERP. */
+  seoTitle?: string;
   slug: string;
   date: string;
   excerpt: string;
   coverImage: string;
+  /** Descriptive alt for the cover image. Omit to treat the image as decorative. */
+  coverImageAlt?: string;
   author: string;
   tags: string[];
+  /** Mirrors an on-page FAQ section so the post can emit FAQPage structured data. */
+  faqs?: BlogFaq[];
 }
 
 /** Frontmatter plus derived fields — everything needed to render a listing card. */
@@ -37,12 +48,15 @@ function readPostFile(file: string): BlogPost {
 
   return {
     title: frontmatter.title ?? "Untitled",
+    seoTitle: frontmatter.seoTitle,
     slug: frontmatter.slug || file.replace(/\.mdx?$/, ""),
     date: frontmatter.date ?? new Date(0).toISOString(),
     excerpt: frontmatter.excerpt ?? "",
     coverImage: frontmatter.coverImage ?? "",
+    coverImageAlt: frontmatter.coverImageAlt,
     author: frontmatter.author ?? "Muhammad Umar Malik",
     tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
+    faqs: Array.isArray(frontmatter.faqs) ? frontmatter.faqs : undefined,
     readingMinutes: Math.max(1, Math.round(readingTime(content).minutes)),
     content,
   };

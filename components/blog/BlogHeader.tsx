@@ -10,6 +10,8 @@ export interface BlogHeaderProps {
   date: string;
   author: string;
   coverImage: string;
+  /** Descriptive alt text. Omit when the cover is purely decorative. */
+  coverImageAlt?: string;
   readingMinutes: number;
   tags?: string[];
   className?: string;
@@ -20,6 +22,7 @@ export function BlogHeader({
   date,
   author,
   coverImage,
+  coverImageAlt,
   readingMinutes,
   tags = [],
   className,
@@ -61,7 +64,7 @@ export function BlogHeader({
       {coverImage && (
         <Image
           src={coverImage}
-          alt=""
+          alt={coverImageAlt ?? ""}
           width={1200}
           height={630}
           priority
