@@ -153,6 +153,10 @@ function ProjectPreview({
         <img
           src={previewSrc(project.link)}
           alt={`Screenshot of the ${project.title} website`}
+          // Absolutely positioned, so these do not affect layout — they are
+          // here to give crawlers/Lighthouse an explicit intrinsic ratio.
+          width={CARD_W}
+          height={CARD_H - CHROME_H}
           decoding="async"
           loading="lazy"
           onLoad={() => setImgStatus("loaded")}
