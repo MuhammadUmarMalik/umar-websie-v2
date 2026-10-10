@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useTransform,
-  type Variants,
-} from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,21 +14,6 @@ interface WordsPullUpProps {
   text: string;
   className?: string;
 }
-
-const fadeUp: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 26,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.72,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
 
 /**
  * The homepage LCP element. The stagger is driven by CSS (see `.word-pull-up`
@@ -122,16 +102,7 @@ export default function HeroSection() {
           style={{ y: cardY, opacity: cardOpacity }}
           aria-label="Featured profile card"
         >
-          <motion.div
-            className="group relative overflow-hidden rounded-lg border border-[#f4f1de]/20 bg-black/25 p-2 shadow-2xl shadow-black/35 backdrop-blur-md"
-            initial={{ opacity: 0, y: -18, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{
-              duration: 0.75,
-              delay: 0.45,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
+          <div className="hero-rise hero-rise-delay-2 group relative overflow-hidden rounded-lg border border-[#f4f1de]/20 bg-black/25 p-2 shadow-2xl shadow-black/35 backdrop-blur-md">
             <div className="relative aspect-[1] overflow-hidden rounded-[7px] bg-bg-secondary">
               <Image
                 src="/umar-dp.png"
@@ -150,7 +121,7 @@ export default function HeroSection() {
               </p>
               <p className="text-white">©2026</p>
             </div>
-          </motion.div>
+          </div>
         </motion.article>
 
         <motion.div
@@ -158,14 +129,11 @@ export default function HeroSection() {
           style={{ y: contentY, opacity: contentOpacity }}
         >
           <div>
-            <motion.p
-              className="mono mb-4 text-xs uppercase text-white"
-              initial="hidden"
-              animate="visible"
-              variants={fadeUp}
+            <p
+              className="hero-rise mono mb-4 text-xs uppercase text-white"
             >
               <DecryptedText text="Software Engineer & Designer" animateOn="hover" sequential={true} speed={30} revealDirection="start" />
-            </motion.p>
+            </p>
 
             <div className="flex items-end gap-5">
               {/* The H1 carries both head terms now. It is two words longer
@@ -178,12 +146,8 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <motion.div
-            className="max-w-lg pb-2 text-[#ffffff] lg:pb-3"
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            transition={{ delay: 0.5 }}
+          <div
+            className="hero-rise hero-rise-delay-1 max-w-lg pb-2 text-[#ffffff] lg:pb-3"
           >
             <p className="text-[17px] leading-7 text-white md:text-lg md:leading-8">
               Slow websites, poor UI, zero leads, I find the exact problems
@@ -213,7 +177,7 @@ export default function HeroSection() {
             </div>
 
             
-          </motion.div>
+          </div>
         </motion.div>
       </motion.div>
     </section>
