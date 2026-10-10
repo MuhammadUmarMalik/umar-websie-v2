@@ -89,6 +89,53 @@ const nextConfig: NextConfig = {
         destination: "https://www.umarmalik-dev.com/:path*",
         permanent: true,
       },
+      // http://www.umarmalik-dev.com -> https://www.umarmalik-dev.com.
+      // On Vercel this is belt-and-suspenders (the edge already forces HTTPS),
+      // but it covers self-hosted deploys and direct-to-origin traffic. Note:
+      // `permanent: true` emits a 308 — Google treats 301 and 308 identically.
+      {
+        source: "/:path*",
+        has: [
+          { type: "header", key: "x-forwarded-proto", value: "http" },
+          { type: "host", value: "www.umarmalik-dev.com" },
+        ],
+        destination: "https://www.umarmalik-dev.com/:path*",
+        permanent: true,
+      },
+      // ─── Old URLs that previously indexed but no longer have a route ───
+      // /projects was folded into the portfolio during the redesign.
+      {
+        source: "/projects",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/projects/:path*",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      // The case-study posts live on as portfolio case studies now; the career
+      // post is gone, so send it to the blog index — its closest live match.
+      {
+        source: "/blog/loan-calculator-web-app-case-study",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/blog/knowledge-exchange-api-case-study",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/blog/adhuri-cart-case-study",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/blog/career-growth-for-developers",
+        destination: "/blog",
+        permanent: true,
+      },
     ];
   },
 

@@ -23,6 +23,8 @@ const PAGE_UPDATED: Record<string, string> = {
   "/about": "2026-07-08",
   "/process": "2026-07-08",
   "/contact": "2026-07-08",
+  "/privacy-policy": "2026-09-14",
+  "/terms": "2026-09-14",
 };
 
 const FALLBACK_UPDATED = "2026-08-28";
@@ -43,6 +45,8 @@ const ROUTES: Array<{
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/process", changeFrequency: "monthly", priority: 0.7 },
   { path: "/contact", changeFrequency: "yearly", priority: 0.6 },
+  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

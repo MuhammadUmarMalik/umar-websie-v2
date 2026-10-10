@@ -22,7 +22,7 @@ export const siteConfig = {
   url: siteUrl,
   description:
     "Software engineer and designer helping small businesses fix websites, improve UX, generate leads, and automate repetitive work.",
-  email: "umarmalik.cs711@gmail.com",
+  email: "support@umarmalik-dev.com",
   calendlyUrl: "https://calendly.com/umarmalik-cs711/30min",
   whatsapp: {
     // E.164 for schema.org, digits-only for the wa.me deep link.
@@ -113,24 +113,6 @@ export const painPoints = [
     icon: Bot,
     text: "Repetitive tasks that waste hours every week.",
   },
-];
-
-export const processSteps = [
-  "Audit",
-  "Research",
-  "Design",
-  "Build",
-  "Test",
-  "Launch",
-  "Support",
-];
-
-export const automationExamples = [
-  "Lead form to CRM",
-  "WhatsApp follow-up",
-  "Invoice reminders",
-  "Weekly reports",
-  "AI reply drafts",
 ];
 
 export type CaseStudy = {
