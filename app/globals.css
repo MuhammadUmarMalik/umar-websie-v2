@@ -333,17 +333,6 @@ select {
   letter-spacing: 0;
 }
 
-.theme-transition,
-.theme-transition * {
-  transition:
-    background-color 300ms ease,
-    border-color 300ms ease,
-    color 300ms ease,
-    fill 300ms ease,
-    stroke 300ms ease,
-    box-shadow 300ms ease;
-}
-
 /* =========================
    Utility Classes
 ========================= */
@@ -514,6 +503,44 @@ select {
   .word-pull-up > span > span {
     animation: word-pull-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: calc(0.18s + var(--word-index) * 0.08s);
+  }
+}
+
+/* Hero entrance for the eyebrow, CTA block, and profile card.
+   Deliberately CSS, not Framer Motion. The old motion wrappers shipped
+   inline `opacity:0` in the SSR HTML, so the initial viewport (paragraph,
+   CTAs, card) sat blank until React hydration finished and the entrance ran —
+   on a mid-range phone that's a second or two of nothing where the site
+   looks broken. These elements are the same visual but animate on CSS render,
+   which needs no JavaScript. The H1 above (`.word-pull-up`) is transform-only
+   so it stays opaque from the first paint.
+   `.hero-rise` uses `both` fill: delayed elements hold `opacity:0` only during
+   their delay (paint-perfect vs. transparent flash), then settle visible and
+   stay visible. `prefers-reduced-motion` short-circuits to fully opaque. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: 0.05s;
+  }
+
+  .hero-rise-delay-1 {
+    animation-delay: 0.4s;
+  }
+
+  .hero-rise-delay-2 {
+    animation-delay: 0.45s;
   }
 }
 

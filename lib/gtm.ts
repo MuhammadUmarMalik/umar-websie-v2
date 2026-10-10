@@ -12,7 +12,7 @@
  * `w[l] = w[l] || []`, so anything queued before the container boots is
  * replayed once it does. That makes early pushes safe rather than lost.
  */
-export function pushToDataLayer(
+function pushToDataLayer(
   event: string,
   data: Record<string, unknown> = {},
 ): void {

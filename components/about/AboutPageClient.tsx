@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, useInView, AnimatePresence, type Variants } from "framer-motion";
+import { motion, useInView, AnimatePresence, type Variants } from "motion/react";
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Play } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import CTABanner from "@/sections/CTABanner";
 

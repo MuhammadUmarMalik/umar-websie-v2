@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useRef, useState } from "react";

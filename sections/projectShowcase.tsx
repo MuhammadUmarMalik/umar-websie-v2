@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { ProjectShowcase } from "@/components/ui/project-showcase";
 import DecryptedText from "@/components/ui/DecryptedText";

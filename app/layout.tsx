@@ -116,7 +116,6 @@ export default function RootLayout({
       className={cn(
         "h-full",
         "antialiased",
-        "theme-transition",
         "font-sans",
         dmSans.variable,
         cormorant.variable,

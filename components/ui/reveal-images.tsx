@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface ImageSource {
@@ -9,6 +10,12 @@ interface ImageSource {
 interface ShowImageListItemProps {
   text: string;
   images: [ImageSource, ImageSource];
+  /**
+   * When the row names a service that has its own page, link to it. This gives
+   * the homepage's service list real outbound paths instead of dead-end text —
+   * /ui-ux-design previously had no link from the homepage at all.
+   */
+  href?: string;
 }
 
 // Matches the `container` sizes below.
@@ -26,17 +33,29 @@ const REVEAL_SIZES = "(min-width: 1024px) 112px, (min-width: 768px) 80px, 64px";
 // <img> tags did.
 const REVEAL_LOADING = "eager" as const;
 
-function RevealImageListItem({ text, images }: ShowImageListItemProps) {
+function RevealImageListItem({ text, images, href }: ShowImageListItemProps) {
   const container =
     "absolute right-3 top-5 z-40 h-16 w-12 sm:right-6 sm:top-7 sm:h-20 sm:w-16 md:right-8 md:top-8 md:h-24 md:w-20 lg:right-12 lg:top-10 lg:h-32 lg:w-28";
   const effect =
     "relative h-full w-full scale-0 overflow-hidden rounded-md opacity-0 shadow-none transition-all delay-100 duration-500 group-hover:scale-100 group-hover:opacity-100 group-hover:shadow-xl";
+  const heading = cn(
+    "mono pr-16 font-display text-[clamp(1.5rem,5.5vw,4.75rem)] font-black leading-none text-text-primary transition-all duration-500 group-hover:opacity-40 sm:pr-24 md:pr-28 lg:pr-48",
+    href && "pointer-events-none",
+  );
 
   return (
     <div className="group relative w-full overflow-visible border-b border-border/60 py-6 sm:py-8 lg:py-10">
-      <h4 className="mono pr-16 font-display text-[clamp(1.5rem,5.5vw,4.75rem)] font-black leading-none text-text-primary transition-all duration-500 group-hover:opacity-40 sm:pr-24 md:pr-28 lg:pr-48">
-        {text}
-      </h4>
+      {href ? (
+        <Link
+          href={href}
+          aria-label={`${text} — view the service page`}
+          className="block transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+        >
+          <h4 className={heading}>{text}</h4>
+        </Link>
+      ) : (
+        <h4 className={heading}>{text}</h4>
+      )}
       <div className={container}>
         <div className={effect}>
           <Image
@@ -74,6 +93,7 @@ function RevealImageList() {
   const items: ShowImageListItemProps[] = [
     {
       text: "Web Development",
+      href: "/website-development",
       images: [
         {
           src: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=240&auto=format&fit=crop&q=70",
@@ -87,6 +107,7 @@ function RevealImageList() {
     },
     {
       text: "UI/UX Design",
+      href: "/ui-ux-design",
       images: [
         {
           src: "https://images.unsplash.com/photo-1587440871875-191322ee64b0?w=240&auto=format&fit=crop&q=70",

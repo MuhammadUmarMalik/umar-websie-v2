@@ -1,7 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { ArrowUp } from "lucide-react";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 import { Icons } from "@/components/ui/icons";
 import { siteConfig, marketingPages, servicePages } from "@/lib/constants";
 
@@ -124,19 +122,23 @@ export function Footer() {
           <p className="mono text-xs uppercase text-text-secondary">
             © {new Date().getFullYear()} Muhammad Umar Malik. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link
+              href="/privacy-policy"
+              className="mono text-xs uppercase text-text-secondary transition-colors duration-200 hover:text-text-primary"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="mono text-xs uppercase text-text-secondary transition-colors duration-200 hover:text-text-primary"
+            >
+              Terms
+            </Link>
             <p className="mono text-xs uppercase text-text-secondary">
               Designed &amp; Built by Umar
             </p>
-            <button
-              type="button"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="mono group inline-flex cursor-pointer items-center gap-1.5 text-xs uppercase text-text-secondary transition-colors duration-200 hover:text-accent"
-              aria-label="Back to top"
-            >
-              <ArrowUp className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-y-0.5" />
-              Top
-            </button>
+            <ScrollToTopButton />
           </div>
         </div>
       </div>
