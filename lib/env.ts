@@ -19,9 +19,6 @@ const serverSchema = z.object({
   AUTO_APPROVE_COMMENTS: z.enum(["true", "false"]).default("false"),
 
   NEXT_PUBLIC_SITE_URL: z.string().url("NEXT_PUBLIC_SITE_URL must be a valid URL"),
-  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().optional(),
-  NEXT_PUBLIC_SANITY_DATASET: z.string().default("production"),
-  NEXT_PUBLIC_SANITY_API_VERSION: z.string().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverSchema>;
