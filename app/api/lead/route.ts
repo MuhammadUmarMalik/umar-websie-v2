@@ -1,5 +1,6 @@
 import { type NextRequest } from "next/server";
 import { rateLimit } from "@/lib/rate-limit";
+import { sendNotificationEmail } from "@/lib/mail";
 
 interface LeadData {
   name: string;
@@ -34,30 +35,18 @@ export async function POST(req: NextRequest) {
 
     const results: string[] = [];
 
-    // Email via Resend
-    if (process.env.RESEND_API_KEY) {
-      try {
-        const res = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-          },
-          body: JSON.stringify({
-            from: process.env.CONTACT_EMAIL_FROM || "onboarding@resend.dev",
-            to: process.env.CONTACT_EMAIL_TO || "umarmalik.cs711@gmail.com",
-            subject: `🤖 Chatbot Lead: ${name}`,
-            html: `<h2>New Lead from Next Level Chat Bot</h2>
+    // Email via SMTP (Nodemailer — free with Gmail app password or Brevo)
+    if (process.env.SMTP_HOST && process.env.SMTP_USER) {
+      const sent = await sendNotificationEmail({
+        to: process.env.CONTACT_EMAIL_TO || "umarmalik.cs711@gmail.com",
+        subject: `🤖 Chatbot Lead: ${name}`,
+        html: `<h2>New Lead from Next Level Chat Bot</h2>
 <p><strong>Name:</strong> ${escapeHtml(name)}</p>
 <p><strong>Email:</strong> ${escapeHtml(email)}</p>
 <p><strong>Project Details:</strong></p>
 <p>${escapeHtml(details)}</p>`,
-          }),
-        });
-        results.push(res.ok ? "email:sent" : "email:failed");
-      } catch {
-        results.push("email:error");
-      }
+      });
+      results.push(sent ? "email:sent" : "email:failed");
     }
 
     // Telegram webhook

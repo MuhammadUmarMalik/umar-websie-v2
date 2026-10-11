@@ -164,6 +164,21 @@ function buildAutoReplyHtml(name: string) {
 </html>`;
 }
 
+export async function sendNotificationEmail(
+  mail: { to: string; subject: string; html: string },
+): Promise<boolean> {
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER) {
+    return false;
+  }
+  try {
+    await transporter.sendMail({ from: FROM, ...mail });
+    return true;
+  } catch (err) {
+    console.error("[mail] notification failed:", err);
+    return false;
+  }
+}
+
 export async function sendContactEmails(fields: ContactFields) {
   await Promise.all([
     transporter.sendMail({

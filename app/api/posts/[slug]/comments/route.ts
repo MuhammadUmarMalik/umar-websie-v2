@@ -4,6 +4,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { comments } from "@/lib/schema";
 import { rateLimit } from "@/lib/rate-limit";
+import { sendNotificationEmail } from "@/lib/mail";
 
 const URL_RE = /https?:\/\//gi;
 const MAX_LINKS = 2;
@@ -122,22 +123,18 @@ export async function POST(
     status: autoApprove ? "approved" : "pending",
   });
 
-  if (process.env.RESEND_API_KEY) {
-    try {
-      const { Resend } = await import("resend");
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      await resend.emails.send({
-        from: process.env.CONTACT_EMAIL_FROM ?? "onboarding@resend.dev",
-        to: process.env.CONTACT_EMAIL_TO ?? "umarmalik.cs711@gmail.com",
-        subject: `New comment on "${slug}" by ${escapeHtml(name)}`,
-        html: `
-          <p><strong>${escapeHtml(name)}</strong> commented on <em>${slug}</em>:</p>
-          <blockquote style="border-left:3px solid #7c3aed;padding:8px 16px;margin:16px 0;background:#f9fafb">${escapeHtml(body)}</blockquote>
-          <p style="color:#6b7280;font-size:14px">${autoApprove ? "Auto-approved" : "Pending moderation"} &middot; <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin/comments">Manage</a></p>
-        `,
-      });
-    } catch (err) {
-      console.error("[comments] Resend failed:", err);
+  if (process.env.SMTP_HOST && process.env.SMTP_USER) {
+    const sent = await sendNotificationEmail({
+      to: process.env.CONTACT_EMAIL_TO ?? "umarmalik.cs711@gmail.com",
+      subject: `New comment on "${slug}" by ${escapeHtml(name)}`,
+      html: `
+        <p><strong>${escapeHtml(name)}</strong> commented on <em>${slug}</em>:</p>
+        <blockquote style="border-left:3px solid #7c3aed;padding:8px 16px;margin:16px 0;background:#f9fafb">${escapeHtml(body)}</blockquote>
+        <p style="color:#6b7280;font-size:14px">${autoApprove ? "Auto-approved" : "Pending moderation"} &middot; <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin/comments">Manage</a></p>
+      `,
+    });
+    if (!sent) {
+      console.error("[comments] email notification failed");
     }
   }
 

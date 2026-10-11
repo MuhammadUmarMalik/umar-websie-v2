@@ -72,7 +72,7 @@ export default function PrivacyPolicyPage() {
                 The information you submit through the contact form is used to respond to your
                 enquiry, scope work, and prepare a proposal. It is stored in a Google Sheet behind a
                 Google Apps Script endpoint and delivered to our inbox, and may also trigger an
-                email notification through Resend.
+                email notification to our inbox via SMTP.
               </p>
               <p>We do not sell, rent, or trade your personal data to anyone.</p>
             </Section>
@@ -83,7 +83,8 @@ export default function PrivacyPolicyPage() {
                   <strong>Google (Apps Script / Sheets)</strong> — stores contact form submissions.
                 </li>
                 <li>
-                  <strong>Resend</strong> — sends the email notification of your form submission.
+                  <strong>Email (SMTP)</strong> — sends the email notification of your form
+                  submission (self-hosted SMTP, e.g. Gmail or Brevo free tier).
                 </li>
                 <li>
                   <strong>Vercel</strong> — hosts this website and provides infrastructure and edge
