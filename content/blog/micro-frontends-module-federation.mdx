@@ -12,6 +12,8 @@ tags: ["React", "Module Federation", "Micro-Frontends", "Webpack"]
 
 About a year ago, my team faced a choice: rebuild our monolithic React app from scratch, or find a way to incrementally modernize it. We chose the latter, and Module Federation became the bridge.
 
+![Tangled monolithic codebase represented as interconnected nodes](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&auto=format&q=80)
+
 ## The Problem with Monoliths
 
 When your single React app grows past 50+ components and 30+ developers:
@@ -21,6 +23,8 @@ When your single React app grows past 50+ components and 30+ developers:
 3. **Cognitive load** — No one understands the full app; every change risks breaking unseen corners
 
 Module Federation solves all three by letting each team own their own bundle.
+
+![Diagram of micro-frontend architecture with independent deployable modules](https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=400&fit=crop&auto=format&q=80)
 
 ## How It Works
 
@@ -70,6 +74,8 @@ plugins: [
 | Production incidents | 2-3/week                   | ~1/month         |
 
 The key insight: **don't federate everything**. Start with just the boundaries where teams need independence most.
+
+![Team collaborating on separate codebases that integrate at runtime](https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=400&fit=crop&auto=format&q=80)
 
 ## Caveats & Lessons Learned
 

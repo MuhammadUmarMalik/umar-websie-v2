@@ -12,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         // No trailing slashes — "/studio/" does not match the bare "/studio"
         // URL, which returns 200 and would otherwise stay crawlable.
-        disallow: ["/studio", "/api"],
+        disallow: ["/studio", "/api", "/admin"],
       },
     ],
     sitemap: `${base}/sitemap.xml`,

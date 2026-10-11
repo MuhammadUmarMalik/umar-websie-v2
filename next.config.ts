@@ -49,6 +49,8 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  output: "standalone",
+
   // Don't advertise that this is Next.js
   poweredByHeader: false,
 

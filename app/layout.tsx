@@ -12,6 +12,7 @@ import { Header } from "../components/Header";
 import { Providers } from "../components/Providers";
 import { ThirdPartyScripts } from "../components/ThirdPartyScripts";
 import { WhatsAppFloat } from "../components/WhatsAppFloat";
+import { ChatWidget } from "../components/chat/ChatWidget";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -44,6 +45,11 @@ export const metadata: Metadata = {
   },
   description:
     "Software engineer and designer helping small businesses fix slow websites, improve UX, generate leads, and automate repetitive work.",
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
   robots: {
     index: true,
     follow: true,
@@ -144,6 +150,7 @@ export default function RootLayout({
           {children}
           <Footer />
           <WhatsAppFloat />
+          <ChatWidget />
           <Analytics />
         </Providers>
       </body>

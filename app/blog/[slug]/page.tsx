@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { BlogHeader } from "@/components/blog/BlogHeader";
+import { CommentSection } from "@/components/blog/CommentSection";
+import { LikeButton } from "@/components/blog/LikeButton";
 import { MdxContent } from "@/components/blog/MdxContent";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/constants";
@@ -113,6 +115,12 @@ export default async function PostPage({ params }: PostPageProps) {
           />
 
           <MdxContent source={post.content} />
+
+          <div className="mt-10 flex items-center gap-4">
+            <LikeButton slug={post.slug} />
+          </div>
+
+          <CommentSection slug={post.slug} />
         </div>
       </article>
 
