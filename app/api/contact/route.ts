@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sendContactEmails } from "@/lib/mail";
 
 const APPS_SCRIPT_URL = process.env.GOOGLE_APPS_SCRIPT_URL;
 
@@ -141,35 +142,12 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // ── Resend email notification (optional) ──────────────────────────────────
-    if (process.env.RESEND_API_KEY) {
+    // ── Email notifications ────────────────────────────────────────────────
+    if (process.env.SMTP_HOST) {
       try {
-        const toEmail = process.env.CONTACT_EMAIL_TO ?? "umarmalik.cs711@gmail.com";
-        const fromEmail = process.env.CONTACT_EMAIL_FROM ?? "onboarding@resend.dev";
-        const { Resend } = await import("resend");
-        const resend = new Resend(process.env.RESEND_API_KEY);
-        await resend.emails.send({
-          from: fromEmail,
-          to: toEmail,
-          subject: `New lead from ${name}`,
-          // All values are already HTML-escaped by sanitize()
-          html: `
-            <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
-              <h2 style="color:#7c3aed">New Contact Form Submission</h2>
-              <table style="width:100%;border-collapse:collapse">
-                <tr><td style="padding:8px 0;color:#6b7280;width:140px">Name</td><td style="padding:8px 0;font-weight:600">${name}</td></tr>
-                <tr><td style="padding:8px 0;color:#6b7280">Email</td><td style="padding:8px 0"><a href="mailto:${email}">${email}</a></td></tr>
-                <tr><td style="padding:8px 0;color:#6b7280">Country</td><td style="padding:8px 0">${country || "—"}</td></tr>
-                <tr><td style="padding:8px 0;color:#6b7280">Project Type</td><td style="padding:8px 0">${projectType || "—"}</td></tr>
-                <tr><td style="padding:8px 0;color:#6b7280">Deadline</td><td style="padding:8px 0">${deadline || "—"}</td></tr>
-                <tr><td style="padding:8px 0;color:#6b7280">Found via</td><td style="padding:8px 0">${referral || "—"}</td></tr>
-              </table>
-              ${message ? `<h3 style="margin-top:24px">Message</h3><p style="white-space:pre-wrap;background:#f9fafb;padding:16px;border-radius:8px">${message}</p>` : ""}
-            </div>
-          `,
-        });
+        await sendContactEmails({ name, email, country, projectType, deadline, referral, message, sourcePath });
       } catch (err) {
-        console.error("[contact] Resend failed:", err);
+        console.error("[contact] sendContactEmails failed:", err);
       }
     }
 

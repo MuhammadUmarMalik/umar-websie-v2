@@ -42,6 +42,10 @@ export const siteConfig = {
       label: "Github: @MuhammadUmarMalik",
       href: "https://github.com/MuhammadUmarMalik",
     },
+    linktree: {
+      label: "Linktree: @umarmalik.dev",
+      href: "https://linktr.ee/umarmalik.dev",
+    },
   },
 };
 

@@ -6,9 +6,6 @@ const serverSchema = z.object({
   ADMIN_SECRET: z.string().min(32, "ADMIN_SECRET must be at least 32 characters"),
 
   GOOGLE_APPS_SCRIPT_URL: z.string().url().optional(),
-  RESEND_API_KEY: z.string().optional(),
-  CONTACT_EMAIL_FROM: z.string().email().optional(),
-  CONTACT_EMAIL_TO: z.string().email().optional(),
 
   LLM_PROVIDER: z.enum(["groq", "openrouter", "ollama"]).default("groq"),
   LLM_MODEL: z.string().default("openai/gpt-oss-20b"),

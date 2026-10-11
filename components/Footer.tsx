@@ -18,6 +18,7 @@ const socialLinks: Array<{ label: string; href: string; icon: SvgIcon; external:
   { label: "LinkedIn", href: siteConfig.socials.linkedin.href, icon: Icons.linkedin as SvgIcon, external: true, },
   { label: "GitHub", href: siteConfig.socials.github.href, icon: Icons.gitHub as SvgIcon, external: true },
   { label: "Instagram", href: siteConfig.socials.instagram.href, icon: Icons.instagram as SvgIcon, external: true },
+  { label: "Linktree", href: siteConfig.socials.linktree.href, icon: Icons.linktree as SvgIcon, external: true },
   { label: "Email", href: `mailto:${siteConfig.email}`, icon: MailSvg, external: false },
 ];
 
