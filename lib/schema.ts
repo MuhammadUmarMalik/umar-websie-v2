@@ -21,33 +21,40 @@ export const commentStatusEnum = pgEnum("comment_status", [
   "rejected",
 ]);
 
-export const posts = pgTable("posts", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  title: text("title").notNull(),
-  slug: text("slug").notNull().unique(),
-  excerpt: text("excerpt").default(""),
-  content: text("content").default(""),
-  coverImage: text("cover_image").default(""),
-  coverImageAlt: text("cover_image_alt"),
-  author: text("author").default("Muhammad Umar Malik"),
-  tags: text("tags")
-    .array()
-    .default([]),
-  status: postStatusEnum("status").default("draft"),
-  publishedAt: timestamp("published_at"),
-  scheduledAt: timestamp("scheduled_at"),
-  views: integer("views").default(0),
-  seoTitle: text("seo_title"),
-  metaDescription: text("meta_description"),
-  focusKeyword: text("focus_keyword"),
-  canonicalUrl: text("canonical_url"),
-  ogImage: text("og_image"),
-  noindex: boolean("noindex").default(false),
-  createdAt: timestamp("created_at").defaultNow(),
-  updatedAt: timestamp("updated_at").defaultNow(),
-});
+export const posts = pgTable(
+  "posts",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    title: text("title").notNull(),
+    slug: text("slug").notNull().unique(),
+    excerpt: text("excerpt").default(""),
+    content: text("content").default(""),
+    coverImage: text("cover_image").default(""),
+    coverImageAlt: text("cover_image_alt"),
+    author: text("author").default("Muhammad Umar Malik"),
+    tags: text("tags")
+      .array()
+      .default([]),
+    status: postStatusEnum("status").default("draft"),
+    publishedAt: timestamp("published_at"),
+    scheduledAt: timestamp("scheduled_at"),
+    views: integer("views").default(0),
+    seoTitle: text("seo_title"),
+    metaDescription: text("meta_description"),
+    focusKeyword: text("focus_keyword"),
+    canonicalUrl: text("canonical_url"),
+    ogImage: text("og_image"),
+    noindex: boolean("noindex").default(false),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+  },
+  (t) => [
+    index("posts_status_idx").on(t.status),
+    index("posts_created_at_idx").on(t.createdAt),
+  ],
+);
 
 export const likes = pgTable(
   "likes",

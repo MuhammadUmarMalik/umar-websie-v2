@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const APPS_SCRIPT_URL =
-  process.env.GOOGLE_APPS_SCRIPT_URL ??
-  "https://script.google.com/macros/s/AKfycbwqAg9-ZjYcXYD7u-eVf3l67_KTjhaZ-Kiiy6mDZ1YRmSVXgemAvWBZJrkkGolB9_LJzg/exec";
+const APPS_SCRIPT_URL = process.env.GOOGLE_APPS_SCRIPT_URL;
 
 // ── Rate limiting ─────────────────────────────────────────────────────────────
 // In-memory store keyed by IP. Resets per cold start (acceptable for a portfolio
@@ -48,7 +46,7 @@ async function postToSheet(payload: Record<string, string>) {
 
   // Step 1: send POST but don't auto-follow redirects —
   // fetch turns POST→GET on 302, which loses the body.
-  const first = await fetch(APPS_SCRIPT_URL, {
+  const first = await fetch(APPS_SCRIPT_URL!, {
     method: "POST",
     headers,
     body,
@@ -135,10 +133,12 @@ export async function POST(req: NextRequest) {
     };
 
     // ── Google Sheet ──────────────────────────────────────────────────────────
-    try {
-      await postToSheet(payload);
-    } catch (err) {
-      console.error("[contact] postToSheet failed:", err);
+    if (APPS_SCRIPT_URL) {
+      try {
+        await postToSheet(payload);
+      } catch (err) {
+        console.error("[contact] postToSheet failed:", err);
+      }
     }
 
     // ── Resend email notification (optional) ──────────────────────────────────

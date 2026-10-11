@@ -12,6 +12,19 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
+
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_SANITY_PROJECT_ID
+ARG NEXT_PUBLIC_SANITY_DATASET
+ARG NEXT_PUBLIC_SANITY_API_VERSION
+ARG NEXT_PUBLIC_SANITY_STUDIO_URL
+ARG NEXT_PUBLIC_GTM_ID
+ARG NEXT_PUBLIC_GA_ID
+ARG NEXT_PUBLIC_POSTHOG_KEY
+ARG NEXT_PUBLIC_POSTHOG_HOST
+ARG NEXT_PUBLIC_LINKEDIN_PARTNER_ID
+ARG NEXT_PUBLIC_ADOBE_FONTS_KIT_ID
+
 RUN npm run build
 
 # ── Production ───────────────────────────────────────────────
@@ -30,4 +43,8 @@ USER nextjs
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget -qO- http://localhost:3000/api/health || exit 1
+
 CMD ["node", "server.js"]

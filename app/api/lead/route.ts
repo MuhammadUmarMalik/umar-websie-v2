@@ -1,4 +1,5 @@
 import { type NextRequest } from "next/server";
+import { rateLimit } from "@/lib/rate-limit";
 
 interface LeadData {
   name: string;
@@ -6,8 +7,21 @@ interface LeadData {
   details: string;
 }
 
+function getIp(req: NextRequest): string {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    req.headers.get("x-real-ip") ??
+    "unknown"
+  );
+}
+
 export async function POST(req: NextRequest) {
   try {
+    const ip = getIp(req);
+    if (!rateLimit(ip, 10, 3600_000)) {
+      return Response.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+    }
+
     const { name, email, details } = (await req.json()) as LeadData;
 
     if (!name || !email || !details) {
@@ -49,7 +63,8 @@ export async function POST(req: NextRequest) {
     // Telegram webhook
     if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
       try {
-        const text = `🤖 *Chatbot Lead*\n*Name:* ${name}\n*Email:* ${email}\n*Details:* ${details}`;
+        const esc = (s: string) => s.replace(/[_*[\]()~`>#+=|{}.!-]/g, "\\$&");
+        const text = `🤖 *Chatbot Lead*\n*Name:* ${esc(name)}\n*Email:* ${esc(email)}\n*Details:* ${esc(details)}`;
         await fetch(
           `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
           {
@@ -58,7 +73,7 @@ export async function POST(req: NextRequest) {
             body: JSON.stringify({
               chat_id: process.env.TELEGRAM_CHAT_ID,
               text,
-              parse_mode: "Markdown",
+              parse_mode: "MarkdownV2",
             }),
           },
         );
