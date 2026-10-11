@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
