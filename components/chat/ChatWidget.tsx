@@ -273,7 +273,7 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? "Close chat" : "Open chat"}
-        className="fixed bottom-20 right-4 z-[80] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:bottom-[5.5rem] sm:right-5 sm:h-[52px] sm:w-[52px] md:bottom-[5.5rem] md:right-6 md:h-14 md:w-14"
+        className={`fixed bottom-20 right-4 z-[90] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:bottom-[5.5rem] sm:right-5 sm:h-[52px] sm:w-[52px] md:bottom-[5.5rem] md:right-6 md:h-14 md:w-14 ${open ? "hidden" : ""}`}
       >
         {open ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
@@ -284,7 +284,7 @@ export function ChatWidget() {
 
       {/* Chat panel */}
       <div
-        className={`fixed z-[80] flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--background)] shadow-xl transition-all duration-300 inset-x-3 bottom-36 sm:inset-x-auto sm:right-5 sm:w-[380px] md:bottom-6 md:right-6 lg:w-[400px] ${
+        className={`fixed z-[80] flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--background)] shadow-xl transition-all duration-300 inset-x-3 bottom-36 sm:inset-x-auto sm:right-5 sm:w-[380px] md:bottom-24 md:right-6 lg:w-[400px] ${
           open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
         style={{ height: "min(520px, calc(100dvh - 10rem))" }}
@@ -303,13 +303,22 @@ export function ChatWidget() {
               </p>
             </div>
           </div>
-          <button
-            onClick={clearChat}
-            className="text-xs text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-            title="Clear chat"
-          >
-            Clear
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={clearChat}
+              className="text-xs text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+              title="Clear chat"
+            >
+              Clear
+            </button>
+            <button
+              onClick={() => setOpen(false)}
+              className="flex h-6 w-6 items-center justify-center rounded-full text-[var(--text-muted)] hover:bg-[var(--border)] hover:text-[var(--text-primary)] transition-colors"
+              aria-label="Close chat"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
+            </button>
+          </div>
         </div>
 
         {/* Messages */}
