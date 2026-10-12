@@ -10,13 +10,19 @@ export function LikeButton({ slug }: { slug: string }) {
   const [pending, startTransition] = useTransition();
 
   useEffect(() => {
-    fetch(`/api/posts/${slug}/like`)
-      .then((r) => r.json())
-      .then((d) => {
-        setCount(d.count);
-        setLiked(d.liked);
-      })
-      .catch(() => {});
+    function fetchLikes() {
+      fetch(`/api/posts/${slug}/like`)
+        .then((r) => r.json())
+        .then((d) => {
+          setCount(d.count);
+          setLiked(d.liked);
+        })
+        .catch(() => {});
+    }
+
+    fetchLikes();
+    const interval = setInterval(fetchLikes, 5000);
+    return () => clearInterval(interval);
   }, [slug]);
 
   function toggle() {

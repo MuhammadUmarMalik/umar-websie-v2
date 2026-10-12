@@ -18,10 +18,16 @@ export function CommentSection({ slug }: { slug: string }) {
   const [replyTo, setReplyTo] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`/api/posts/${slug}/comments`)
-      .then((r) => r.json())
-      .then(setComments)
-      .catch(() => {});
+    function fetchComments() {
+      fetch(`/api/posts/${slug}/comments`)
+        .then((r) => r.json())
+        .then(setComments)
+        .catch(() => {});
+    }
+
+    fetchComments();
+    const interval = setInterval(fetchComments, 10000);
+    return () => clearInterval(interval);
   }, [slug]);
 
   function onCommentAdded() {
