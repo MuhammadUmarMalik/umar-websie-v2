@@ -5,11 +5,15 @@ const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
   // Block MIME-type sniffing
   { key: "X-Content-Type-Options", value: "nosniff" },
-  // Force HTTPS for 1 year once visited (includeSubDomains so subdomains are also covered)
-  {
-    key: "Strict-Transport-Security",
-    value: "max-age=31536000; includeSubDomains; preload",
-  },
+  // Force HTTPS for 1 year — only when the site is actually served over HTTPS
+  ...(process.env.NEXT_PUBLIC_SITE_URL?.startsWith("https")
+    ? [
+        {
+          key: "Strict-Transport-Security",
+          value: "max-age=31536000; includeSubDomains; preload",
+        },
+      ]
+    : []),
   // Leak origin only to same-origin; send only origin (no path) to cross-origin HTTPS
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   // Restrict browser feature access
@@ -43,7 +47,10 @@ const securityHeaders = [
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
-      "upgrade-insecure-requests",
+      ...(process.env.NODE_ENV === "production" &&
+      process.env.NEXT_PUBLIC_SITE_URL?.startsWith("https")
+        ? ["upgrade-insecure-requests"]
+        : []),
     ].join("; "),
   },
 ];
