@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
 
 /**
@@ -83,15 +84,21 @@ const components = {
     />
   ),
   table: (props: ComponentPropsWithoutRef<"table">) => (
-    <div className="mt-8 overflow-x-auto">
-      <table className="w-full border-collapse text-left text-sm text-text-secondary" {...props} />
+    <div className="mt-8 overflow-x-auto rounded-xl border border-border bg-bg-card shadow-sm">
+      <table className="w-full border-collapse text-left text-sm" {...props} />
     </div>
   ),
   th: (props: ComponentPropsWithoutRef<"th">) => (
-    <th className="border-b border-border px-3 py-2 font-semibold text-text-primary" {...props} />
+    <th
+      className="border-b-2 border-border-strong bg-surface-secondary/60 px-4 py-3 text-xs font-semibold uppercase tracking-wider text-text-primary"
+      {...props}
+    />
   ),
   td: (props: ComponentPropsWithoutRef<"td">) => (
-    <td className="border-b border-border px-3 py-2" {...props} />
+    <td
+      className="border-b border-border px-4 py-3 align-top leading-6 text-text-secondary transition-colors duration-150 last:border-b-0 hover:bg-accent-subtle/40"
+      {...props}
+    />
   ),
 };
 
@@ -103,7 +110,7 @@ export function MdxContent({ source }: { source: string }) {
       <MDXRemote
         source={source}
         components={components}
-        options={{ mdxOptions: { rehypePlugins: [rehypeSlug] } }}
+        options={{ mdxOptions: { remarkPlugins: [remarkGfm], rehypePlugins: [rehypeSlug] } }}
       />
     </div>
   );
