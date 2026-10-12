@@ -273,7 +273,7 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? "Close chat" : "Open chat"}
-        className="fixed bottom-20 right-4 z-[80] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:bottom-[5.5rem] sm:right-5 sm:h-[52px] sm:w-[52px] md:bottom-6 md:right-6 md:h-14 md:w-14"
+        className="fixed bottom-20 right-4 z-[80] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:bottom-[5.5rem] sm:right-5 sm:h-[52px] sm:w-[52px] md:bottom-[5.5rem] md:right-6 md:h-14 md:w-14"
       >
         {open ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12" /></svg>

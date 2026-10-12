@@ -26,8 +26,8 @@ export const siteConfig = {
   calendlyUrl: "https://calendly.com/umarmalik-cs711/30min",
   whatsapp: {
     // E.164 for schema.org, digits-only for the wa.me deep link.
-    tel: "+92-306-2617205",
-    href: "https://wa.me/923062617205",
+    tel: "+92-325-6238614",
+    href: "https://wa.me/923256238614",
   },
   socials: {
     instagram: {

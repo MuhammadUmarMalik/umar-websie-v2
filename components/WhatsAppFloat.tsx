@@ -11,7 +11,7 @@ function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-4 right-4 z-[9999] flex size-12 items-center justify-center rounded-full bg-[#25D366] shadow-[0_4px_20px_rgba(37,211,102,0.45)] transition-[transform,box-shadow] duration-200 hover:scale-110 hover:shadow-[0_6px_28px_rgba(37,211,102,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 sm:bottom-5 sm:right-5 sm:size-13 md:bottom-6 md:right-6 md:size-14"
+      className="fixed bottom-4 right-4 z-[70] flex size-12 items-center justify-center rounded-full bg-[#25D366] shadow-[0_4px_20px_rgba(37,211,102,0.45)] transition-[transform,box-shadow] duration-200 hover:scale-110 hover:shadow-[0_6px_28px_rgba(37,211,102,0.6)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 sm:bottom-5 sm:right-5 sm:size-13 md:bottom-6 md:right-6 md:size-14"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
