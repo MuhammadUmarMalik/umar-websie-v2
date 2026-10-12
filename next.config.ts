@@ -36,7 +36,7 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.com https://*.vercel-insights.com https://us.i.posthog.com https://snap.licdn.com https://use.typekit.net https://www.googletagmanager.com https://*.googletagmanager.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://us.i.posthog.com https://snap.licdn.com https://use.typekit.net https://www.googletagmanager.com https://*.googletagmanager.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.typekit.net",
       "font-src 'self' https://fonts.gstatic.com https://use.typekit.net data:",
       "img-src 'self' data: blob: https://images.unsplash.com https://*.posthog.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com",
@@ -47,10 +47,6 @@ const securityHeaders = [
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
-      ...(process.env.NODE_ENV === "production" &&
-      process.env.NEXT_PUBLIC_SITE_URL?.startsWith("https")
-        ? ["upgrade-insecure-requests"]
-        : []),
     ].join("; "),
   },
 ];
