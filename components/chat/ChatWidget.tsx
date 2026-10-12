@@ -69,8 +69,8 @@ function LeadCaptureForm({
   const valid = form.name.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) && form.details.trim();
 
   return (
-    <div className="mx-4 mb-2 rounded-xl border border-[var(--accent-border)] bg-[var(--accent-subtle)] p-3 space-y-2">
-      <p className="text-xs font-semibold text-[var(--text-primary)]">
+    <div className="mx-3 mb-2 rounded-xl border border-[var(--accent-border)] bg-[var(--accent-subtle)] p-3 space-y-2.5 sm:mx-4 sm:p-4">
+      <p className="text-xs font-semibold text-[var(--text-primary)] sm:text-sm">
         📋 Share your details so Umar can follow up:
       </p>
       <input
@@ -78,26 +78,26 @@ function LeadCaptureForm({
         placeholder="Your name"
         value={form.name}
         onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-        className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--accent)]"
+        className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--accent)]"
       />
       <input
         type="email"
         placeholder="Your email"
         value={form.email}
         onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-        className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--accent)]"
+        className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--accent)]"
       />
       <textarea
         placeholder="Brief project description"
         value={form.details}
         onChange={(e) => setForm((f) => ({ ...f, details: e.target.value }))}
         rows={2}
-        className="w-full resize-none rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--accent)]"
+        className="w-full resize-none rounded-lg border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none focus:border-[var(--accent)]"
       />
       <button
         onClick={() => valid && onSubmit(form)}
         disabled={!valid || submitting}
-        className="w-full rounded-lg bg-[var(--accent)] px-3 py-2 text-sm font-medium text-white transition-opacity disabled:opacity-50"
+        className="w-full rounded-lg bg-[var(--accent)] px-3 py-2.5 text-sm font-medium text-white transition-opacity disabled:opacity-50"
       >
         {submitting ? "Sending…" : "Send to Umar"}
       </button>
@@ -273,7 +273,7 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={open ? "Close chat" : "Open chat"}
-        className="fixed bottom-20 right-4 z-[80] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:bottom-[5.5rem] sm:right-5 sm:h-[52px] sm:w-[52px] md:bottom-24 md:right-6 md:h-14 md:w-14"
+        className="fixed bottom-20 right-4 z-[80] flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent)] text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:bottom-[5.5rem] sm:right-5 sm:h-[52px] sm:w-[52px] md:bottom-6 md:right-6 md:h-14 md:w-14"
       >
         {open ? (
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
@@ -284,10 +284,10 @@ export function ChatWidget() {
 
       {/* Chat panel */}
       <div
-        className={`fixed bottom-36 right-4 z-[80] flex w-[360px] max-w-[calc(100vw-2rem)] flex-col rounded-2xl border border-[var(--border)] bg-[var(--background)] shadow-xl transition-all duration-300 ${
+        className={`fixed z-[80] flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--background)] shadow-xl transition-all duration-300 inset-x-3 bottom-36 sm:inset-x-auto sm:right-5 sm:w-[380px] md:bottom-6 md:right-6 lg:w-[400px] ${
           open ? "pointer-events-auto scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"
         }`}
-        style={{ height: "min(520px, calc(100dvh - 11rem))" }}
+        style={{ height: "min(520px, calc(100dvh - 10rem))" }}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--border)] px-4 py-3">
@@ -313,14 +313,14 @@ export function ChatWidget() {
         </div>
 
         {/* Messages */}
-        <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 sm:px-4 space-y-3">
           {messages.map((m) => (
             <div
               key={m.id}
               className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                className={`max-w-[85%] sm:max-w-[80%] rounded-2xl px-3 py-2 sm:px-3.5 sm:py-2.5 text-sm leading-relaxed ${
                   m.role === "user"
                     ? "bg-[var(--accent)] text-white rounded-br-md"
                     : "bg-[var(--surface-secondary)] text-[var(--text-primary)] rounded-bl-md"
@@ -346,12 +346,12 @@ export function ChatWidget() {
 
         {/* Quick replies */}
         {!streaming && messages[messages.length - 1]?.role === "assistant" && (
-          <div className="flex flex-wrap gap-1.5 px-4 pb-2">
+          <div className="flex flex-wrap gap-1.5 px-3 pb-2 sm:px-4">
             {QUICK_REPLIES.map((q) => (
               <button
                 key={q}
                 onClick={() => sendMessage(q)}
-                className="rounded-full border border-[var(--border)] bg-[var(--background)] px-3 py-1 text-xs text-[var(--text-secondary)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                className="rounded-full border border-[var(--border)] bg-[var(--background)] px-2.5 py-1.5 text-xs text-[var(--text-secondary)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)] sm:px-3 sm:py-1"
               >
                 {q}
               </button>
@@ -361,15 +361,15 @@ export function ChatWidget() {
 
         {/* Error */}
         {error && (
-          <div className="mx-4 mb-2 flex items-center justify-between rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600 dark:bg-red-950 dark:text-red-400">
-            <span>{error}</span>
+          <div className="mx-3 mb-2 flex items-center justify-between gap-2 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600 dark:bg-red-950 dark:text-red-400 sm:mx-4">
+            <span className="flex-1">{error}</span>
             <button
               onClick={() => {
                 setError(null);
                 const lastUser = [...messages].reverse().find((m) => m.role === "user");
                 if (lastUser) sendMessage(lastUser.content);
               }}
-              className="ml-2 font-medium underline"
+              className="ml-2 flex-shrink-0 font-medium underline"
             >
               Retry
             </button>
@@ -377,7 +377,7 @@ export function ChatWidget() {
         )}
 
         {/* Input */}
-        <div className="border-t border-[var(--border)] px-3 py-2">
+        <div className="border-t border-[var(--border)] px-3 py-2 sm:px-4">
           <div className="flex items-end gap-2">
             <textarea
               ref={inputRef}
@@ -392,10 +392,11 @@ export function ChatWidget() {
             <button
               onClick={() => sendMessage(input)}
               disabled={!input.trim() || streaming}
-              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-white transition-opacity disabled:opacity-40"
+              className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-white transition-opacity disabled:opacity-40 sm:h-9 sm:w-9"
               aria-label="Send"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m22 2-7 20-4-9-9-4z" /><path d="m22 2-11 11" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="sm:hidden"><path d="m22 2-7 20-4-9-9-4z" /><path d="m22 2-11 11" /></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="hidden sm:block"><path d="m22 2-7 20-4-9-9-4z" /><path d="m22 2-11 11" /></svg>
             </button>
           </div>
           <p className="mt-1 text-center text-[10px] text-[var(--text-muted)]">
